@@ -1,0 +1,132 @@
+<svg
+   width="193.161mm"
+   height="170.16977mm"
+   viewBox="0 0 193.161 170.16977"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="patient.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.37703125"
+     inkscape:cx="257.2731"
+     inkscape:cy="375.30046"
+     inkscape:window-width="1366"
+     inkscape:window-height="704"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-global="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-10.462073,-56.640855)">
+    <g
+       id="g5127"
+       transform="matrix(10.661783,0,0,10.661783,-630.61522,-1009.9389)"
+       inkscape:export-filename="/home/mahdi/projects/blood/client/assets/patient.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       style="stroke:black;stroke-opacity:1">
+      <circle
+         style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:0.6;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         id="path886"
+         cx="66.517166"
+         cy="103.97934"
+         r="3.641686"
+         inkscape:export-filename="/home/mahdi/patient.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <path
+         id="rect1644"
+         style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:0.600001;stroke-linecap:round;stroke-opacity:1;paint-order:markers stroke fill"
+         d="m 62.068795,107.96733 c -0.908407,0 -1.664184,0.73162 -1.639691,1.6397 l 0.127121,4.72477 c 0.0298,1.1049 -0.23065,1.32622 1.51257,1.33222 l 8.884214,0.031 c 1.967984,0.007 1.653542,0.10363 1.639691,-1.6397 l -0.03514,-4.4483 c -0.0072,-0.90837 -0.731284,-1.6397 -1.639694,-1.6397 h -2.26446 a 3.6416858,3.6416858 0 0 1 -2.148706,0.70384 3.6416858,3.6416858 0 0 1 -2.148707,-0.70384 z"
+         inkscape:export-filename="/home/mahdi/patient.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:0.600001;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         d="m 68.369612,108.29781 -1.783586,0.86024 v 1.62422"
+         id="path2685"
+         inkscape:export-filename="/home/mahdi/patient.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <path
+         id="rect2789"
+         style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:0.581295;stroke-linecap:round;stroke-opacity:1;paint-order:markers stroke fill"
+         d="m 74.582762,102.2021 h 2.73749 c 0.343549,0 0.620125,0.29674 0.620125,0.66534 v 4.00593 c 0,0.3686 -0.92518,1.57228 -1.268702,1.57664 l -1.629016,0.0207 c -0.343521,0.004 -1.080022,-1.22872 -1.080022,-1.59731 v -4.00594 c 0,-0.36859 0.276576,-0.66533 0.620125,-0.66533 z"
+         sodipodi:nodetypes="sssssssss"
+         inkscape:export-filename="/home/mahdi/patient.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <rect
+         style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:0.502034;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         id="rect3147"
+         width="1.2001151"
+         height="1.6770889"
+         x="75.241302"
+         y="108.62588"
+         rx="0"
+         ry="0"
+         inkscape:export-filename="/home/mahdi/patient.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:0.600001;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         d="m 72.366443,115.63703 h 2.044158 c 0,0 1.28013,-0.25302 1.397352,-2.35696 l -0.03656,-2.90725"
+         id="path3262"
+         sodipodi:nodetypes="cccc"
+         inkscape:export-filename="/home/mahdi/patient.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:0.567326;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         d="M 77.929281,103.49334 H 75.431492"
+         id="path3805"
+         inkscape:export-filename="/home/mahdi/patient.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:0.493325;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         d="M 77.998456,104.55168 H 76.109785"
+         id="path3903"
+         inkscape:export-filename="/home/mahdi/patient.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:0.491845;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         d="M 77.999741,105.61001 H 76.122385"
+         id="path3905"
+         inkscape:export-filename="/home/mahdi/patient.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:black;stroke-width:0.567326;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         d="M 77.929281,106.66834 H 75.431492"
+         id="path3907"
+         inkscape:export-filename="/home/mahdi/patient.svg"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+    </g>
+  </g>
+</svg>
