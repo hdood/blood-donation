@@ -12,7 +12,7 @@
 			/>
 		</svg>
 		<input
-			class="w-full border-none outline-none dark:bg-slate-400 h-full"
+			class="w-full border-none dark:text-white outline-none dark:bg-slate-400 h-full"
 			v-model="searchTerm"
 			type="text"
 			placeholder="Search for something"
@@ -26,11 +26,9 @@
 		>
 			<div
 				v-if="searching"
-				class="absolute bg-white max-h-fit top-16 w-64 rounded-lg text-center text-black flex flex-col py-2 items-center space-y-3 shadow"
+				class="absolute bg-white dark:bg-slate-500 dark:text-white max-h-fit top-16 w-64 rounded-lg text-center text-black flex flex-col py-2 items-center space-y-3 shadow"
 			>
-				<div v-if="!results.length" class="text-black">
-					Nothing found !!!
-				</div>
+				<div v-if="!results.length">Nothing found !!!</div>
 				<routerLink
 					v-for="result in results"
 					:to="result.link"
@@ -38,7 +36,7 @@
 					@click="endSearch"
 				>
 					<div
-						class="bg-indigo-400 fill-white h-8 w-8 grid place-items-center rounded"
+						class="bg-indigo-400 dark:bg-indigo-500 fill-white h-8 w-8 grid place-items-center rounded"
 						v-if="result.isComponent"
 					>
 						<component
@@ -48,7 +46,7 @@
 					</div>
 					<img
 						v-else
-						:src="result.imgSrc"
+						:src="result.image"
 						class="h-8 w-8 rounded-lg"
 						alt=""
 					/>
@@ -61,12 +59,13 @@
 
 <script setup lang="ts">
 	import type Searchable from "@/contracts/Searchable";
-	import SearchablePages from "@/data/SearchablePages";
+	import SearchablePages from "@/models/SearchablePages";
+	import SearchResult from "@/models/SearchResult";
 	import { ref, watch } from "vue";
 
 	const searchTerm = ref<string>("");
 	const searching = ref<boolean>(false);
-	const results = ref<Array<Searchable>>([]);
+	const results = ref<Searchable[]>([]);
 
 	watch(searchTerm, (term: string) => {
 		results.value = [];
@@ -75,7 +74,7 @@
 			searching.value = false;
 			return;
 		}
-		const regex = new RegExp("^" + term);
+		const regex = new RegExp("^" + term + "([a-z]*)");
 
 		SearchablePages.map((page) => {
 			if (page.name.match(regex)) {
@@ -87,6 +86,7 @@
 	});
 	function endSearch() {
 		searching.value = false;
+		searchTerm.value = "";
 	}
 </script>
 

@@ -26,7 +26,7 @@ const pages: Array<Searchable> = [
     {
         name : "dashboard",
         isComponent : false,
-        imgSrc : "/doctor.jpeg",
+        image : "/doctor.jpeg",
         link : "/admin"
     },
     

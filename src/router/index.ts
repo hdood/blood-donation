@@ -1,14 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AdminDashboard from "../pages/admin/Dashboard.vue"
-import Donors from "../pages/admin/Donors.vue"
-import Patients from "../pages/admin/Patients.vue"
-
+import Home from "../pages/guest/Index.vue"
+import adminGuard from './guards/adminGuard'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path :"/",
+      component : Home,
+      name : "home"
+    },
+    {
       path: '/admin',
       component: () => import('../pages/admin/Index.vue'), 
+      beforeEnter : adminGuard,  
       children : [
         {
           path : "",
@@ -22,7 +27,7 @@ const router = createRouter({
         },
         {
           path : "patients",
-          component : Patients,
+          component : () => import("../pages/admin/Patients.vue"),
           name : "admin-patients"
         }
       ],

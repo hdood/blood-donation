@@ -1,5 +1,11 @@
 <template>
-	<div>donors</div>
+	<div>
+		Donors
+		<table>
+			<thead></thead>
+			<tbody></tbody>
+		</table>
+	</div>
 </template>
 
 <script setup lang="ts"></script>

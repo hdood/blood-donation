@@ -5,5 +5,5 @@ export default interface Searchable {
     component?:  Component;
     isComponent: boolean;
     link : string
-    imgSrc? : string
+    image? : string
 }

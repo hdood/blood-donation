@@ -1,7 +1,7 @@
 <template>
 	<div
 		@click="toggle"
-		class="w-12 h-5 rounded-3xl flex items-center transition-all cursor-pointer relative"
+		class="w-12 h-5 rounded-3xl flex items-center transition-all cursor-pointer"
 		:class="[on && 'bg-indigo-600', !on && 'bg-gray-300']"
 	>
 		<div
@@ -20,7 +20,7 @@
 	</div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 	import { ref } from "vue";
 	import DarkModeIcon from "../../icons/DarkModeIcon.vue";
 
@@ -29,7 +29,6 @@
 	function toggle() {
 		on.value = !on.value;
 
-		
 		emits("toggle");
 	}
 </script>

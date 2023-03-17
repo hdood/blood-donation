@@ -6,7 +6,7 @@
 				<div>
 					<routerLink to="/admin">
 						<SideNavigationItem active="admin-dashboard">
-							<DashBoardIcon class="w-5" />
+							<DashBoardIcon class="w-6 h-6" />
 						</SideNavigationItem>
 					</routerLink>
 				</div>
@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<div class="">
-			<Switch @toggle="toggleDarkMode"></Switch>
+			<DarkModeSwitch />
 		</div>
 	</aside>
 </template>
@@ -38,13 +38,9 @@
 	import SideNavigationItem from "./SideNavigationItem.vue";
 	import DonorIcon from "@/icons/DonorIcon.vue";
 	import DashBoardIcon from "@/icons/DashBoardIcon.vue";
-	import Switch from "./Switch.vue";
 	import PatientIcon from "@/icons/PatientIcon.vue";
-	import SettingsIcon from "@/icons/SettingsIcon.vue";
 	import Logo from "@/icons/Logo.vue";
-	function toggleDarkMode() {
-		document.body.classList.toggle("dark");
-	}
+	import DarkModeSwitch from "../shared/DarkModeSwitch.vue";
 </script>
 
 <style scoped></style>
