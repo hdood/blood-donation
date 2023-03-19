@@ -13,12 +13,13 @@ const router = createRouter({
     {
       path: '/admin',
       component: () => import('../pages/admin/Index.vue'), 
-      beforeEnter : adminGuard,  
       children : [
         {
           path : "",
           component : AdminDashboard,
-          name : "admin-dashboard"
+          name : "admin-dashboard",
+          beforeEnter : adminGuard,  
+
         }, 
         {
           path : "donors",
@@ -29,8 +30,17 @@ const router = createRouter({
           path : "patients",
           component : () => import("../pages/admin/Patients.vue"),
           name : "admin-patients"
-        }
+        }        
       ],
+    },
+    {
+      path : "/admin/login",
+      component : () => import("../pages/admin/Login.vue"),
+      name : "admin-login"
+    }, 
+    {
+      path : '/donor',
+      component : () => import("../pages/donor/Index.vue")
     }
   ]
 })

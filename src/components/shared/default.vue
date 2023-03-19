@@ -1,7 +1,9 @@
 <template>
 	<div class="flex h-screen fixed w-screen dark:bg-slate-800">
 		<div class="h-full w-1/12 transition-all">
-			<SideNavigation></SideNavigation>
+			<SideNavigation>
+				<slot name="side-navigation" />
+			</SideNavigation>
 		</div>
 		<div
 			class="main flex-grow h-full flex flex-col items-center rounded-tl-3xl bg-primary dark:bg-slate-700 overflow-y-scroll"
@@ -17,8 +19,8 @@
 </template>
 
 <script setup lang="ts">
-	import SideNavigation from "../SideNavigation.vue";
-	import NavigationBar from "../NavigationBar.vue";
+	import SideNavigation from "./SideNavigation.vue";
+	import NavigationBar from "../admin/NavigationBar.vue";
 </script>
 
 <style scoped>

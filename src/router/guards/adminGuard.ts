@@ -3,14 +3,10 @@ import { storeToRefs } from 'pinia'
 
 export default () => {
 
-    // TODO : activate the guard by removing the return statement
-    
-    return
-
     const { authenticated } = storeToRefs(useAdminAuthStore())
 
     if(!authenticated.value) {
-        return { name : 'home'}
+        return { name : 'admin-login'}
     }
 
     return true

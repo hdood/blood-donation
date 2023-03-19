@@ -1,30 +1,6 @@
 <template>
 	<AdminLayout>
-		<template #side-navigation>
-			<div>
-				<routerLink to="/admin">
-					<SideNavigationItem active="admin-dashboard">
-						<DashBoardIcon class="w-6 h-6" />
-					</SideNavigationItem>
-				</routerLink>
-			</div>
-
-			<div>
-				<routerLink to="/admin/donors">
-					<SideNavigationItem active="admin-donors">
-						<DonorIcon class="w-6 h-6" />
-					</SideNavigationItem>
-				</routerLink>
-			</div>
-
-			<div>
-				<routerLink to="/admin/patients">
-					<SideNavigationItem active="admin-patients">
-						<PatientIcon class="w-6 h-6" />
-					</SideNavigationItem>
-				</routerLink>
-			</div>
-		</template>
+		<template #side-navigation> </template>
 		<transition
 			enter-active-class="transition-all absolute"
 			leave-active-class="transition-all absolute"

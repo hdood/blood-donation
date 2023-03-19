@@ -13,8 +13,6 @@
 
 	const { showLoginModal } = storeToRefs(authStore);
 	const { toggleLoginModal } = authStore;
-
-	console.log(toggleLoginModal);
 </script>
 
 <style scoped></style>

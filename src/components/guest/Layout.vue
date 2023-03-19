@@ -3,6 +3,7 @@
 		<NavigationBar />
 		<DarkModeSwitch class="fixed top-8 right-8" />
 		<LoginModal />
+		<slot />
 	</div>
 </template>
 

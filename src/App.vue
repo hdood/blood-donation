@@ -1,5 +1,13 @@
 <script setup lang="ts">
 	import { RouterView } from "vue-router";
+	enum rhFactor {
+		POSITIVE,
+		NEGATIVE,
+	}
+
+	function rhDonation(donor: number, receiver: number): boolean {
+		return !!(donor ** receiver);
+	}
 </script>
 
 <template>

@@ -10,7 +10,7 @@
 			></div>
 			<div
 				:style="{ height: height + 'rem', width: width + 'rem' }"
-				class="shadow-lg rounded-lg dark:text-white bg-white dark:bg-slate-500 modal z-10"
+				class="rounded-lg dark:text-white bg-white dark:bg-slate-500 modal z-10"
 			>
 				<div>
 					<slot name="head"></slot>
