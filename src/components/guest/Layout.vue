@@ -1,7 +1,7 @@
 <template>
 	<div class="bg-primary dark:bg-slate-700 w-screen relative h-screen pt-6">
 		<NavigationBar />
-		<DarkModeSwitch class="fixed top-8 right-8" />
+		<DarkModeSwitch class="fixed bottom-8 right-8" />
 		<LoginModal />
 		<slot />
 	</div>
