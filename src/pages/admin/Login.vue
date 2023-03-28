@@ -2,7 +2,9 @@
 	<div
 		class="w-full h-screen grid place-items-center bg-primary dark:bg-slate-700"
 	>
-		<div class="w-96 rounded-2xl p-3 bg-white shadow-lg dark:bg-slate-500">
+		<div
+			class="w-96 rounded-2xl p-3 bg-white shadow-lg dark:bg-slate-500 wrapper"
+		>
 			<h3 class="w-full text-center text-2xl select-none dark:text-white">
 				Login
 			</h3>
@@ -53,7 +55,6 @@
 	import Input from "@/components/shared/Input";
 	import PrimaryButton from "@/components/shared/PrimaryButton.vue";
 	import validateEmail from "@/helpers/validateEmail";
-	import { onMounted } from "vue";
 	import { useRouter } from "vue-router";
 
 	const authStore = useAuthStore();
@@ -63,11 +64,14 @@
 	const { email, password, loading } = storeToRefs(authStore);
 </script>
 
-<style>
+<style scoped>
 	body,
 	html {
 		width: 100vw;
 		height: 100vh;
 		overflow: hidden;
+	}
+	.wrapper {
+		height: 30rem;
 	}
 </style>

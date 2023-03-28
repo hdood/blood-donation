@@ -1,7 +1,7 @@
 import useAdminAuthStore from "@/stores/admin/auth";
 import { storeToRefs } from "pinia";
 
-export default () => {
+export default (to) => {
 	// TODO : remove the return statement to activate the guard
 
 	// console.error("admin guard is disactivated");
@@ -10,10 +10,18 @@ export default () => {
 
 	const { authenticated, currentUser } = storeToRefs(useAdminAuthStore());
 
-	authenticated.value = !(localStorage.getItem("authenticated") === "false");
+	authenticated.value = !(
+		localStorage.getItem("authenticated") === "false" ||
+		!localStorage.getItem("authenticated")
+	);
 
-	if (!authenticated.value) {
+	console.log(to.name);
+
+	if (!authenticated.value && to.name != "admin-login") {
 		return { name: "admin-login" };
+	}
+	if (to.name == "admin-login" && authenticated.value) {
+		return { name: "admin-dashboard" };
 	}
 	currentUser.value = JSON.parse(localStorage.getItem("user"));
 };

@@ -28,8 +28,8 @@
 		<transition
 			enter-active-class="transition-all absolute"
 			leave-active-class="transition-all absolute"
-			enter-from-class="opacity-0 translate-x-full"
-			leave-to-class="opacity-0 -translate-x-full"
+			enter-from-class="opacity-0 translate-x-4"
+			leave-to-class="opacity-0 -translate-x-4"
 		>
 			<RouterView :key="$route.path"></RouterView>
 		</transition>

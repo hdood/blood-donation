@@ -1,6 +1,6 @@
 <template>
 	<nav
-		class="mx-auto w-11/12 rounded-full flex items-center px-6 justify-between h-20 bg-secondary dark:bg-slate-500 mt-7"
+		class="mx-auto w-full flex items-center px-6 justify-between h-20 bg-secondary dark:bg-slate-500"
 		:class="[i18n.locale.value == 'ar' && 'flex-row-reverse']"
 	>
 		<div

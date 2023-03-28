@@ -11,7 +11,7 @@
 			<div class="w-11/12 mt-6 h-16">
 				<NavigationBar></NavigationBar>
 			</div>
-			<div class="flex justify-center w-11/12 mt-4">
+			<div class="w-full h-full">
 				<slot />
 			</div>
 		</div>

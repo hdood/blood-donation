@@ -34,6 +34,7 @@ const router = createRouter({
 		{
 			path: "/admin/login",
 			component: () => import("../pages/admin/Login.vue"),
+			beforeEnter: adminGuard,
 			name: "admin-login",
 		},
 		{

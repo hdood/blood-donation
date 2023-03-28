@@ -21,7 +21,7 @@ class AdminAuthStore {
 
 		const response = await axios({
 			method: "post",
-			url: "http://localhost:8000/api/login",
+			url: "http://localhost:8000/api/admin/login",
 			data: data,
 			headers: { "Content-Type": "multipart/form-data" },
 		});
@@ -38,7 +38,9 @@ class AdminAuthStore {
 	};
 
 	public logout = async (router: Router) => {
-		const response = await axios.post("http://localhost:8000/api/logout");
+		const response = await axios.post(
+			"http://localhost:8000/api/admin/logout"
+		);
 
 		if (!response.data) return;
 

@@ -32,7 +32,7 @@
 					class="flex items-center cursor-pointer select-none space-x-1"
 					@click="toggleOptions"
 				>
-					<span class="dark:text-white/80">
+					<span class="dark:text-white/80 w-32">
 						{{ currentUser.name }}
 					</span>
 					<svg
