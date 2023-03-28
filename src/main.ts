@@ -4,37 +4,15 @@ import { createI18n } from "vue-i18n";
 import App from "./App.vue";
 import router from "./router";
 import axios from "axios";
+import messages from "./content/messages";
 
 import "./assets/main.css";
-
-const messages = {
-	en: {
-		guest: {
-			donate: "Donate",
-			getBlood: "Get Blood",
-			login: "Sign in",
-			bloodDonationBenifits: "Donation Benefits",
-			aboutUs: "About Us",
-			dashboard: "Dashboard",
-		},
-	},
-	ar: {
-		guest: {
-			donate: "تبرع",
-			getBlood: "أطلب الدم",
-			login: "تسجيل الدخول",
-			bloodDonationBenifits: "اجابيات التبرع بالدم",
-			aboutUs: "عنا؟",
-			dashboard: "لوحة التحكم",
-		},
-	},
-};
 
 const i18n = createI18n({
 	legacy: false, // you must set `false`, to use Composition API
 	locale: "en", // set locale
 	fallbackLocale: "ar",
-	messages, // set fallback locale
+	messages,
 });
 
 axios.defaults.withCredentials = true;

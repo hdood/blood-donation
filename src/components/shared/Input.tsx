@@ -28,16 +28,16 @@ export default {
 				if(required && modelValue == ""){
 					errorMsg = "this field is required"
 				}
-				return(<span key={name} class="text-sm text-red-600 italic">{ errorMsg }</span>)
+				return(<span key={name} class="text-sm text-red-600 dark:text-rose-100	 italic">{ errorMsg }</span>)
 			}
 		}
 
 
 		return (	
 		<div class="flex flex-col space-y-1">
-			<label class="opacity-70 text-lg" for={name} > {name} </label> 
+			<label class="opacity-70 text-lg dark:text-white" for={name} > {name} </label> 
 			<input 
-				class={["rounded-lg px-4 font-semibold py-2 border focus:outline-none", this.initial && !validation()  && 'border-rose-700', this.initial && validation() && 'border-green-500']}
+				class={["rounded-lg px-4 font-medium py-2 border focus:outline-none", this.initial && !validation()  && 'border-rose-700', this.initial && validation() && 'border-green-500']}
 				value={modelValue} 
 				onInput={(event) => {emit('update:modelValue', event.target.value)} } 
 				type={type}

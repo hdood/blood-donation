@@ -1,6 +1,9 @@
 <template>
 	<Layout>
-		<div class="flex justify-center"></div>
+		<div class="justify-center grid grid-cols-2 w-11/12 mx-auto">
+			<div class="grid place-items-center">Save a Life !</div>
+			<div></div>
+		</div>
 	</Layout>
 </template>
 
@@ -9,8 +12,8 @@
 </script>
 
 <style scoped>
-	.form {
-		height: 20rem;
+	.hero__image {
 		width: 50rem;
+		height: 50rem;
 	}
 </style>

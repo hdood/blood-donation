@@ -14,7 +14,6 @@
 			>
 				<div>
 					<slot name="head"></slot>
-					<img class="float-right" src="" alt="" />
 				</div>
 				<div>
 					<slot name="body"></slot>

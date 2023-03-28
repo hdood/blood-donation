@@ -32,7 +32,9 @@
 					class="flex items-center cursor-pointer select-none space-x-1"
 					@click="toggleOptions"
 				>
-					<span class="dark:text-white/80">Mahdi Bouguerzi</span>
+					<span class="dark:text-white/80">
+						{{ currentUser.name }}
+					</span>
 					<svg
 						class="w-5 h-5 dark:fill-white/70"
 						xmlns="http://www.w3.org/2000/svg"
@@ -60,6 +62,7 @@
 						</button>
 						<button
 							class="p-1 hover:bg-blue-200 dark:hover:bg-slate-700 w-11/12 mx-auto rounded-lg"
+							@click="logout(router)"
 						>
 							Logout
 						</button>
@@ -76,6 +79,16 @@
 	import Notifications from "./Notifications.vue";
 	import { ref } from "vue";
 	import SearchInput from "./SearchInput.vue";
+	import useAuthStore from "@/stores/admin/auth";
+	import { storeToRefs } from "pinia";
+	import { useRouter } from "vue-router";
+
+	const authStore = useAuthStore();
+
+	const router = useRouter();
+
+	const { currentUser } = storeToRefs(authStore);
+	const { logout } = authStore;
 	const showOptions = ref<Boolean>(false);
 	const showNotifcations = ref<Boolean>(false);
 

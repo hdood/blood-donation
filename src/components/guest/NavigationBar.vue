@@ -1,6 +1,6 @@
 <template>
 	<nav
-		class="mx-auto w-11/12 rounded-full flex items-center px-6 justify-between h-20 bg-secondary dark:bg-slate-500"
+		class="mx-auto w-11/12 rounded-full flex items-center px-6 justify-between h-20 bg-secondary dark:bg-slate-500 mt-7"
 		:class="[i18n.locale.value == 'ar' && 'flex-row-reverse']"
 	>
 		<div
@@ -35,36 +35,23 @@
 			</div>
 		</div>
 		<div
-			class="space-x-6 flex"
+			class="space-x-6 flex items-center"
 			:class="[
 				i18n.locale.value == 'ar' && 'flex-row-reverse space-x-reverse',
 			]"
 		>
-			<RouterLink to="/">
-				<button class="h-10 px-5 rounded-lg text-white bg-indigo-400">
-					{{ t("guest.dashboard") }}
-				</button>
-			</RouterLink>
 			<button
 				@click="toggleLoginModal"
 				class="h-10 px-5 rounded-lg text-white bg-indigo-400"
 			>
 				{{ t("guest.login") }}
 			</button>
-			<button
-				class="underline hover:no-underline dark:text-white px-2 rounded-lg hover:bg-black dark:hover:bg-white dark:hover:text-black hover:text-white"
-				@click="arabic"
-				v-if="i18n.locale.value != 'ar'"
+			<RouterLink
+				to="#"
+				class="underline hover:no-underline dark:text-white"
 			>
-				العربية
-			</button>
-			<button
-				class="underline hover:no-underline px-2 rounded-lg dark:text-white hover:bg-black dark:hover:bg-white dark:hover:text-black hover:text-white"
-				@click="english"
-				v-else
-			>
-				English
-			</button>
+				{{ t("guest.donateNow") }}
+			</RouterLink>
 		</div>
 	</nav>
 </template>
@@ -78,15 +65,6 @@
 	const { toggleLoginModal } = authStore;
 	const i18n = useI18n();
 	const { t } = i18n;
-
-	function arabic() {
-		i18n.locale.value = "ar";
-	}
-	function english() {
-		i18n.locale.value = "en";
-	}
-
-	console.log(i18n.locale.value);
 </script>
 
 <style scoped></style>

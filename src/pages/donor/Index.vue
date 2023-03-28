@@ -14,10 +14,6 @@
 
 <script setup lang="ts">
 	import AdminLayout from "@/components/shared/default.vue";
-	import SideNavigationItem from "@/components/admin/SideNavigationItem.vue";
-	import DonorIcon from "@/icons/DonorIcon.vue";
-	import DashBoardIcon from "@/icons/DashBoardIcon.vue";
-	import PatientIcon from "@/icons/PatientIcon.vue";
 </script>
 
 <style scoped></style>

@@ -1,6 +1,18 @@
 <template>
 	<Modal :show="showLoginModal" @close="toggleLoginModal">
-		<template #head>Modal head</template>
+		<template #head>
+			<div>
+				<form name="login-form">
+					<Input
+						name="email"
+						type="email"
+						v-model="email"
+						:validation="() => (email ? true : false)"
+					/>
+				</form>
+			</div>
+		</template>
+		<template #body></template>
 	</Modal>
 </template>
 
@@ -8,6 +20,10 @@
 	import useAuthStore from "@/stores/donor/auth";
 	import { storeToRefs } from "pinia";
 	import Modal from "../shared/Modal.vue";
+	import Input from "../shared/Input";
+	import { ref } from "vue";
+
+	const email = ref("");
 
 	const authStore = useAuthStore();
 
