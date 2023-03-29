@@ -12,12 +12,12 @@ const router = createRouter({
 		{
 			path: "/admin",
 			component: () => import("../pages/admin/Index.vue"),
+			beforeEnter: adminGuard,
 			children: [
 				{
 					path: "",
 					component: () => import("../pages/admin/Dashboard.vue"),
 					name: "admin-dashboard",
-					beforeEnter: adminGuard,
 				},
 				{
 					path: "donors",

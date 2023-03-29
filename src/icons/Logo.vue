@@ -13,7 +13,7 @@
 			<g id="g5279" transform="translate(87.442266,5.4357298)">
 				<path
 					style="
-						fill: #818cf8;
+						fill: #4338ca;
 						fill-opacity: 1;
 						fill-rule: evenodd;
 						stroke: none;

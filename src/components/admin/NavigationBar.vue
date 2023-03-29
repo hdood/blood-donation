@@ -1,6 +1,6 @@
 <template>
 	<nav
-		class="w-full rounded-3xl h-full flex justify-between px-3 items-center bg-secondary dark:bg-slate-600"
+		class="w-full rounded-3xl h-20 flex justify-between px-3 items-center bg-secondary dark:bg-slate-600"
 	>
 		<div><SearchInput></SearchInput></div>
 		<div class="flex items-center space-x-6 relative">
@@ -53,7 +53,7 @@
 				>
 					<div
 						v-if="showOptions"
-						class="absolute flex flex-col gap-2 top-14 -left-2 w-52 rounded-lg px-1 py-4 space-y-1 shadow bg-white select-none"
+						class="absolute flex flex-col gap-2 top-14 -left-2 w-52 rounded-lg px-1 py-4 space-y-1 shadow bg-white select-none z-50"
 					>
 						<button
 							class="p-1 hover:bg-blue-200 dark:hover:bg-slate-700 w-11/12 mx-auto rounded-lg"
@@ -88,6 +88,7 @@
 	const router = useRouter();
 
 	const { currentUser } = storeToRefs(authStore);
+
 	const { logout } = authStore;
 	const showOptions = ref<Boolean>(false);
 	const showNotifcations = ref<Boolean>(false);

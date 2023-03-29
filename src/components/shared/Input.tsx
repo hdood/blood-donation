@@ -7,6 +7,7 @@ export default {
 	}, 
 	render() {
 		const modelValue = this.$attrs.modelValue
+
 		const name = this.$attrs.name
 		const emit = this.$emit;
 		const type= this.$attrs.type

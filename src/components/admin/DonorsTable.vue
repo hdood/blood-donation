@@ -1,7 +1,7 @@
 <template>
-	<div class="w-11/12 mx-auto mt-5">
+	<div>
 		<table
-			class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden"
+			class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg overflow-scroll"
 		>
 			<thead
 				class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-slate-500 dark:text-white"
@@ -15,43 +15,31 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr
-					class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+				<DonorRow
+					@display-user="displayUser"
 					v-for="donor in donors"
-				>
-					<th
-						scope="row"
-						class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
-					>
-						{{ donor.name }}
-					</th>
-					<td class="px-6 py-4 dark:text-white text-center">
-						{{ donor.gender }}
-					</td>
-					<td class="px-6 py-4 dark:text-white text-center">
-						{{ donor.phone }}
-					</td>
-					<td class="px-6 py-4 dark:text-white text-center">
-						{{ donor.email }}
-					</td>
-					<td class="px-6 py-4 dark:text-white text-center">
-						{{ donor.address }}
-					</td>
-				</tr>
+					:donor="donor"
+				/>
 			</tbody>
 		</table>
 	</div>
 </template>
 
 <script setup lang="ts">
+	import type Donor from "@/models/Donor";
 	import useDonorsStore from "@/stores/admin/donors";
 	import { storeToRefs } from "pinia";
 	import { onMounted } from "vue";
+	import DonorRow from "./DonorRow.vue";
 
 	const donorsStore = useDonorsStore();
 
 	const { fetchDonors } = donorsStore;
 	const { donors } = storeToRefs(donorsStore);
+
+	function displayUser(donor: Donor) {
+		console.log(donor);
+	}
 
 	onMounted(() => {
 		fetchDonors();

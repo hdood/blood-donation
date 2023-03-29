@@ -5,13 +5,21 @@
 				>Add Donor</PrimaryButton
 			>
 		</div>
-		<DonorsTable />
+		<div class="flex w-11/12 mx-auto mt-5 gap-4">
+			<DonorsTable class="basis-full" />
+			<DonorCard class="basis-1/2" v-if="currentDonor" />
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
 	import DonorsTable from "@/components/admin/DonorsTable.vue";
 	import PrimaryButton from "@/components/shared/PrimaryButton.vue";
+	import useDonorsStore from "@/stores/admin/donors";
+	import { storeToRefs } from "pinia";
+	import DonorCard from "@/components/admin/DonorCard.vue";
+
+	const { currentDonor } = storeToRefs(useDonorsStore());
 </script>
 
 <style scoped></style>

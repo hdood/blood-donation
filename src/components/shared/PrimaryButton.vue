@@ -1,5 +1,5 @@
 <template>
-	<button class="rounded-lg bg-indigo-400 text-white">
+	<button class="rounded-lg bg-indigo-700 text-white">
 		<Loader v-if="props.loading" />
 		<span v-else>
 			<slot />
