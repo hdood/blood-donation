@@ -14,7 +14,7 @@
 						@click="toggleNotifications"
 					/>
 					<div
-						class="absolute right-0 bg-red-500 top-0 rounded-full h-2 w-2"
+						class="absolute right-0 bg-indigo-500 top-0 rounded-full h-2 w-2"
 					></div>
 					<transition
 						enter-active-class="transition-all"
@@ -35,15 +35,7 @@
 					<span class="dark:text-white/80 w-32">
 						{{ currentUser.name }}
 					</span>
-					<svg
-						class="w-5 h-5 dark:fill-white/70"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 20 20"
-					>
-						<path
-							d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-						/>
-					</svg>
+					<CheveronDown class="w-5 h-5 dark:fill-white/70" />
 				</div>
 				<transition
 					enter-active-class="transition-all"

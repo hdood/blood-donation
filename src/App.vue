@@ -3,6 +3,7 @@
 	import getCsrfToken from "./helpers/getCsrfToken";
 
 	import { onMounted } from "vue";
+	import Notification from "./components/shared/Notification.vue";
 	enum rhFactor {
 		POSITIVE,
 		NEGATIVE,
@@ -28,6 +29,7 @@
 			<component :is="Component" />
 		</transition>
 	</RouterView>
+	<Notification />
 </template>
 
 <style>

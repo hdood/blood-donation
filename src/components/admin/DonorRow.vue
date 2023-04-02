@@ -15,7 +15,7 @@
 			{{ props.donor.name }}
 		</th>
 		<td class="px-6 py-4 dark:text-white text-center">
-			{{ props.donor.gender }}
+			{{ props.donor.bloodTypeString }}
 		</td>
 		<td class="px-6 py-4 dark:text-white text-center">
 			{{ props.donor.phone }}

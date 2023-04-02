@@ -24,15 +24,24 @@
 					</SideNavigationItem>
 				</routerLink>
 			</div>
+			<div>
+				<RouterLink to="/admin/conversations">
+					<SideNavigationItem active="admin-conversations">
+						<Conversation class="w-6 h-6" />
+					</SideNavigationItem>
+				</RouterLink>
+			</div>
 		</template>
-		<transition
-			enter-active-class="transition-all absolute"
-			leave-active-class="transition-all absolute"
-			enter-from-class="opacity-0 translate-x-4"
-			leave-to-class="opacity-0 -translate-x-4"
-		>
-			<RouterView :key="$route.path"></RouterView>
-		</transition>
+		<RouterView v-slot="{ Component }">
+			<transition
+				enter-active-class="transition-all absolute w-11/12"
+				leave-active-class="transition-all absolute   w-11/12"
+				enter-from-class="opacity-0  translate-x-4"
+				leave-to-class="opacity-0   translate-x-4"
+			>
+				<component :is="Component"> </component>
+			</transition>
+		</RouterView>
 	</AdminLayout>
 </template>
 

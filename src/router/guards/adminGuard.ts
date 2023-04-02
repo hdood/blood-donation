@@ -17,8 +17,6 @@ export default (to) => {
 
 	currentUser.value = JSON.parse(localStorage.getItem("user"));
 
-	console.log(currentUser.value);
-
 	if (!authenticated.value && to.name != "admin-login") {
 		return { name: "admin-login" };
 	}

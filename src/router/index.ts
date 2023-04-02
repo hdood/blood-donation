@@ -29,6 +29,11 @@ const router = createRouter({
 					component: () => import("../pages/admin/Patients.vue"),
 					name: "admin-patients",
 				},
+				{
+					path: "conversations",
+					component: () => import("@/pages/Conversations.vue"),
+					name: "admin-conversations",
+				},
 			],
 		},
 		{

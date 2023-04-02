@@ -1,7 +1,7 @@
 <template>
 	<Menu>
 		<MenuButton class="float-right"
-			><MenuIcon class="h-5 w-5"
+			><MenuIcon class="h-5 w-5 dark:fill-white"
 		/></MenuButton>
 
 		<transition
@@ -43,7 +43,7 @@
 	</Menu>
 </template>
 
-<script setup>
+<script setup lang="ts">
 	import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 	import MenuIcon from "@/icons/MenuIcon.vue";
 	import EditIcon from "@/icons/EditIcon.vue";
@@ -51,10 +51,22 @@
 	import useDonorsStore from "@/stores/admin/donors";
 	import { storeToRefs } from "pinia";
 
-	const { editing } = storeToRefs(useDonorsStore());
+	const { editing, currentDonor } = storeToRefs(useDonorsStore());
+	let { tempDonor } = useDonorsStore();
+
+	tempDonor.save();
 
 	function edit() {
-		editing.value = !editing.value;
+		editing.value = true;
+
+		tempDonor.id = currentDonor.value.id;
+
+		console.log(tempDonor.id);
+		tempDonor.name = currentDonor.value.name;
+		tempDonor.email = currentDonor.value.email;
+		tempDonor.address = currentDonor.value.address;
+		tempDonor.phone = currentDonor.value.phone;
+		tempDonor.bloodType = currentDonor.value.bloodType;
 	}
 </script>
 

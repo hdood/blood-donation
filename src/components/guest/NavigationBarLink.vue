@@ -1,5 +1,5 @@
 <template>
-	<RouterLink class="hover:text-indigo-400 transition-colors" :to="props.to">
+	<RouterLink class="hover:text-red-400 transition-colors" :to="props.to">
 		<slot />
 	</RouterLink>
 </template>

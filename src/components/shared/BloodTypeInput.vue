@@ -1,9 +1,9 @@
 <template>
-	<RadioGroup v-model="bloodType">
+	<RadioGroup v-model="tempDonor.bloodType">
 		<div class="flex gap-6">
 			<RadioGroupOption v-slot="{ checked }" value="a">
 				<span
-					class="px-2 w-12 text-center block text-xl rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
+					class="w-8 text-center block rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
 							? 'dark:bg-indigo-400/50 bg-indigo-700 text-white'
@@ -12,9 +12,9 @@
 					>A</span
 				>
 			</RadioGroupOption>
-			<RadioGroupOption v-slot="{ checked }" value="B">
+			<RadioGroupOption v-slot="{ checked }" value="b">
 				<span
-					class="px-2 w-12 text-center block text-xl rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
+					class="w-8 text-center block rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
 							? 'dark:bg-indigo-400/50 bg-indigo-700 text-white'
@@ -25,7 +25,7 @@
 			</RadioGroupOption>
 			<RadioGroupOption v-slot="{ checked }" value="ab">
 				<span
-					class="px-2 w-12 text-center block text-xl rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
+					class="w-8 text-center block rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
 							? 'dark:bg-indigo-400/50 bg-indigo-700 text-white'
@@ -34,9 +34,9 @@
 					>AB</span
 				>
 			</RadioGroupOption>
-			<RadioGroupOption v-slot="{ checked }" value="O">
+			<RadioGroupOption v-slot="{ checked }" value="o">
 				<span
-					class="px-2 w-12 text-center block text-xl rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
+					class="w-8 text-center block rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
 							? 'dark:bg-indigo-400/50 bg-indigo-700 text-white'
@@ -56,8 +56,9 @@
 		RadioGroupLabel,
 		RadioGroupOption,
 	} from "@headlessui/vue";
+	import useDonorsStore from "@/stores/admin/donors";
 
-	const bloodType = ref("a");
+	const { tempDonor } = useDonorsStore();
 </script>
 
 <style scoped></style>

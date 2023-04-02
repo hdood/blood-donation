@@ -1,7 +1,7 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { useRouter, type Router } from "vue-router";
+import type { Router } from "vue-router";
 
 class AdminAuthStore {
 	public currentUser = ref({});
@@ -13,8 +13,6 @@ class AdminAuthStore {
 	public login = async (router: Router) => {
 		this.loading.value = true;
 		const data = new FormData();
-
-		const _router = useRouter();
 
 		data.append("email", this.email.value);
 		data.append("password", this.password.value);
@@ -38,16 +36,16 @@ class AdminAuthStore {
 	};
 
 	public logout = async (router: Router) => {
+		this.authenticated.value = false;
+		this.currentUser.value = {};
+
+		this.persistState();
+
 		const response = await axios.post(
 			"http://localhost:8000/api/admin/logout"
 		);
 
 		if (!response.data) return;
-
-		this.authenticated.value = false;
-		this.currentUser.value = {};
-
-		this.persistState();
 
 		router.push({ name: "admin-login" });
 	};

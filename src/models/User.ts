@@ -1,10 +1,12 @@
+import { ref, type Ref } from "vue";
+
 export default class User {
-	public id: string;
-	public name: string;
-	public email: string;
-	public address: string;
-	public gender: string;
-	public phone: string;
+	public id: Ref<string> = ref("");
+	public name: Ref<string> = ref("");
+	public email: Ref<string> = ref("");
+	public address: Ref<string> = ref("");
+	public gender: Ref<string> = ref("");
+	public phone: Ref<string> = ref("");
 
 	constructor(
 		id: string,
@@ -14,11 +16,11 @@ export default class User {
 		gender: string,
 		phone: string
 	) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.gender = gender;
-		this.address = address;
-		this.phone = phone;
+		this.id.value = id;
+		this.name.value = name;
+		this.email.value = email;
+		this.gender.value = gender;
+		this.address.value = address;
+		this.phone.value = phone;
 	}
 }

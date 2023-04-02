@@ -8,14 +8,20 @@
 						v-if="editing"
 						class="text-xl text-black rounded-lg px-4 w-64 font-medium py-1 border focus:outline-none"
 						type="text"
-						v-model="name"
+						v-model="tempDonor.name"
 					/>
 					<span class="text-xl block" v-else>
 						{{ currentDonor.name }}
 					</span>
 				</div>
 				<div>
-					<span class="block opacity-80 text-sm">
+					<textarea
+						v-if="editing"
+						class="text-sm text-black rounded-lg px-4 w-64 font-medium py-1 border focus:outline-none"
+						type="text"
+						v-model="tempDonor.address"
+					/>
+					<span class="block opacity-80 text-sm" v-else>
 						{{ currentDonor.address }}
 					</span>
 				</div>
@@ -28,7 +34,7 @@
 					v-if="editing"
 					class="text-black rounded-lg px-4 font-medium py-1 border focus:outline-none"
 					type="text"
-					v-model="email"
+					v-model="tempDonor.email"
 				/>
 				<span v-else>
 					{{ currentDonor.email }}
@@ -36,11 +42,16 @@
 			</div>
 			<div>
 				<span class="opacity-60">Blood Type :&nbsp; </span>
-				<div v-if="editing" class="flex justify-center mt-3">
+				<div
+					v-if="editing"
+					class="inline-flex flex-col items-center gap-5"
+				>
 					<BloodTypeInput />
+
+					<RhFactorInput />
 				</div>
 				<span v-else>
-					{{ bloodType }}
+					{{ currentDonor.bloodTypeString }}
 				</span>
 			</div>
 			<div>
@@ -49,16 +60,52 @@
 					v-if="editing"
 					class="text-black rounded-lg px-4 font-medium py-1 border focus:outline-none"
 					type="text"
-					v-model="phone"
+					v-model="tempDonor.phone"
 				/>
 				<span v-else>
 					{{ currentDonor.phone }}
 				</span>
 			</div>
+			<div class="space-y-5">
+				<span class="opacity-60">Donations history : </span>
+				<table
+					class="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg overflow-scroll"
+				>
+					<thead
+						class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-slate-500 dark:text-white"
+					>
+						<tr>
+							<th scope="col" class="px-6 py-3 text-center">
+								date
+							</th>
+							<th scope="col" class="px-6 py-3 text-center">
+								Gender
+							</th>
+						</tr>
+					</thead>
+					<tbody v-if="false">
+						<td class="px-6 py-4 dark:text-white text-center">
+							test
+						</td>
+						<td class="px-6 py-4 dark:text-white text-center">
+							test
+						</td>
+					</tbody>
+				</table>
+				<div class="text-center font-medium">No donations</div>
+				<div v-if="editing" class="space-x-4 flex justify-end">
+					<PrimaryButton @click="update" class="px-2 py-1"
+						>Update</PrimaryButton
+					>
+					<PrimaryOutlineButton class="px-2 py-1" @click="cancelEdit"
+						>Cancel</PrimaryOutlineButton
+					>
+				</div>
+			</div>
 		</div>
 
 		<div class="absolute top-2 right-4 cursor-pointer">
-			<DonorCardOptions />
+			<DonorCardOptions v-if="!editing" />
 		</div>
 	</div>
 </template>
@@ -68,24 +115,16 @@
 	import { storeToRefs } from "pinia";
 	import BloodTypeInput from "@/components/shared/BloodTypeInput.vue";
 	import DonorCardOptions from "@/components/admin/DonorCardOptions.vue";
-	import { ref, computed } from "vue";
-
-	const email = ref("");
-	const name = ref("");
-	const phone = ref("");
-	const gender = ref("");
+	import RhFactorInput from "../shared/RhFactorInput.vue";
+	import PrimaryButton from "../shared/PrimaryButton.vue";
+	import PrimaryOutlineButton from "../shared/PrimaryOutlineButton.vue";
 
 	const { currentDonor, editing } = storeToRefs(useDonorsStore());
-	const bloodType = computed(() => {
-		const rh = currentDonor.value.rhFactor ? " -" : " +";
-		return currentDonor.value.bloodType.toUpperCase() + " " + rh;
-	});
-	function edit() {
-		editing.value = !editing.value;
-		name.value = currentDonor.value.name;
-		email.value = currentDonor.value.email;
-		phone.value = currentDonor.value.phone;
-		gender.value = currentDonor.value.gender;
+
+	const { tempDonor, update } = useDonorsStore();
+
+	function cancelEdit() {
+		editing.value = false;
 	}
 </script>
 

@@ -9,7 +9,7 @@
 				<span
 					class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
 				>
-					<ChevronDownIcon
+					<CheveronDown
 						:class="[
 							'h-5 w-5 text-gray-400 transition-all',
 							open && 'rotate-90',
@@ -26,7 +26,7 @@
 				leave-to-class="opacity-0 translate-y-4"
 			>
 				<ListboxOptions
-					class="absolute text-center mt-1 max-h-60 w-full overflow-auto rounded-md bg-white px-1 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+					class="absolute text-center mt-1 max-h-60 w-full overflow-auto rounded-md bg-white px-1 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-50"
 				>
 					<ListboxOption
 						v-slot="{ active, selected }"
@@ -38,7 +38,7 @@
 						<li
 							:class="[
 								active | selected
-									? 'bg-red-100 text-red-900'
+									? 'bg-indigo-100 text-red-900'
 									: 'text-gray-900',
 								'relative cursor-pointer rounded-lg text-center select-none py-2  flex justify-center ',
 							]"
@@ -66,7 +66,6 @@
 		ListboxOptions,
 		ListboxOption,
 	} from "@headlessui/vue";
-	import ChevronDownIcon from "@/icons/ChevronDownIcon.vue";
 
 	const props = defineProps<{
 		daysNumber: string;

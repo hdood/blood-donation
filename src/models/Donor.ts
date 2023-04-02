@@ -1,23 +1,44 @@
 import axios from "axios";
+import { computed, ref, type Ref } from "vue";
 import User from "./User";
 
 export default class Donor extends User {
-	public rhFactor: string;
-	public bloodType: string;
+	public rhFactor: Ref<boolean> = ref(false);
+	public bloodType: Ref<string> = ref("");
 
 	constructor(
-		id: string,
-		name: string,
-		email: string,
-		address: string,
-		gender: string,
-		phone: string,
-		bloodType: string,
-		rhFactor: string
+		id: string = "",
+		name: string = "",
+		email: string = "",
+		address: string = "",
+		gender: string = "",
+		phone: string = "",
+		bloodType: string = "",
+		rhFactor: boolean = false
 	) {
 		super(id, name, email, address, gender, phone);
-		this.bloodType = bloodType;
-		this.rhFactor = rhFactor;
+		this.bloodType.value = bloodType;
+		this.rhFactor.value = rhFactor;
+	}
+
+	public bloodTypeString = computed(() => {
+		const rh = this.rhFactor.value ? " -" : " +";
+		return this.bloodType.value.toUpperCase() + " " + rh;
+	});
+
+	async save() {
+		const data = new FormData();
+		for (let prop in this) {
+			data.append(prop, this[prop]);
+		}
+		const route = this.constructor.name.toLowerCase() + "s";
+
+		const response = await axios.post(
+			import.meta.env.VITE_ADMIN_API_BASE_URL + "/" + route,
+			data
+		);
+
+		console.log(response);
 	}
 
 	static async all(): Promise<Donor[]> {
@@ -41,13 +62,25 @@ export default class Donor extends User {
 				);
 			}
 		});
-
 		return donors;
 	}
 
-	public save() {
+	async update() {
 		const data = new FormData();
+		data.append("name", this.name.value);
+		data.append("email", this.email.value);
+		data.append("address", this.address.value);
+		data.append("phone", this.phone.value);
+		data.append("bloodType", this.bloodType.value);
+		data.append("rhFactor", this.rhFactor.value.toString());
 
-		data.append("email", this.email);
+		console.log(this.id);
+		const response = await axios.post(
+			import.meta.env.VITE_ADMIN_API_BASE_URL +
+				`/donors/${this.id.value}`,
+			data
+		);
+
+		return response;
 	}
 }

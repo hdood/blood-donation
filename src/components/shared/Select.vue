@@ -37,7 +37,7 @@
 						<li
 							:class="[
 								active
-									? 'bg-red-100 text-red-900'
+									? 'bg-indigo-100 text-red-900'
 									: 'text-gray-900',
 								'relative cursor-pointer select-none py-2 pl-10 pr-4',
 							]"
@@ -51,7 +51,7 @@
 							>
 							<span
 								v-if="selected"
-								class="absolute inset-y-0 left-0 flex items-center pl-3 fill-red-600"
+								class="absolute inset-y-0 left-0 flex items-center pl-3 fill-indigo-600"
 							>
 								<CheckMarkIcon
 									class="h-4 w-4"
