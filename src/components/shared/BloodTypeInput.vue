@@ -1,45 +1,57 @@
 <template>
 	<RadioGroup v-model="tempDonor.bloodType">
 		<div class="flex gap-6">
-			<RadioGroupOption v-slot="{ checked }" value="a">
+			<RadioGroupOption
+				v-slot="{ checked }"
+				value="a"
+			>
 				<span
-					class="w-8 text-center block rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
+					class="w-16 h-16 text-xl grid place-items-center rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
-							? 'dark:bg-indigo-400/50 bg-indigo-700 text-white'
+							? 'dark:bg-indigo-400/50 bg-indigo-600 text-white'
 							: 'bg-transparent'
 					"
 					>A</span
 				>
 			</RadioGroupOption>
-			<RadioGroupOption v-slot="{ checked }" value="b">
+			<RadioGroupOption
+				v-slot="{ checked }"
+				value="b"
+			>
 				<span
-					class="w-8 text-center block rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
+					class="w-16 h-16 text-xl grid place-items-center rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
-							? 'dark:bg-indigo-400/50 bg-indigo-700 text-white'
+							? 'dark:bg-indigo-400/50 bg-indigo-600 text-white'
 							: 'bg-transparent'
 					"
 					>B</span
 				>
 			</RadioGroupOption>
-			<RadioGroupOption v-slot="{ checked }" value="ab">
+			<RadioGroupOption
+				v-slot="{ checked }"
+				value="ab"
+			>
 				<span
-					class="w-8 text-center block rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
+					class="w-16 h-16 text-xl grid place-items-center rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
-							? 'dark:bg-indigo-400/50 bg-indigo-700 text-white'
+							? 'dark:bg-indigo-400/50 bg-indigo-600 text-white'
 							: 'bg-transparent'
 					"
 					>AB</span
 				>
 			</RadioGroupOption>
-			<RadioGroupOption v-slot="{ checked }" value="o">
+			<RadioGroupOption
+				v-slot="{ checked }"
+				value="o"
+			>
 				<span
-					class="w-8 text-center block rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
+					class="w-16 h-16 text-xl grid place-items-center rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
-							? 'dark:bg-indigo-400/50 bg-indigo-700 text-white'
+							? 'dark:bg-indigo-400/50 bg-indigo-600 text-white'
 							: 'bg-transparent'
 					"
 					>O</span
@@ -50,12 +62,7 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from "vue";
-	import {
-		RadioGroup,
-		RadioGroupLabel,
-		RadioGroupOption,
-	} from "@headlessui/vue";
+	import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
 	import useDonorsStore from "@/stores/admin/donors";
 
 	const { tempDonor } = useDonorsStore();

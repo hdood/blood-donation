@@ -1,7 +1,11 @@
 <template>
 	<div class="p-5 bg-secondary rounded-xl dark:bg-slate-600 relative">
 		<div class="flex items-center gap-8">
-			<img src="/doctor.jpeg" class="rounded-full" alt="" />
+			<img
+				src="/doctor.jpeg"
+				class="rounded-lg"
+				alt=""
+			/>
 			<div class="dark:text-white space-y-2">
 				<div>
 					<input
@@ -10,38 +14,42 @@
 						type="text"
 						v-model="tempDonor.name"
 					/>
-					<span class="text-xl block" v-else>
+					<span
+						class="text-xl block"
+						v-else
+					>
 						{{ currentDonor.name }}
 					</span>
 				</div>
 				<div>
-					<textarea
+					<input
 						v-if="editing"
-						class="text-sm text-black rounded-lg px-4 w-64 font-medium py-1 border focus:outline-none"
+						class="text-black rounded-lg px-4 font-medium py-1 border focus:outline-none"
 						type="text"
-						v-model="tempDonor.address"
+						v-model="tempDonor.phone"
 					/>
-					<span class="block opacity-80 text-sm" v-else>
-						{{ currentDonor.address }}
+					<span v-else>
+						{{ currentDonor.phone }}
+					</span>
+				</div>
+				<div>
+					<input
+						v-if="editing"
+						class="text-black rounded-lg px-4 font-medium py-1 border focus:outline-none"
+						type="text"
+						v-model="tempDonor.email"
+					/>
+					<span
+						v-else
+						class="opacity-90"
+					>
+						{{ currentDonor.email }}
 					</span>
 				</div>
 			</div>
 		</div>
-		<div class="mt-4 p-3 dark:text-white space-y-4">
+		<div class="mt-4 px-8 dark:text-white space-y-4">
 			<div>
-				<span class="opacity-60">Email :&nbsp; </span>
-				<input
-					v-if="editing"
-					class="text-black rounded-lg px-4 font-medium py-1 border focus:outline-none"
-					type="text"
-					v-model="tempDonor.email"
-				/>
-				<span v-else>
-					{{ currentDonor.email }}
-				</span>
-			</div>
-			<div>
-				<span class="opacity-60">Blood Type :&nbsp; </span>
 				<div
 					v-if="editing"
 					class="inline-flex flex-col items-center gap-5"
@@ -55,15 +63,17 @@
 				</span>
 			</div>
 			<div>
-				<span class="opacity-60">Phone :&nbsp; </span>
-				<input
+				<textarea
 					v-if="editing"
-					class="text-black rounded-lg px-4 font-medium py-1 border focus:outline-none"
+					class="text-sm text-black rounded-lg px-4 w-64 font-medium py-1 border focus:outline-none"
 					type="text"
-					v-model="tempDonor.phone"
+					v-model="tempDonor.address"
 				/>
-				<span v-else>
-					{{ currentDonor.phone }}
+				<span
+					class="block opacity-80"
+					v-else
+				>
+					{{ currentDonor.address }}
 				</span>
 			</div>
 			<div class="space-y-5">
@@ -75,10 +85,16 @@
 						class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-slate-500 dark:text-white"
 					>
 						<tr>
-							<th scope="col" class="px-6 py-3 text-center">
+							<th
+								scope="col"
+								class="px-6 py-3 text-center"
+							>
 								date
 							</th>
-							<th scope="col" class="px-6 py-3 text-center">
+							<th
+								scope="col"
+								class="px-6 py-3 text-center"
+							>
 								Gender
 							</th>
 						</tr>
@@ -93,11 +109,18 @@
 					</tbody>
 				</table>
 				<div class="text-center font-medium">No donations</div>
-				<div v-if="editing" class="space-x-4 flex justify-end">
-					<PrimaryButton @click="update" class="px-2 py-1"
+				<div
+					v-if="editing"
+					class="space-x-4 flex justify-end"
+				>
+					<PrimaryButton
+						@click="update"
+						class="px-2 py-1"
 						>Update</PrimaryButton
 					>
-					<PrimaryOutlineButton class="px-2 py-1" @click="cancelEdit"
+					<PrimaryOutlineButton
+						class="px-2 py-1"
+						@click="toggleEditing"
 						>Cancel</PrimaryOutlineButton
 					>
 				</div>
@@ -111,7 +134,7 @@
 </template>
 
 <script setup lang="ts">
-	import useDonorsStore from "@/stores/admin/donors";
+	import useDonorsStore from "@/stores/donors/donors";
 	import { storeToRefs } from "pinia";
 	import BloodTypeInput from "@/components/shared/BloodTypeInput.vue";
 	import DonorCardOptions from "@/components/admin/DonorCardOptions.vue";
@@ -119,13 +142,11 @@
 	import PrimaryButton from "../shared/PrimaryButton.vue";
 	import PrimaryOutlineButton from "../shared/PrimaryOutlineButton.vue";
 
-	const { currentDonor, editing } = storeToRefs(useDonorsStore());
+	const { currentDonor } = storeToRefs(useDonorsStore());
 
-	const { tempDonor, update } = useDonorsStore();
-
-	function cancelEdit() {
-		editing.value = false;
-	}
+	const { updateStore } = useDonorsStore();
+	const { editing } = storeToRefs(updateStore);
+	const { tempDonor, update, toggleEditing } = updateStore;
 </script>
 
 <style scoped></style>

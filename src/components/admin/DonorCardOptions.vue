@@ -16,7 +16,7 @@
 				<MenuItem v-slot="{ active }">
 					<button
 						class="p-2 rounded text-left flex items-center gap-4"
-						:class="{ 'bg-indigo-700 text-white': active }"
+						:class="{ 'bg-indigo-600 text-white': active }"
 					>
 						<DeleteIcon
 							class="w-4 h-4 inline"
@@ -28,7 +28,7 @@
 				<MenuItem v-slot="{ active }">
 					<button
 						class="p-2 rounded text-left flex items-center gap-4"
-						:class="{ 'bg-indigo-700 text-white': active }"
+						:class="{ 'bg-indigo-600 text-white': active }"
 						@click="edit"
 					>
 						<EditIcon

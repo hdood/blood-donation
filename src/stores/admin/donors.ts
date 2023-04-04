@@ -13,8 +13,6 @@ class DonorsStore {
 	public tempDonor = new Donor();
 
 	public toggleAddDonorModal = () => {
-		this.tempDonor = new Donor();
-		console.log(this.tempDonor);
 		this.addDonorModal.value = !this.addDonorModal.value;
 	};
 

@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 	import type Donor from "@/models/Donor";
-	import useDonorsStore from "@/stores/admin/donors";
+	import useDonorsStore from "@/stores/donors/donors";
 	import { storeToRefs } from "pinia";
 	import { computed } from "vue";
 

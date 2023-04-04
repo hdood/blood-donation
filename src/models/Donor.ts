@@ -13,7 +13,7 @@ export default class Donor extends User {
 		address: string = "",
 		gender: string = "",
 		phone: string = "",
-		bloodType: string = "",
+		bloodType: string = "a",
 		rhFactor: boolean = false
 	) {
 		super(id, name, email, address, gender, phone);
@@ -22,31 +22,42 @@ export default class Donor extends User {
 	}
 
 	public bloodTypeString = computed(() => {
-		const rh = this.rhFactor.value ? " -" : " +";
+		const rh = this.rhFactor.value ? " Negative" : " Positive";
 		return this.bloodType.value.toUpperCase() + " " + rh;
 	});
 
 	async save() {
 		const data = new FormData();
-		for (let prop in this) {
-			data.append(prop, this[prop]);
-		}
-		const route = this.constructor.name.toLowerCase() + "s";
+
+		data.append("name", this.name.value);
+		data.append("email", this.email.value);
+		data.append("address", this.address.value);
+		data.append("phone", this.phone.value);
+		data.append("bloodType", this.bloodType.value);
+
+		data.append("rhFactor", this.rhFactor.value.toString());
+
+		// TODO : add update the hard coded values of password and gender
+
+		data.append("gender", "male");
+		data.append("password", "password");
+
+		debugger;
 
 		const response = await axios.post(
-			import.meta.env.VITE_ADMIN_API_BASE_URL + "/" + route,
+			import.meta.env.VITE_ADMIN_API_BASE_URL + "/donors",
 			data
 		);
 
-		console.log(response);
+		return response;
 	}
 
 	static async all(): Promise<Donor[]> {
 		const { data } = await axios.get(
 			"http://localhost:8000/api/admin/donors"
 		);
-		const donors: Donor[] = [];
-		data.forEach((donor?: Donor) => {
+		const donors: any = [];
+		data.forEach((donor?: any) => {
 			if (donor) {
 				donors.push(
 					new Donor(

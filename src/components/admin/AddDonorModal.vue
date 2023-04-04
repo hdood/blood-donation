@@ -1,6 +1,14 @@
 <template>
-	<TransitionRoot appear :show="addDonorModal" as="template">
-		<Dialog as="div" @close="toggleAddDonorModal" class="relative z-10">
+	<TransitionRoot
+		appear
+		:show="openModal"
+		as="template"
+	>
+		<Dialog
+			as="div"
+			@close="toggleAddModal"
+			class="relative z-10"
+		>
 			<TransitionChild
 				as="template"
 				enter="duration-300 ease-out"
@@ -19,60 +27,15 @@
 				>
 					<TransitionChild
 						as="template"
+						enter="transition-all duration-300 "
 						enter-from="opacity-0 translate-y-4"
-						enter-to="opacity-100"
-						leave-from="opacity-100 "
+						leave="transition-all duration-300"
 						leave-to="opacity-0 translate-y-4"
 					>
 						<DialogPanel
-							class="h-[40rem] w-[30rem] transform overflow-hidden rounded-2xl bg-white dark:bg-slate-600 p-6 text-left align-middle shadow-xl transition-all"
+							class="transform overflow-hidden rounded-2xl bg-white dark:bg-slate-600 text-left align-middle shadow-xl transition-all"
 						>
-							<DialogTitle
-								class="text-3xl font-medium leading-6 text-gray-900 mb-6"
-							>
-								Add Donor
-							</DialogTitle>
-
-							<div class="space-y-4">
-								<Input
-									type="text"
-									name="name"
-									v-model="tempDonor.name"
-									:validation="() => tempDonor.name != ''"
-								/>
-								<Input
-									type="text"
-									name="email"
-									v-model="tempDonor.email"
-									:validation="
-										() => validateEmail(tempDonor.email)
-									"
-									errorMsg="this field must be a valid email"
-								/>
-								<div class="flex flex-col gap-2 h-20">
-									<span
-										class="opacity-70 text-lg dark:text-white"
-									>
-										Date Of Birth</span
-									>
-									<BirthDatePicker class="self-center" />
-								</div>
-								<div class="flex flex-col gap-4 -z-10">
-									<span
-										class="opacity-70 text-lg -z-10 dark:text-white"
-									>
-										Blood Type</span
-									>
-
-									<div
-										class="inline-flex flex-col items-center gap-5"
-									>
-										<BloodTypeInput />
-
-										<RhFactorInput />
-									</div>
-								</div>
-							</div>
+							<registerForm />
 						</DialogPanel>
 					</TransitionChild>
 				</div>
@@ -87,17 +50,12 @@
 		TransitionChild,
 		Dialog,
 		DialogPanel,
-		DialogTitle,
 	} from "@headlessui/vue";
-	import useDonorsStore from "@/stores/admin/donors";
 	import { storeToRefs } from "pinia";
-	import Input from "../shared/Input";
-	import validateEmail from "@/helpers/validateEmail";
-	import BirthDatePicker from "../shared/DatePicker/BirthDatePicker.vue";
-	import BloodTypeInput from "../shared/BloodTypeInput.vue";
-	import RhFactorInput from "../shared/RhFactorInput.vue";
-	const { tempDonor } = useDonorsStore();
+	import registerForm from "../shared/registerForm.vue";
+	import useDonorsStore from "@/stores/donors/donors";
+	const { addStore } = useDonorsStore();
 
-	const { toggleAddDonorModal } = useDonorsStore();
-	const { addDonorModal } = storeToRefs(useDonorsStore());
+	const { toggleAddModal } = addStore;
+	const { openModal } = storeToRefs(addStore);
 </script>

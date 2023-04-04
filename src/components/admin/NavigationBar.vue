@@ -27,7 +27,11 @@
 				</div>
 			</div>
 			<div class="flex items-center space-x-3 relative">
-				<img src="/doctor.jpeg" class="h-10 w-10 rounded-full" alt="" />
+				<img
+					src="/doctor.jpeg"
+					class="h-10 w-10 rounded-full"
+					alt=""
+				/>
 				<div
 					class="flex items-center cursor-pointer select-none space-x-1"
 					@click="toggleOptions"
@@ -35,31 +39,8 @@
 					<span class="dark:text-white/80 w-32">
 						{{ currentUser.name }}
 					</span>
-					<CheveronDown class="w-5 h-5 dark:fill-white/70" />
+					<NavigationOptionsManu />
 				</div>
-				<transition
-					enter-active-class="transition-all"
-					leave-active-class="transition-all"
-					enter-from-class="opacity-0 translate-y-4"
-					leave-to-class="opacity-0 translate-y-4"
-				>
-					<div
-						v-if="showOptions"
-						class="absolute flex flex-col gap-2 top-14 -left-2 w-52 rounded-lg px-1 py-4 space-y-1 shadow bg-white select-none z-50"
-					>
-						<button
-							class="p-1 hover:bg-blue-200 dark:hover:bg-slate-700 w-11/12 mx-auto rounded-lg"
-						>
-							Settings
-						</button>
-						<button
-							class="p-1 hover:bg-blue-200 dark:hover:bg-slate-700 w-11/12 mx-auto rounded-lg"
-							@click="logout(router)"
-						>
-							Logout
-						</button>
-					</div>
-				</transition>
 			</div>
 		</div>
 	</nav>
@@ -74,6 +55,7 @@
 	import useAuthStore from "@/stores/admin/auth";
 	import { storeToRefs } from "pinia";
 	import { useRouter } from "vue-router";
+	import NavigationOptionsManu from "./NavigationOptionsMenu.vue";
 
 	const authStore = useAuthStore();
 

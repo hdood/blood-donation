@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="flex items-center space-x-5 rounded-lg p-2 hover:bg-indigo-200 hover:dark:bg-indigo-700 cursor-pointer"
+		class="flex items-center space-x-5 rounded-lg p-2 hover:bg-indigo-200 hover:dark:bg-indigo-600 cursor-pointer"
 	>
 		<img
 			src="/doctor.jpeg"
