@@ -4,17 +4,12 @@
 			<h1 class="text-lg font-medium opacity-80 dark:text-white">
 				Manage Donors
 			</h1>
-			<PrimaryButton
-				class="float-right px-3 py-1"
-				@click="toggleAddModal"
-				>Add Donor</PrimaryButton
-			>
 		</div>
 		<div class="flex w-11/12 mx-auto mt-5 gap-4">
 			<DonorsTable class="basis-full" />
 			<div
 				class="basis-7/12"
-				v-if="currentDonor"
+				v-if="selectedDonor"
 			>
 				<DonorCard class="" />
 			</div>
@@ -24,16 +19,13 @@
 </template>
 
 <script setup lang="ts">
-	import DonorsTable from "@/components/admin/DonorsTable.vue";
-	import PrimaryButton from "@/components/shared/PrimaryButton.vue";
-	import useDonorsStore from "@/stores/donors/donors";
+	import DonorsTable from "@/components/admin/donors/DonorsTable.vue";
+	import useDonorsStore from "@/stores/admin/donors";
 	import { storeToRefs } from "pinia";
-	import DonorCard from "@/components/admin/DonorCard.vue";
-	import AddDonorModal from "@/components/admin/AddDonorModal.vue";
+	import DonorCard from "@/components/admin/donors/DonorCard.vue";
+	import AddDonorModal from "@/components/admin/donors/AddDonorModal.vue";
 
-	const { addStore } = useDonorsStore();
-	const { currentDonor } = storeToRefs(useDonorsStore());
-	const { toggleAddModal } = addStore;
+	const { selectedDonor } = storeToRefs(useDonorsStore());
 </script>
 
 <style scoped></style>

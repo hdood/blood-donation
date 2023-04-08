@@ -37,7 +37,9 @@
 					</div>
 					<div class="text-center mt-9">
 						Don't have an account?
-						<RouterLink to="#" class="underline"
+						<RouterLink
+							to="#"
+							class="underline"
 							>Sign up
 						</RouterLink>
 					</div>
@@ -53,7 +55,7 @@
 	import useAuthStore from "@/stores/admin/auth";
 	import { storeToRefs } from "pinia";
 	import Input from "@/components/shared/Input";
-	import PrimaryButton from "@/components/shared/PrimaryButton.vue";
+	import PrimaryButton from "@/components/shared/Button.vue";
 	import validateEmail from "@/helpers/validateEmail";
 	import { useRouter } from "vue-router";
 

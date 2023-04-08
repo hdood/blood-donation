@@ -9,16 +9,15 @@
 	} from "headless-multistep-form-vue";
 	import Input from "./Input";
 	import validateEmail from "@/helpers/validateEmail";
-	import PrimaryButton from "./PrimaryButton.vue";
+	import useDonorStore from "@/stores/admin/donors";
+	import Button from "./Button.vue";
 	import BloodTypeInput from "./BloodTypeInput.vue";
 	import RhFactorInput from "./RhFactorInput.vue";
-	import donorsStore from "@/stores/donors/donors";
+	import intus from "intus";
+	import { isRequired } from "intus/rules";
 
-	const { addStore } = donorsStore();
-
-	const { tempDonor, addDonor } = addStore;
-
-	function personalValidation() {
+	const { save, tempDonor } = useDonorStore();
+	function personalValidaton() {
 		return (
 			tempDonor.name != "" &&
 			tempDonor.email != "" &&
@@ -26,8 +25,12 @@
 		);
 	}
 
+	const validation = intus.validate(tempDonor, {
+		"name.value": [isRequired()],
+	});
+
 	function submit() {
-		addDonor();
+		save();
 	}
 </script>
 <template>
@@ -40,10 +43,7 @@
 				<div>
 					<div class="text-xs">Personal</div>
 					<div
-						class="w-12 h-12 grid place-items-center rounded-lg transition-colors"
-						:class="[
-							passed | active ? 'bg-indigo-600' : 'bg-gray-200',
-						]"
+						class="w-12 h-12 grid place-items-center rounded-lg transition-colors bg-indigo-600"
 					>
 						<User
 							class="w-6 h-6"
@@ -122,7 +122,7 @@
 			>
 				<Step
 					class="w-full"
-					:validation="personalValidation"
+					:validation="personalValidaton"
 				>
 					<form class="flex flex-col gap-5">
 						<Input
@@ -199,13 +199,13 @@
 				>
 					Previous
 				</button>
-				<PrimaryButton
+				<Button
 					class="w-20 h-10"
-					:disabled="!valid.value"
+					:type="!valid.value ? 'disabled' : 'primary'"
 					@click="nextStep"
 				>
 					{{ end ? "Submit" : "Next" }}
-				</PrimaryButton>
+				</Button>
 			</div>
 		</Footer>
 	</MultiStepForm>

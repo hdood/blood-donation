@@ -1,12 +1,12 @@
 <template>
 	<div class="flex h-screen fixed w-screen dark:bg-slate-800">
-		<div class="h-full w-1/12 transition-all">
+		<div class="h-full w-20 transition-all">
 			<SideNavigation>
 				<slot name="side-navigation" />
 			</SideNavigation>
 		</div>
 		<div
-			class="main flex-grow h-full flex flex-col items-center rounded-tl-3xl bg-primary dark:bg-slate-700 overflow-y-scroll"
+			class="main flex-grow h-full flex flex-col items-center rounded-tl-3xl bg-primary dark:bg-slate-700 overflow-y-scroll overflow-x-hidden"
 		>
 			<div class="w-11/12 mt-6 h-16">
 				<NavigationBar></NavigationBar>

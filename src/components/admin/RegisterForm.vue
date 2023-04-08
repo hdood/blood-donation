@@ -35,21 +35,27 @@
 				type="text"
 				v-model="address"
 			/>
-			<Input name="Phone Number" :validation="() => true" type="text" />
+			<Input
+				name="Phone Number"
+				:validation="() => true"
+				type="text"
+			/>
 		</Step>
 		<Step
 			class="flex flex-col h-40 min-w-full"
 			title="blood information"
 			:validate="step3"
 		>
-			<Input name="bloodType" type="text" :validation="() => true" />
+			<Input
+				name="bloodType"
+				type="text"
+				:validation="() => true"
+			/>
 		</Step>
 	</MultiStepForm>
 </template>
 
 <script setup lang="ts">
-	import MultiStepForm from "@/components/shared/MultiStepForm/MultiStepForm";
-	import Step from "@/components/shared/MultiStepForm/Step.vue";
 	import { ref } from "vue";
 	import Input from "@/components/shared/Input";
 	import validateEmail from "@/helpers/validateEmail";

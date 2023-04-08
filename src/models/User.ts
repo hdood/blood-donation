@@ -1,20 +1,20 @@
 import { ref, type Ref } from "vue";
 
 export default class User {
-	public id: Ref<string> = ref("");
-	public name: Ref<string> = ref("");
-	public email: Ref<string> = ref("");
-	public address: Ref<string> = ref("");
-	public gender: Ref<string> = ref("");
-	public phone: Ref<string> = ref("");
+	public id: Ref<string | undefined> = ref("");
+	public name: Ref<string | undefined> = ref("");
+	public email: Ref<string | undefined> = ref("");
+	public address: Ref<string | undefined> = ref("");
+	public gender: Ref<string | undefined> = ref("");
+	public phone: Ref<string | undefined> = ref("");
 
 	constructor(
-		id: string,
-		name: string,
-		email: string,
-		address: string,
-		gender: string,
-		phone: string
+		id?: string,
+		name?: string,
+		email?: string,
+		address?: string,
+		gender?: string,
+		phone?: string
 	) {
 		this.id.value = id;
 		this.name.value = name;

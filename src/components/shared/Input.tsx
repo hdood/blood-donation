@@ -39,7 +39,7 @@ const Input: any = {
 		return (
 			<div class="flex flex-col space-y-1 h-20 ">
 				<label
-					class="opacity-70 text-lg dark:text-white"
+					class="opacity-70 text-lg "
 					for={name}
 				>
 					{" "}
@@ -47,7 +47,7 @@ const Input: any = {
 				</label>
 				<input
 					class={[
-						"rounded-lg px-4 font-medium py-2 border focus:outline-none",
+						"rounded-lg px-4 font-medium py-2 border focus:outline-none bg-gray-50",
 						this.initial && !validation() && "border-rose-700",
 						this.initial && validation() && "border-green-500",
 					]}

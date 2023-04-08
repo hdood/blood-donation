@@ -13,27 +13,35 @@
 			<MenuItems
 				class="flex flex-col gap-4 bg-white p-2 rounded-lg mt-4 shadow w-40"
 			>
-				<MenuItem v-slot="{ active }">
+				<MenuItem
+					v-slot="{ active }"
+					@click="toggleDeleteDialog"
+					class="rounded-lg"
+				>
 					<button
-						class="p-2 rounded text-left flex items-center gap-4"
-						:class="{ 'bg-indigo-600 text-white': active }"
+						class="p-2 text-left flex items-center gap-4"
+						:class="{ 'bg-red-100 text-red-900': active }"
 					>
 						<DeleteIcon
 							class="w-4 h-4 inline"
-							:class="[active && 'fill-white']"
+							:class="[active && 'fill-red-900']"
 						/>
 						Delete
 					</button>
 				</MenuItem>
-				<MenuItem v-slot="{ active }">
+
+				<MenuItem
+					v-slot="{ active }"
+					class="rounded-lg"
+				>
 					<button
-						class="p-2 rounded text-left flex items-center gap-4"
-						:class="{ 'bg-indigo-600 text-white': active }"
+						class="p-2 text-left flex items-center gap-4"
+						:class="{ 'bg-blue-100 text-blue-700': active }"
 						@click="edit"
 					>
 						<EditIcon
 							class="w-4 h-4 inline"
-							:class="[active && 'fill-white']"
+							:class="[active && 'fill-blue-700']"
 						/>
 						Edit
 					</button>
@@ -51,22 +59,11 @@
 	import useDonorsStore from "@/stores/admin/donors";
 	import { storeToRefs } from "pinia";
 
-	const { editing, currentDonor } = storeToRefs(useDonorsStore());
-	let { tempDonor } = useDonorsStore();
-
-	tempDonor.save();
+	const { editing, selectedDonor } = storeToRefs(useDonorsStore());
+	let { tempDonor, toggleDeleteDialog } = useDonorsStore();
 
 	function edit() {
 		editing.value = true;
-
-		tempDonor.id = currentDonor.value.id;
-
-		console.log(tempDonor.id);
-		tempDonor.name = currentDonor.value.name;
-		tempDonor.email = currentDonor.value.email;
-		tempDonor.address = currentDonor.value.address;
-		tempDonor.phone = currentDonor.value.phone;
-		tempDonor.bloodType = currentDonor.value.bloodType;
 	}
 </script>
 

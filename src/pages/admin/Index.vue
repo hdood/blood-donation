@@ -34,10 +34,11 @@
 		</template>
 		<RouterView v-slot="{ Component }">
 			<transition
-				enter-active-class="transition-all absolute w-11/12 duration-300"
-				leave-active-class="transition-all absolute w-11/12 duration-300"
+				enter-active-class="transition-all duration-300 "
+				leave-active-class="transition-all duration-300"
 				enter-from-class="opacity-0  translate-x-4"
 				leave-to-class="opacity-0   translate-x-4"
+				mode="out-in"
 			>
 				<component :is="Component"> </component>
 			</transition>

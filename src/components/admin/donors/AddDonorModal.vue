@@ -1,12 +1,12 @@
 <template>
 	<TransitionRoot
 		appear
-		:show="openModal"
+		:show="addDonorModal"
 		as="template"
 	>
 		<Dialog
 			as="div"
-			@close="toggleAddModal"
+			@close="toggleAddDonorModal"
 			class="relative z-10"
 		>
 			<TransitionChild
@@ -27,13 +27,13 @@
 				>
 					<TransitionChild
 						as="template"
-						enter="transition-all duration-300 "
+						enter="transition-all duration-300  ease-out"
 						enter-from="opacity-0 translate-y-4"
-						leave="transition-all duration-300"
+						leave="transition-all duration-300 ease-in"
 						leave-to="opacity-0 translate-y-4"
 					>
 						<DialogPanel
-							class="transform overflow-hidden rounded-2xl bg-white dark:bg-slate-600 text-left align-middle shadow-xl transition-all"
+							class="transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all"
 						>
 							<registerForm />
 						</DialogPanel>
@@ -50,12 +50,12 @@
 		TransitionChild,
 		Dialog,
 		DialogPanel,
+		DialogTitle,
 	} from "@headlessui/vue";
+	import useDonorsStore from "@/stores/admin/donors";
 	import { storeToRefs } from "pinia";
-	import registerForm from "../shared/registerForm.vue";
-	import useDonorsStore from "@/stores/donors/donors";
-	const { addStore } = useDonorsStore();
+	import registerForm from "../../shared/registerForm.vue";
 
-	const { toggleAddModal } = addStore;
-	const { openModal } = storeToRefs(addStore);
+	const { toggleAddDonorModal } = useDonorsStore();
+	const { addDonorModal } = storeToRefs(useDonorsStore());
 </script>

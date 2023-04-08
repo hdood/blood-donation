@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-	import useAuthStore from "@/stores/donors/auth";
+	import useAuthStore from "@/stores/donor/auth";
 	import Logo from "@/icons/Logo.vue";
 	import NavigationBarLink from "./NavigationBarLink.vue";
 	import { useI18n } from "vue-i18n";

@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-	import useAuthStore from "@/stores/donors/auth";
+	import useAuthStore from "@/stores/donor/auth";
 	import { storeToRefs } from "pinia";
 	import Modal from "../shared/Modal.vue";
 	import Input from "../shared/Input";
