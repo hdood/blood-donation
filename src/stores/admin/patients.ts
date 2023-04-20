@@ -71,8 +71,9 @@ class PatientsStore {
 		this.resetTempPatient();
 	};
 
-	// * Delete Donor
-	public deleteDonor = async () => {
+	// * Delete Patient
+	public deletePatient = async () => {
+		console.log("called");
 		const { data } = await this.selectedPatient.value?.delete();
 
 		if (data.error === "true") {
@@ -112,7 +113,7 @@ class PatientsStore {
 
 	private fetchCurrentPage() {
 		this.fetchPatients(
-			`http://localhost:8000/api/admin/donor?page=${this.paginationData.value.current_page}`
+			`http://localhost:8000/api/admin/patient?page=${this.paginationData.value.current_page}`
 		);
 	}
 }

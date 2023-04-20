@@ -1,18 +1,29 @@
 <template>
-	<AdminLayout>
+	<AdminLayout :store="authStore">
 		<template #side-navigation>
 			<div>
 				<routerLink to="/admin">
 					<SideNavigationItem active="admin-dashboard">
-						<DashBoardIcon class="w-6 h-6" />
+						<DashBoardIcon class="w-6" />
+						<span
+							class="dark:text-white item overflow-hidden hidden transition-all duration-300"
+							>Dashboard</span
+						>
 					</SideNavigationItem>
 				</routerLink>
 			</div>
 
 			<div>
-				<routerLink to="/admin/donors">
+				<routerLink
+					class=""
+					to="/admin/donors"
+				>
 					<SideNavigationItem active="admin-donors">
 						<DonorIcon class="w-6 h-6" />
+						<span
+							class="dark:text-white item overflow-hidden hidden transition-all duration-300"
+							>Donors</span
+						>
 					</SideNavigationItem>
 				</routerLink>
 			</div>
@@ -21,15 +32,12 @@
 				<routerLink to="/admin/patients">
 					<SideNavigationItem active="admin-patients">
 						<PatientIcon class="w-6 h-6" />
+						<span
+							class="dark:text-white item overflow-hidden hidden transition-all duration-300"
+							>Patients</span
+						>
 					</SideNavigationItem>
 				</routerLink>
-			</div>
-			<div>
-				<RouterLink to="/admin/conversations">
-					<SideNavigationItem active="admin-conversations">
-						<Conversation class="w-6 h-6" />
-					</SideNavigationItem>
-				</RouterLink>
 			</div>
 		</template>
 		<RouterView v-slot="{ Component }">
@@ -52,6 +60,11 @@
 	import DonorIcon from "@/icons/DonorIcon.vue";
 	import DashBoardIcon from "@/icons/DashBoardIcon.vue";
 	import PatientIcon from "@/icons/PatientIcon.vue";
+	import useAuthStore from "@/stores/admin/auth";
+	import { onMounted } from "vue";
+	import { useRouter } from "vue-router";
+
+	const authStore = useAuthStore();
 </script>
 
 <style scoped></style>

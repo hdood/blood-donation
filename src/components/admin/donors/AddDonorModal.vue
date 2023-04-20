@@ -33,9 +33,9 @@
 						leave-to="opacity-0 translate-y-4"
 					>
 						<DialogPanel
-							class="transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all"
+							class="transform panel p-4 rounded-lg bg-white dark:bg-slate-500 text-left align-middle shadow-xl transition-all"
 						>
-							<registerForm />
+							<registerForm :temp-donor="tempDonor" />
 						</DialogPanel>
 					</TransitionChild>
 				</div>
@@ -50,12 +50,12 @@
 		TransitionChild,
 		Dialog,
 		DialogPanel,
-		DialogTitle,
 	} from "@headlessui/vue";
 	import useDonorsStore from "@/stores/admin/donors";
 	import { storeToRefs } from "pinia";
-	import registerForm from "../../shared/registerForm.vue";
+	import registerForm from "@/components/shared/registerForm.vue";
 
 	const { toggleAddDonorModal } = useDonorsStore();
-	const { addDonorModal } = storeToRefs(useDonorsStore());
+	const { addDonorModal, tempDonor } = storeToRefs(useDonorsStore());
 </script>
+<style scoped></style>

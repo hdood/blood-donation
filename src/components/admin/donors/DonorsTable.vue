@@ -5,41 +5,35 @@
 		<div class="flex justify-between">
 			<PrimaryButton
 				type="primary"
-				class="px-2 py-1 font-medium"
+				class="w-36 h-10 font-medium"
 				@click="toggleAddDonorModal"
 			>
-				<UserAdd class="w-5 mb-2 inline fill-white" />
+				<UserAdd class="w-5 mb-2 inline" />
 				<span class="ml-2">Add Donor</span>
 			</PrimaryButton>
 
 			<div class="flex rounded-xl gap-3 bg-white px-2">
-				<Search class="w-5 fill-black/70" />
-				<input
-					type="text"
-					name="donor-search"
-					id="donor-search"
-					class="focus:outline-none"
-					placeholder="search for donor"
-				/>
+				<Search />
 			</div>
 		</div>
 		<Table
 			:data="donors"
-			:fields="['name', 'bloodType', 'phone', 'email']"
+			:fields="['name', 'age', 'bloodType', 'phone', 'email']"
 			class="w-full h-[30rem] overflow-hidden p-1 space-y-5 text-sm text-left text-gray-500 dark:text-gray-400"
 			v-slot="{ row }"
 		>
 			<TableRow
 				:row="row"
-				:fields="['name', 'bloodTypeString', 'phone', 'email']"
-				:active="row == selectedDonor"
+				:fields="['name', 'age', 'bloodTypeString', 'phone', 'email']"
+				:active="active(row)"
 				:key="row.id"
 				@click="selectedDonor = row"
 			/>
 		</Table>
 		<Pagination
 			class="self-end pt-3 mr-7"
-			:data="paginationData"
+			:pagination-data="paginationData"
+			:fetch="fetchDonors"
 		/>
 	</div>
 </template>
@@ -52,8 +46,13 @@
 	import Table from "@/components/shared/Table.vue";
 	import PrimaryButton from "@/components/shared/Button.vue";
 	import TableRow from "@/components/shared/TableRow.vue";
+	import Search from "@/components/admin/donors/DonorsSearch.vue";
 
 	const donorsStore = useDonorsStore();
+
+	function active(row: any) {
+		return row.id == selectedDonor.value.id;
+	}
 
 	const { fetchDonors, toggleAddDonorModal } = donorsStore;
 	const { donors, paginationData, selectedDonor } = storeToRefs(donorsStore);

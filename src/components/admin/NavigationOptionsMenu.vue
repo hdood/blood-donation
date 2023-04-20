@@ -24,7 +24,7 @@
 						<button
 							:class="[
 								active
-									? 'bg-indigo-600 text-white'
+									? 'bg-indigo-500 text-white'
 									: 'text-gray-900',
 								'group flex w-full items-center rounded-md px-2 py-2 text-sm',
 							]"
@@ -45,10 +45,13 @@
 
 <script setup lang="ts">
 	import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-	import useAuthStore from "@/stores/admin/auth";
 	import { useRouter } from "vue-router";
 
-	const router = useRouter();
+	const props = defineProps<{
+		logout: Function;
+	}>();
 
-	const { logout } = useAuthStore();
+	const { logout } = props;
+
+	const router = useRouter();
 </script>

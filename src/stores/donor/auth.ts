@@ -1,46 +1,113 @@
+import notification from "@/helpers/notification";
+import axios, { AxiosError } from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import type { Ref } from "vue";
-import axios from "axios";
+import type { Router } from "vue-router";
+import notificationVue from "zondicons-vue/icons/notification.vue";
 
-interface Credentials {
-	password: string;
-	email: string;
-}
-class AuthStore {
-	public showLoginModal: Ref<boolean> = ref(false);
-	public credentials: Ref<Credentials> = ref({
-		email: "",
-		password: "",
-	});
+class AdminAuthStore {
+	public currentUser = ref({});
+	public authenticated = ref(false);
+	public email = ref("");
+	public password = ref("");
+	public loading = ref(false);
+	public error = ref(false);
 
-	public errors = ref({
-		invalidEmail: false,
-		invalidCredentials: false,
-		invalidPassword: false,
-	});
-
-	public toggleLoginModal = () => {
-		this.showLoginModal.value = !this.showLoginModal.value;
-	};
-
-	public login = async () => {
+	public login = async (router: Router) => {
+		this.loading.value = true;
+		this.error.value = false;
 		const data = new FormData();
 
-		data.append("email", this.credentials.value.email);
-		data.append("password", this.credentials.value.password);
+		data.append("email", this.email.value);
+		data.append("password", this.password.value);
+		try {
+			const response = await axios({
+				method: "post",
+				url: "http://localhost:8000/api/donor/login",
+				data: data,
+				headers: { "Content-Type": "multipart/form-data" },
+			});
+			if (response.data.error) {
+				this.error.value = response.data.error;
 
-		const response = await axios.post(
-			"http://localhost:8000/api/donor/login"
-		);
+				this.password.value = "";
+				this.email.value = "";
+				this.loading.value = false;
+				return;
+			}
 
-		if (!response) {
-			this.errors.value.invalidCredentials = true;
+			this.authenticated.value = true;
+			this.currentUser.value = response.data.user;
+
+			this.persistState();
+
+			await router.push({ name: "donor-home" });
+			notification(
+				"Logged In",
+				`you are logged in as ${response.data.user.name}`,
+				`success`,
+				"Checkmark"
+			);
+			this.loading.value = false;
+		} catch (error: any) {
+			this.error.value = error.response.data.message;
+			this.loading.value = false;
 			return;
 		}
 	};
+
+	public logout = async (router: Router) => {
+		this.authenticated.value = false;
+		this.currentUser.value = {};
+
+		this.persistState();
+
+		const response = await axios.post(
+			"http://localhost:8000/api/donor/logout"
+		);
+
+		if (!response.data) return;
+
+		router.push({ name: "donor-login" });
+	};
+
+	public persistState() {
+		localStorage.setItem(
+			"donor_authenticated",
+			this.authenticated.value.toString()
+		);
+		localStorage.setItem(
+			"donor_user",
+			JSON.stringify(this.currentUser.value)
+		);
+	}
+
+	public register = async (user: any, router: Router) => {
+		const response = await axios.post(
+			"http://localhost:8000/api/donor/register",
+			user
+		);
+
+		if (response.data.error) return false;
+		console.log(response.data.user);
+		debugger;
+
+		this.authenticated.value = true;
+		this.currentUser.value = response.data.user;
+
+		this.persistState();
+
+		await router.push({ name: "donor-home" });
+		notification(
+			"Logged In",
+			`you are logged in as ${response.data.user.name}`,
+			`success`,
+			"Checkmark"
+		);
+		this.loading.value = false;
+	};
 }
 
-export default defineStore("auth", () => {
-	return new AuthStore();
+export default defineStore("donor-auth", () => {
+	return new AdminAuthStore();
 });

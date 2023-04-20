@@ -65,7 +65,7 @@
 
 <script setup lang="ts">
 	import DarkModeSwitch from "@/components/shared/DarkModeSwitch.vue";
-	import useAuthStore from "@/stores/admin/auth";
+	import useAuthStore from "@/stores/donor/auth";
 	import { storeToRefs } from "pinia";
 	import Input from "@/components/shared/Input";
 	import PrimaryButton from "@/components/shared/Button.vue";

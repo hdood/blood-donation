@@ -26,13 +26,13 @@
 				leave-to-class="opacity-0 translate-y-4"
 			>
 				<ListboxOptions
-					class="absolute text-center mt-1 max-h-60 w-full overflow-auto rounded-md bg-white px-1 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+					class="absolute z-50 text-center mt-1 max-h-60 w-full overflow-auto rounded-md bg-white px-1 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 				>
 					<ListboxOption
 						v-slot="{ active, selected }"
-						v-for="month in months"
+						v-for="(month, index) in months"
 						:key="month"
-						:value="month"
+						:value="index + 1"
 						as="template"
 					>
 						<li
@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from "vue";
+	import { ref, watch } from "vue";
 	import {
 		Listbox,
 		ListboxButton,
@@ -82,6 +82,9 @@
 		"december",
 	];
 	const month = ref("month");
+	const emits = defineEmits(["update:modelValue"]);
+
+	watch(month, (value) => emits("update:modelValue", value));
 </script>
 
 <style scoped></style>

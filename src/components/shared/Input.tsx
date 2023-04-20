@@ -11,46 +11,18 @@ const Input: any = {
 		const name = this.$attrs.name;
 		const emit = this.$emit;
 		const type = this.$attrs.type;
-		const validation = this.$attrs.validation;
-		let errorMsg = this.$attrs.errorMsg;
-		let required = this.$attrs.required;
-
-		if (!required) required = true;
-
-		if (modelValue != "" && this.initial != true) this.initial = true;
-
-		function validate() {
-			if (!validation && typeof validation != "function") return;
-			if (!validation()) {
-				if (required && modelValue == "") {
-					errorMsg = "this field is required";
-				}
-				return (
-					<span
-						key={name}
-						class="text-sm text-red-600 dark:text-rose-100	 italic"
-					>
-						{errorMsg}
-					</span>
-				);
-			}
-		}
+		const error = this.$attrs.error;
 
 		return (
 			<div class="flex flex-col space-y-1 h-20 ">
 				<label
-					class="opacity-70 text-lg "
+					class="opacity-70 text-lg dark:text-white dark:opacity-100"
 					for={name}
 				>
-					{" "}
-					{name}{" "}
+					{name}
 				</label>
 				<input
-					class={[
-						"rounded-lg px-4 font-medium py-2 border focus:outline-none bg-gray-50",
-						this.initial && !validation() && "border-rose-700",
-						this.initial && validation() && "border-green-500",
-					]}
+					class="rounded-lg px-4 font-medium py-2 border  focus:outline-none bg-gray-50 dark:bg-slate-700 dark:text-white"
 					value={modelValue}
 					onInput={(event: any) => {
 						emit("update:modelValue", event.target?.value);
@@ -59,14 +31,14 @@ const Input: any = {
 					id={name}
 					name={name}
 				/>
-				<Transition
-					enterActiveClass="transition-all"
-					leaveActiveClass="transition-all"
-					leaveToClass="opacity-0"
-					enterFromClass="opacity-0"
-				>
-					{{ default: this.initial ? () => validate() : null }}
-				</Transition>
+				{error && (
+					<span
+						key={name}
+						class="text-sm text-red-600 dark:text-red-200 italic"
+					>
+						{error}
+					</span>
+				)}
 			</div>
 		);
 	},

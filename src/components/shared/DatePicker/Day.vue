@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-	import { ref, computed } from "vue";
+	import { ref, computed, watch } from "vue";
 	import {
 		Listbox,
 		ListboxButton,
@@ -68,12 +68,12 @@
 	} from "@headlessui/vue";
 
 	const props = defineProps<{
-		daysNumber: string;
+		daysNumber: number;
 	}>();
 
 	const days = computed(() => {
 		const _days = [];
-		for (let i = 1; i <= 31; i++) {
+		for (let i = 1; i <= props.daysNumber; i++) {
 			_days.push(i);
 		}
 
@@ -81,6 +81,10 @@
 	});
 
 	const day = ref("Day");
+
+	const emits = defineEmits(["update:modelValue"]);
+
+	watch(day, (value) => emits("update:modelValue", day.value));
 </script>
 
 <style scoped></style>

@@ -1,18 +1,33 @@
-import { defineStore } from "pinia";
+import { defineStore, storeToRefs } from "pinia";
 
 import Donor from "@/models/Donor";
 import { type Ref, ref } from "vue";
 import notification from "@/helpers/notification";
-import axios from "axios";
-import printJS from "print-js";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
 class DonorsStore {
 	public donors: Ref<Donor[]> = ref([]);
 	public selectedDonor: any = ref(false);
 	public editing: Ref<boolean> = ref(false);
 
-	public cardLoading = ref(false);
+	public donorCard = ref(null);
+	public showDonorCardPreview = ref(false);
+	public toggleDonorCardPreview = () =>
+		(this.showDonorCardPreview.value = !this.showDonorCardPreview.value);
 
-	public tempDonor = new Donor();
+	public tempDonor = ref({
+		name: "",
+		phone: "",
+		address: "",
+		password: "",
+		cpassword: "",
+		email: "",
+		gender: "",
+		rhFactor: false,
+		dob: "",
+		bloodType: "",
+	});
 
 	public paginationData: any = ref({});
 
@@ -39,24 +54,23 @@ class DonorsStore {
 	};
 
 	// * Update Donor
-	public update = async () => {
-		const { data } = await this.tempDonor.update();
-
-		if (data.error === "true") return false;
-
-		this.fetchCurrentPage();
-		this.editing.value = false;
-		notification(
-			"success",
-			"user updated successfully",
-			"success",
-			"Checkmark"
-		);
-	};
+	public update = async () => {};
 
 	// * Store Donor
 	public save = async () => {
-		const { data } = await this.tempDonor.save();
+		const donor = new Donor(
+			undefined,
+			this.tempDonor.name,
+			this.tempDonor.dob,
+			this.tempDonor.address,
+			this.tempDonor.phone,
+			this.tempDonor.email,
+			this.tempDonor.password,
+			this.tempDonor.gender,
+			this.tempDonor.bloodType,
+			this.tempDonor.rhFactor
+		);
+		const { data } = await donor.save();
 
 		if (data.error === "true") throw Error("something went wrong");
 
@@ -69,7 +83,6 @@ class DonorsStore {
 			"success",
 			"Checkmark"
 		);
-		this.resetTempDonor();
 	};
 
 	// * Delete Donor
@@ -93,14 +106,20 @@ class DonorsStore {
 		debugger;
 	};
 
-	public printCard = async () => {
-		this.cardLoading.value = true;
+	public printCard = (el: any) => {
+		html2canvas(el).then((canvas) => {
+			const ratio = canvas.width / canvas.height;
+			const width = 150;
+			const height = width / ratio;
+			const doc = new jsPDF("l", "px", [width, height]);
 
-		printJS(
-			import.meta.env.VITE_ADMIN_API_BASE_URL +
-				`/donor/card/${this.selectedDonor.value.id}`
-		);
-		this.cardLoading.value = false;
+			doc.addImage(canvas, "png", 0, 0, width, height);
+			// doc.save(this.selectedDonor.value.name.replace(" ", "_") + ".pdf");
+			doc.output("dataurlnewwindow", {
+				filename:
+					this.selectedDonor.value.name.replace(" ", "_") + ".pdf",
+			});
+		});
 	};
 
 	private getNextDonor() {
@@ -114,14 +133,7 @@ class DonorsStore {
 		});
 		return nextDonor;
 	}
-	private resetTempDonor() {
-		this.tempDonor.name.value = "";
-		this.tempDonor.email.value = "";
-		this.tempDonor.phone.value = "";
-		this.tempDonor.address.value = "";
-		this.tempDonor.bloodType.value = "";
-		this.tempDonor.rhFactor.value = true;
-	}
+
 	private fetchCurrentPage() {
 		this.fetchDonors(
 			`http://localhost:8000/api/admin/donor?page=${this.paginationData.value.current_page}`

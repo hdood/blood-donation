@@ -4,7 +4,7 @@
 			<span class="dark:text-white font-semibold text-2xl">
 				<Logo class="w-14 h-14" />
 			</span>
-			<div class="w-full space-y-8">
+			<div class="w-full space-y-8 flex flex-col items-start">
 				<slot />
 			</div>
 		</div>

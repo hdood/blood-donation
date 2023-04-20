@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-	import { ref, computed } from "vue";
+	import { ref, computed, watch } from "vue";
 	import {
 		Listbox,
 		ListboxButton,
@@ -77,7 +77,11 @@
 		return _years;
 	});
 
+	const emits = defineEmits(["update:modelValue"]);
+
 	const year = ref("Year");
+
+	watch(year, (value) => emits("update:modelValue", value));
 </script>
 
 <style scoped></style>

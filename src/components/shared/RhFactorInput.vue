@@ -9,7 +9,7 @@
 					class="w-8 text-center block rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
-							? 'dark:bg-indigo-400/50 bg-indigo-600 text-white'
+							? 'dark:bg-red-400/50 bg-indigo-500 text-white'
 							: 'bg-transparent'
 					"
 					>+</span
@@ -23,7 +23,7 @@
 					class="w-8 text-center block rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
-							? 'dark:bg-indigo-400/50 bg-indigo-600 text-white'
+							? 'dark:bg-red-400/50 bg-indigo-500 text-white'
 							: 'bg-transparent'
 					"
 					>-</span

@@ -36,7 +36,7 @@
 					@click="endSearch"
 				>
 					<div
-						class="bg-indigo-400 dark:bg-indigo-500 fill-white h-8 w-8 grid place-items-center rounded"
+						class="bg-red-400 dark:bg-indigo-500 fill-white h-8 w-8 grid place-items-center rounded"
 						v-if="result.isComponent"
 					>
 						<component

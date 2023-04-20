@@ -11,9 +11,4 @@
 	import Layout from "@/components/guest/Layout.vue";
 </script>
 
-<style scoped>
-	.hero__image {
-		width: 50rem;
-		height: 50rem;
-	}
-</style>
+<style scoped></style>

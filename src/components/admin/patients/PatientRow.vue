@@ -3,7 +3,7 @@
 		class="border-b w-full h-10 dark:bg-gray-800 dark:border-gray-700"
 		:class="[
 			props.active
-				? 'bg-indigo-200 dark:bg-indigo-600/70'
+				? 'bg-indigo-200 dark:bg-indigo-500/70'
 				: 'bg-white hover:bg-gray-100 cursor-pointer',
 		]"
 	>

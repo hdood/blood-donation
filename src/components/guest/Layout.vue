@@ -3,7 +3,6 @@
 		<TopBar />
 		<NavigationBar />
 		<DarkModeSwitch class="fixed bottom-8 right-8" />
-		<LoginModal />
 		<slot />
 	</div>
 </template>
@@ -11,7 +10,6 @@
 <script setup lang="ts">
 	import NavigationBar from "./NavigationBar.vue";
 	import DarkModeSwitch from "../shared/DarkModeSwitch.vue";
-	import LoginModal from "./LoginModal.vue";
 	import TopBar from "./TopBar.vue";
 </script>
 <style scoped>

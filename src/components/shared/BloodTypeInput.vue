@@ -9,7 +9,7 @@
 					class="w-16 h-16 text-xl grid place-items-center rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
-							? 'dark:bg-indigo-400/50 bg-indigo-600 text-white'
+							? 'dark:bg-red-400/50 bg-indigo-500 text-white'
 							: 'bg-transparent'
 					"
 					>A</span
@@ -23,7 +23,7 @@
 					class="w-16 h-16 text-xl grid place-items-center rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
-							? 'dark:bg-indigo-400/50 bg-indigo-600 text-white'
+							? 'dark:bg-red-400/50 bg-indigo-500 text-white'
 							: 'bg-transparent'
 					"
 					>B</span
@@ -37,7 +37,7 @@
 					class="w-16 h-16 text-xl grid place-items-center rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
-							? 'dark:bg-indigo-400/50 bg-indigo-600 text-white'
+							? 'dark:bg-red-400/50 bg-indigo-500 text-white'
 							: 'bg-transparent'
 					"
 					>AB</span
@@ -51,7 +51,7 @@
 					class="w-16 h-16 text-xl grid place-items-center rounded border border-indigo-700 dark:border-indigo-400/50 cursor-pointer"
 					:class="
 						checked
-							? 'dark:bg-indigo-400/50 bg-indigo-600 text-white'
+							? 'dark:bg-red-400/50 bg-indigo-500 text-white'
 							: 'bg-transparent'
 					"
 					>O</span

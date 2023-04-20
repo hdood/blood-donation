@@ -1,5 +1,6 @@
 import axios from "axios";
 import User from "./User";
+import patients from "@/stores/admin/patients";
 
 export default class Patient extends User {
 	/**
@@ -7,8 +8,23 @@ export default class Patient extends User {
 	 */
 	static async all(link: string) {
 		const response = await axios.get(link);
+		const patients: Patient[] = [];
 
-		return { patients: response.data.data, data: response.data };
+		response.data.data.forEach((patient: any) => {
+			patients.push(
+				new Patient(
+					patient.id,
+					patient.name,
+					patient.dob,
+					patient.email,
+					patient.address,
+					patient.gender,
+					patient.phone
+				)
+			);
+		});
+
+		return { patients, data: response.data };
 	}
 
 	/**
@@ -24,7 +40,7 @@ export default class Patient extends User {
 		data.append("gender", this.gender.value);
 
 		const response = await axios.post(
-			import.meta.env.VITE_ADMIN_API_BASE_URL + "/patient",
+			import.meta.env.VITE_API_URL + "/admin/patient",
 			data
 		);
 
@@ -49,7 +65,7 @@ export default class Patient extends User {
 		const id = wrapped ? this.id.value : this.id;
 
 		const response = await axios.put(
-			import.meta.env.VITE_ADMIN_API_BASE_URL + `/patient/${id}`,
+			import.meta.env.VITE_API_URL + `/admin/patient/${id}`,
 			data
 		);
 
@@ -66,7 +82,7 @@ export default class Patient extends User {
 		const id = wrapped ? this.id.value : this.id;
 
 		const response = await axios.delete(
-			import.meta.env.VITE_ADMIN_API_BASE_URL + `/patient/${id}`
+			import.meta.env.VITE_API_URL + `/admin/patient/${id}`
 		);
 
 		return response;

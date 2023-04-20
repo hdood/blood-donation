@@ -2,8 +2,8 @@
 	<div class="p-5 bg-secondary rounded-xl dark:bg-slate-600 relative">
 		<div class="flex items-center gap-8">
 			<img
-				src="/doctor.jpeg"
-				class="rounded-lg"
+				src="/donor_placeholder.png"
+				class="rounded-xl overflow-hidden w-52"
 				alt=""
 			/>
 			<div class="dark:text-white space-y-2">
@@ -29,6 +29,9 @@
 				<span>
 					{{ selectedDonor.bloodTypeString }}
 				</span>
+			</div>
+			<div>
+				<span> Born in : {{ selectedDonor.dob }} </span>
 			</div>
 			<div>
 				<span class="block opacity-80 h-12">
@@ -75,21 +78,31 @@
 				>
 					No donations
 				</div>
-				<div>
+				<div class="flex space-x-5 justify-end">
 					<Button
-						type="primary"
-						class="px-2 py-1"
-						:loading="cardLoading"
-						@click="printCard"
-						>Print Card</Button
+						class="w-14 h-10 flex items-center justify-center"
+						@click="toggleDeleteDialog"
+						type="danger-light"
 					>
+						<Trash class="w-6 h-6 fill-red-700" />
+					</Button>
+					<Button
+						class="w-14 h-10 flex items-center justify-center"
+						type="success"
+					>
+						<EditPencil class="w-6 h-6 fill-green-700" />
+					</Button>
+					<Button
+						class="w-14 h-10 flex items-center justify-center"
+						@click="toggleDonorCardPreview"
+						type="info"
+					>
+						<CreditCard class="w-6 h-6 fill-blue-700" />
+					</Button>
 				</div>
 			</div>
 		</div>
 
-		<div class="absolute top-2 right-4 cursor-pointer">
-			<DonorCardOptions />
-		</div>
 		<deleteDonorDialog />
 	</div>
 </template>
@@ -97,13 +110,12 @@
 <script setup lang="ts">
 	import useDonorsStore from "@/stores/admin/donors";
 	import { storeToRefs } from "pinia";
-	import DonorCardOptions from "@/components/admin/donors/DonorCardOptions.vue";
 	import Button from "@/components/shared/Button.vue";
 	import deleteDonorDialog from "@/components/admin/donors/deleteDonorDialog.vue";
 
-	const { selectedDonor, cardLoading } = storeToRefs(useDonorsStore());
+	const { selectedDonor } = storeToRefs(useDonorsStore());
 
-	const { printCard } = useDonorsStore();
+	const { toggleDonorCardPreview, toggleDeleteDialog } = useDonorsStore();
 </script>
 
 <style scoped></style>

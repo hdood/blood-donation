@@ -42,7 +42,7 @@
 		>
 			<button
 				@click="toggleLoginModal"
-				class="h-10 px-5 rounded-lg text-white bg-indigo-400"
+				class="h-10 px-5 rounded-lg text-white bg-red-400"
 			>
 				{{ t("guest.login") }}
 			</button>

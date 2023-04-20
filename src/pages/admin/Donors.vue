@@ -15,6 +15,7 @@
 			</div>
 		</div>
 		<AddDonorModal />
+		<DonorCardPreview />
 	</div>
 </template>
 
@@ -24,6 +25,7 @@
 	import { storeToRefs } from "pinia";
 	import DonorCard from "@/components/admin/donors/DonorCard.vue";
 	import AddDonorModal from "@/components/admin/donors/AddDonorModal.vue";
+	import DonorCardPreview from "@/components/admin/donors/donorCardPreview.vue";
 
 	const { selectedDonor } = storeToRefs(useDonorsStore());
 </script>

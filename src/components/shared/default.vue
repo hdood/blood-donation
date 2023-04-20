@@ -1,6 +1,8 @@
 <template>
 	<div class="flex h-screen fixed w-screen dark:bg-slate-800">
-		<div class="h-full w-20 transition-all">
+		<div
+			class="h-full w-20 hover:w-[10rem] [&:hover_.item]:inline [&:hover_.item-wrapper]:w-36 [&:hover_.item-wrapper]:transition-all duration-300 transition-all"
+		>
 			<SideNavigation>
 				<slot name="side-navigation" />
 			</SideNavigation>
@@ -9,7 +11,7 @@
 			class="main flex-grow h-full flex flex-col items-center rounded-tl-3xl bg-primary dark:bg-slate-700 overflow-y-scroll overflow-x-hidden"
 		>
 			<div class="w-11/12 mt-6 h-16">
-				<NavigationBar></NavigationBar>
+				<NavigationBar :store="props.store"></NavigationBar>
 			</div>
 			<div class="w-full h-full">
 				<slot />
@@ -21,6 +23,10 @@
 <script setup lang="ts">
 	import SideNavigation from "./SideNavigation.vue";
 	import NavigationBar from "../admin/NavigationBar.vue";
+
+	const props = defineProps<{
+		store: any;
+	}>();
 </script>
 
 <style scoped>

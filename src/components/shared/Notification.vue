@@ -25,7 +25,7 @@
 		{
 			variants: {
 				type: {
-					success: ["bg-green-50", "text-green-700"],
+					success: ["bg-white", "text-gray-600"],
 					danger: ["bg-red-50", "text-red-700"],
 				},
 			},

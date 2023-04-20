@@ -17,16 +17,22 @@
 	import Loader from "./Loader.vue";
 	import { cva, type VariantProps } from "class-variance-authority";
 
-	const button = cva(["rounded-md "], {
+	const button = cva(["rounded-md  focus:outline-none"], {
 		variants: {
 			type: {
 				primary: [
-					"bg-indigo-600 hover:bg-indigo-500 active:translate-y-1 focus:ring-4 focus:ring-blue-300 transition-all active:bg-indigo-900 text-white",
+					"bg-red-400 dark:bg-red-400/70 fill-white  active:translate-y-1 focus:ring-4 focus:ring-blue-300 transition-all active:bg-indigo-900 text-white",
 				],
 				disabled: ["bg-gray-200 cursor-not-allowed"],
 				danger: [
 					"bg-red-600 hover:bg-red-500 active:translate-y-1 focus:ring-4 focus:ring-rose-300 transition-all active:bg-red-900 text-white",
 				],
+				"danger-light": [
+					"bg-red-200 text-red-700  active:translate-y-1 focus:ring-4 focus:ring-rose-300 transition-all",
+				],
+				success:
+					"bg-emerald-200 text-emerald-700 active:translate-y-1 focus:ring-4 focus:ring-emerald-300 transition-all",
+				info: "bg-blue-200 text-emerald-700 active:translate-y-1 focus:ring-4 focus:ring-blue-300 transition-all",
 			},
 		},
 	});
