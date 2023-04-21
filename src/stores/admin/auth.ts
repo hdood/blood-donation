@@ -118,6 +118,7 @@ class AdminAuthStore {
 		} catch (error: any) {
 			this.authenticated.value = false;
 			this.currentUser.value = {};
+			console.log("catched", error);
 			this.persistState();
 			return false;
 		}

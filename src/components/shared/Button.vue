@@ -21,7 +21,7 @@
 		variants: {
 			type: {
 				primary: [
-					"bg-red-400 dark:bg-red-400/70 fill-white  active:translate-y-1 focus:ring-4 focus:ring-blue-300 transition-all active:bg-indigo-900 text-white",
+					"bg-red-400 dark:bg-red-400/70 fill-white  active:translate-y-1 focus:ring-4 focus:ring-red-300 transition-all active:bg-indigo-900 text-white",
 				],
 				disabled: ["bg-gray-200 cursor-not-allowed"],
 				danger: [

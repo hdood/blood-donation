@@ -19,9 +19,7 @@ export default async (to: any) => {
 	currentUser.value = JSON.parse(localStorage.getItem("user") || "{}");
 
 	if (!authenticated.value && to.name != "admin-login") {
-		// const _authenticated = await fetchUser();
-		// debugger;
-		if (!fetchUser()) return { name: "admin-login" };
+		if (!(await fetchUser())) return { name: "admin-login" };
 	}
 
 	if (to.name == "admin-login" && authenticated.value) {

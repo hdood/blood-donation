@@ -23,6 +23,11 @@
 					</span>
 				</div>
 			</div>
+			<Button
+				type="primary"
+				class="w-20 h-10"
+				>Donate</Button
+			>
 		</div>
 		<div class="mt-4 px-8 dark:text-white space-y-4">
 			<div>
