@@ -18,22 +18,24 @@
 		</div>
 		<Table
 			:data="donors"
-			:fields="['name', 'age', 'bloodType', 'phone', 'email']"
+			:fields="['name', 'age', 'bloodGroup', 'phone', 'email']"
 			class="w-full h-[30rem] overflow-hidden p-1 space-y-5 text-sm text-left text-gray-500 dark:text-gray-400"
 			v-slot="{ row }"
 		>
 			<TableRow
 				:row="row"
-				:fields="['name', 'age', 'bloodTypeString', 'phone', 'email']"
+				:fields="['name', 'age', 'bloodGroupString', 'phone', 'email']"
 				:active="active(row)"
 				:key="row.id"
 				@click="selectedDonor = row"
 			/>
 		</Table>
-		<Pagination
-			class="self-end pt-3 mr-7"
-			:pagination-data="paginationData"
-			:fetch="fetchDonors"
+		<TailwindPagination
+			class="self-end gap-6 items-center space-x-3 dark:text-white"
+			:data="paginationData"
+			@pagination-change-page="fetchDonors"
+			item-classes="border-indigo-600  rounded-lg"
+			active-classes="bg-indigo-600 border-indigo-600  rounded-lg text-white"
 		/>
 	</div>
 </template>
@@ -42,11 +44,11 @@
 	import useDonorsStore from "@/stores/admin/donors";
 	import { storeToRefs } from "pinia";
 	import { onMounted } from "vue";
-	import Pagination from "@/components/shared/Pagination.vue";
 	import Table from "@/components/shared/Table.vue";
 	import PrimaryButton from "@/components/shared/Button.vue";
 	import TableRow from "@/components/shared/TableRow.vue";
 	import Search from "@/components/admin/donors/DonorsSearch.vue";
+	import { TailwindPagination } from "laravel-vue-pagination";
 
 	const donorsStore = useDonorsStore();
 

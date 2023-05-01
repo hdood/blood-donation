@@ -29,10 +29,12 @@
 				@click="selectedPatient = row"
 			/>
 		</Table>
-		<Pagination
-			class="self-end pt-3 mr-7"
-			:pagination-data="paginationData"
-			:fetch="fetchPatients"
+		<TailwindPagination
+			:data="paginationData"
+			class="self-end gap-6 items-center space-x-3 dark:text-white"
+			@pagination-change-page="fetchPatients"
+			item-classes="border-indigo-600  rounded-lg"
+			active-classes="bg-indigo-600 border-indigo-600  rounded-lg text-white"
 		/>
 	</div>
 </template>
@@ -45,9 +47,9 @@
 	import { onMounted } from "vue";
 	import { storeToRefs } from "pinia";
 	import Button from "@/components/shared/Button.vue";
-	import Pagination from "@/components/shared/Pagination.vue";
+	import { TailwindPagination } from "laravel-vue-pagination";
 
-	const { fetchPatients } = usePatientsStore();
+	const { fetchPatients, toggleAddPatientModal } = usePatientsStore();
 
 	const { patients, selectedPatient, paginationData } = storeToRefs(
 		usePatientsStore()

@@ -3,7 +3,7 @@
 		class="border-b w-full h-10 dark:bg-gray-800 dark:border-gray-700"
 		:class="[
 			active
-				? 'bg-indigo-200 dark:bg-indigo-500/70'
+				? 'bg-indigo--200 dark:bg-indigo--500/70'
 				: 'bg-white hover:bg-gray-100 cursor-pointer',
 		]"
 		@click="displayDonor"
@@ -12,7 +12,7 @@
 			{{ props.donor.name }}
 		</td>
 		<td class="h-10 dark:text-white">
-			{{ props.donor.bloodTypeString }}
+			{{ props.donor.bloodGroupString }}
 		</td>
 		<td class="h-10 dark:text-white">
 			{{ props.donor.phone }}
@@ -24,7 +24,6 @@
 </template>
 
 <script setup lang="ts">
-	import type Donor from "@/models/Donor";
 	import useDonorsStore from "@/stores/admin/donors";
 	import { storeToRefs } from "pinia";
 	import { computed } from "vue";

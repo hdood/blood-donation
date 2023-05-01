@@ -1,27 +1,27 @@
 <template>
 	<RadioGroup
 		class="flex gap-4"
-		v-model="gender"
+		v-model="tempDonor.gender"
 	>
 		<RadioGroupOption
-			v-slot="{ active }"
+			v-slot="{ checked }"
 			value="male"
 			class="w-20 cursor-pointer"
 		>
 			<RadioGroupLabel
 				class="w-full py-2 text-center block rounded-md border border-blue-400 cursor-pointer"
-				:class="[active && 'bg-blue-400 text-white']"
+				:class="[checked && 'bg-blue-400 text-white']"
 				>Male</RadioGroupLabel
 			>
 		</RadioGroupOption>
 		<RadioGroupOption
-			v-slot="{ active }"
+			v-slot="{ checked }"
 			value="female"
 			class="w-20 cursor-pointer"
 		>
 			<RadioGroupLabel
 				class="w-full py-2 text-center block rounded-md border border-red-400 cursor-pointer"
-				:class="[active && 'bg-red-400 text-white']"
+				:class="[checked && 'bg-red-400 text-white']"
 				>Female</RadioGroupLabel
 			>
 		</RadioGroupOption>
@@ -35,11 +35,9 @@
 		RadioGroupLabel,
 	} from "@headlessui/vue";
 	import { ref, watch } from "vue";
+	import useDonorStore from "@/stores/admin/donors";
 
-	const gender = ref("male");
-	const emits = defineEmits(["update:modelValue"]);
-
-	watch(gender, (value) => emits("update:modelValue", value));
+	const { tempDonor } = useDonorStore();
 </script>
 
 <style scoped></style>

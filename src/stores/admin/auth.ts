@@ -5,7 +5,7 @@ import { ref } from "vue";
 import type { Router } from "vue-router";
 
 class AdminAuthStore {
-	public currentUser = ref({});
+	public currentUser = ref<any>({});
 	public authenticated = ref(false);
 	public email = ref("");
 	public password = ref("");
@@ -94,7 +94,7 @@ class AdminAuthStore {
 		await router.push({ name: "admin-dashboard" });
 		notification(
 			"Logged in",
-			`you're logged in as ${this.currentUser.value.name}`,
+			`you're logged in as ${this.currentUser.value?.name}`,
 			"success"
 		);
 		this.loading.value = false;
@@ -118,7 +118,6 @@ class AdminAuthStore {
 		} catch (error: any) {
 			this.authenticated.value = false;
 			this.currentUser.value = {};
-			console.log("catched", error);
 			this.persistState();
 			return false;
 		}

@@ -3,8 +3,9 @@ import { computed, ref, type Ref } from "vue";
 import User from "./User";
 
 export default class Donor extends User {
-	public rhFactor: Ref<boolean> = ref(false);
-	public bloodType: Ref<string> = ref("");
+	public rhFactor?: string = "";
+	public bloodGroup?: string = "";
+	public cpassword?: any;
 	public donations = [];
 
 	constructor(
@@ -16,45 +17,34 @@ export default class Donor extends User {
 		address?: string,
 		gender?: string,
 		phone?: string,
-		bloodType?: string,
-		rhFactor?: boolean,
-		donations?: any
+		bloodGroup?: string,
+		rhFactor?: string,
+		donations?: any,
+		cpassword?: any
 	) {
 		super(id, name, dob, email, password, address, gender, phone);
-		this.bloodType.value = bloodType;
-		this.rhFactor.value = rhFactor;
+		this.bloodGroup = bloodGroup;
+		this.rhFactor = rhFactor;
 		this.donations = donations;
+		this.cpassword = cpassword;
 	}
 
-	public bloodTypeString = computed(() => {
-		const rh = this.rhFactor.value ? " Positive" : " Negative";
-		return this.bloodType?.value?.toUpperCase?.() + " " + rh;
+	public bloodGroupString = computed(() => {
+		return this.bloodGroup?.toUpperCase?.() + " " + this.rhFactor;
 	});
 
 	async save() {
 		const data = new FormData();
 
-		data.append("name", this.name.value);
-		data.append("email", this.email.value);
-		data.append("address", this.address.value);
-		data.append("phone", this.phone.value);
-		data.append("bloodType", this.bloodType.value);
-
-		console.log(
-			"wrapped : ",
-			this.rhFactor,
-			"unwrapped :",
-			this.rhFactor.value
-		);
-
-		data.append("rhFactor", this.rhFactor.value.toString());
-
-		data.append("dob", this.dob.value);
-
-		// TODO : update the hard coded values of password and gender
-
-		data.append("gender", "male");
-		data.append("password", this.password.value);
+		data.append("name", this.name as string);
+		data.append("email", this.email as string);
+		data.append("address", this.address as string);
+		data.append("phone", this.phone as string);
+		data.append("bloodGroup", this.bloodGroup as string);
+		data.append("gender", this.gender as string);
+		data.append("dob", this.dob as string);
+		data.append("password", this.password as string);
+		data.append("rhFactor", this.rhFactor as string);
 
 		const response = await axios.post(
 			import.meta.env.VITE_API_URL + "/admin/donor",
@@ -66,8 +56,10 @@ export default class Donor extends User {
 
 	// * Fetch All Donors
 
-	static async all(url: string) {
-		const { data } = await axios.get(url);
+	static async all(page: number) {
+		const { data } = await axios.get(
+			import.meta.env.VITE_API_URL + `/admin/donor?pa	ge=${page}`
+		);
 		const donors: any = [];
 
 		const { data: fetchedDonors } = data;
@@ -80,11 +72,11 @@ export default class Donor extends User {
 						donor.name,
 						donor.dob,
 						donor.email,
-						donor.address,
 						undefined,
+						donor.address,
 						donor.gender,
 						donor.phone,
-						donor.bloodType,
+						donor.bloodGroup,
 						donor.rhFactor,
 						donor.donations
 					)
@@ -95,59 +87,57 @@ export default class Donor extends User {
 	}
 
 	async update() {
-		const data = new FormData();
-		data.append("name", this.name.value);
-		data.append("email", this.email.value);
-		data.append("address", this.address.value);
-		data.append("phone", this.phone.value);
-		data.append("bloodType", this.bloodType.value);
-		data.append("rhFactor", this.rhFactor.value.toString());
-
-		const wrapped = this.id?.value;
-
-		const id = wrapped ? this.id.value : this.id;
-
 		const response = await axios.put(
-			import.meta.env.VITE_API_URL + `/admin/donor/${id}`,
-			data
+			import.meta.env.VITE_API_URL + `/admin/donor/${this.id}`,
+			{
+				name: this.name,
+				address: this.address,
+				phone: this.phone,
+				bloodGroup: this.bloodGroup,
+				rhFactor: this.rhFactor,
+				gender: this.gender,
+				dob: this.dob,
+			}
 		);
 
 		return response;
 	}
 	async delete() {
-		const wrapped = this.id?.value;
-
-		const id = wrapped ? this.id.value : this.id;
-
 		const response = await axios.delete(
-			import.meta.env.VITE_API_URL + `/admin/donor/${id}`
+			import.meta.env.VITE_API_URL + `/admin/donor/${this.id}`
 		);
 
 		return response;
 	}
 
-	toObject() {
-		const wrapped = this.name?.value;
+	static async searchByName(name: string) {
+		const { data } = await axios.get(
+			import.meta.env.VITE_API_URL + `/admin/donor?query=${name}`
+		);
 
-		if (!wrapped)
-			return {
-				name: this.name,
-				phone: this.phone,
-				email: this.email,
-				address: this.address,
-				bloodType: this.bloodType,
-				rhFactor: this.rhFactor,
-				dob: this.dob,
-			};
+		const donors: any = [];
 
-		return {
-			name: this.name.value,
-			phone: this.phone.value,
-			email: this.email.value,
-			address: this.address.value,
-			bloodType: this.bloodType.value,
-			rhFactor: this.rhFactor.value,
-			dob: this.dob,
-		};
+		const { data: fetchedDonors } = data;
+
+		fetchedDonors.forEach((donor: any) => {
+			if (donor) {
+				donors.push(
+					new Donor(
+						donor.id,
+						donor.name,
+						donor.dob,
+						donor.email,
+						undefined,
+						donor.address,
+						donor.gender,
+						donor.phone,
+						donor.bloodGroup,
+						donor.rhFactor,
+						donor.donations
+					)
+				);
+			}
+		});
+		return { donors, data };
 	}
 }

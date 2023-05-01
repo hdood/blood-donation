@@ -1,13 +1,13 @@
 <template>
 	<div
-		class="w-[30rem] h-56 rounded-lg flex justify-between p-6 bg-indigo-100 rounded-tl-[60px] rounded-bl-[60px]"
+		class="w-[30rem] h-56 rounded-lg flex justify-between p-6 bg-indigo--100 rounded-tl-[60px] rounded-bl-[60px]"
 	>
 		<div class="flex flex-col space-y-2">
 			<span class="font-medium text-lg">
 				{{ selectedDonor.name }}
 			</span>
 			<span class="text-md">
-				{{ selectedDonor.bloodTypeString }}
+				{{ selectedDonor.bloodGroupString }}
 			</span>
 			<span>
 				{{ selectedDonor.phone }}

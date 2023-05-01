@@ -12,25 +12,42 @@ const Input: any = {
 		const emit = this.$emit;
 		const type = this.$attrs.type;
 		const error = this.$attrs.error;
+		let as = this.$attrs?.as;
+
+		if (!as) as = "input";
 
 		return (
-			<div class="flex flex-col space-y-1 h-20 ">
+			<div class="flex flex-col space-y-1 ">
 				<label
 					class="opacity-70 text-lg dark:text-white dark:opacity-100"
 					for={name}
 				>
 					{name}
 				</label>
-				<input
-					class="rounded-lg px-4 font-medium py-2 border  focus:outline-none bg-gray-50 dark:bg-slate-700 dark:text-white"
-					value={modelValue}
-					onInput={(event: any) => {
-						emit("update:modelValue", event.target?.value);
-					}}
-					type={type}
-					id={name}
-					name={name}
-				/>
+
+				{as === "input" ? (
+					<input
+						class="rounded-lg px-4 font-medium py-2 border  focus:outline-none bg-gray-50 dark:bg-slate-700 dark:text-white"
+						value={modelValue}
+						onInput={(event: any) => {
+							emit("update:modelValue", event.target?.value);
+						}}
+						type={type}
+						id={name}
+						name={name}
+					/>
+				) : (
+					<textarea
+						class="rounded-lg px-4 font-medium py-2 border  focus:outline-none bg-gray-50 dark:bg-slate-700 dark:text-white"
+						value={modelValue}
+						onInput={(event: any) => {
+							emit("update:modelValue", event.target?.value);
+						}}
+						id={name}
+						name={name}
+					/>
+				)}
+
 				{error && (
 					<span
 						key={name}

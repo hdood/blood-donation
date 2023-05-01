@@ -11,52 +11,83 @@ class PatientsStore {
 
 	public cardLoading = ref(false);
 
-	public tempPatient = new Patient();
+	public tempPatient = ref(new Patient());
 
 	public paginationData: any = ref({});
 
-	// * display confirmation message when deleting donor
+	// * display confirmation message when deleting patient
 
 	public deleteDialog = ref(false);
 	public toggleDeleteDialog = () =>
 		(this.deleteDialog.value = !this.deleteDialog.value);
 
-	// * Open and close add donor modal
+	// * Open and close add patient modal
 
 	public addPatientModal = ref(false);
-
 	public toggleAddPatientModal = () =>
 		(this.addPatientModal.value = !this.addPatientModal.value);
 
+	public updatePatientModal = ref(false);
+
+	public toggleUpdatePatientModal = () =>
+		(this.updatePatientModal.value = !this.updatePatientModal.value);
+
 	// * fetch Patients
-	public fetchPatients = async (
-		link: string = "http://localhost:8000/api/admin/patient"
-	) => {
-		const { patients, data } = await Patient.all(link);
+	public fetchPatients = async (page: number = 1) => {
+		const { patients, data } = await Patient.all(page);
 		this.patients.value = patients;
 		this.paginationData.value = data;
 	};
 
 	// * Update Patient
-	public update = async () => {
-		const { data } = await this.tempPatient.update();
-
-		if (data.error === "true") return false;
-
-		this.fetchCurrentPage();
-
-		this.editing.value = false;
-		notification(
-			"success",
-			"user updated successfully",
-			"success",
-			"Checkmark"
+	public update = async (patient: any) => {
+		patient = new Patient(
+			patient.value.id,
+			patient.value.name,
+			patient.value.dob,
+			undefined,
+			undefined,
+			patient.value.address,
+			patient.value.gender,
+			patient.value.phone
 		);
-	};
+		try {
+			const { data } = await patient.update();
 
+			this.toggleUpdatePatientModal();
+			this.fetchCurrentPage();
+			notification(
+				"Success",
+				"Patient updated successfully",
+				"success",
+				"Checkmark"
+			);
+
+			this.selectedPatient.value = new Patient(
+				data.patient.id,
+				data.patient.name,
+				data.patient.dob,
+				data.patient.email,
+				data.patient.password,
+				data.patient.address,
+				data.patient.gender,
+				data.patient.phone
+			);
+		} catch (error: any) {
+			console.log(error);
+			this.toggleUpdatePatientModal();
+
+			notification(
+				"Error",
+				"failed to update patient",
+				"danger",
+				"CloseOutline"
+			);
+		}
+	};
 	// * Store Patient
 	public save = async () => {
-		const { data } = await this.tempPatient.save();
+		const { data } = await this.tempPatient.value.save();
 
 		if (data.error === "true") throw Error("something went wrong");
 
@@ -68,29 +99,38 @@ class PatientsStore {
 			"success",
 			"Checkmark"
 		);
-		this.resetTempPatient();
 	};
 
 	// * Delete Patient
 	public deletePatient = async () => {
-		console.log("called");
-		const { data } = await this.selectedPatient.value?.delete();
+		try {
+			const { data } = await this.selectedPatient.value?.delete();
 
-		if (data.error === "true") {
-			notification("error", "failed to delete user", "danger", "Delete");
-			throw Error("failed to delete patient");
+			this.toggleDeleteDialog();
+			notification(
+				"success",
+				"patient deleted successfully",
+				"success",
+				"Checkmark"
+			);
+
+			this.fetchCurrentPage();
+			this.selectedPatient.value = this.getNextPatient();
+		} catch (error: any) {
+			this.toggleDeleteDialog();
+			notification(
+				"error",
+				"failed to delete user",
+				"danger",
+				"CloseOutline"
+			);
 		}
-		this.deleteDialog.value = false;
-		notification(
-			"success",
-			"patient deleted successfully",
-			"success",
-			"Checkmark"
-		);
+	};
 
-		this.fetchCurrentPage();
-		this.selectedPatient.value = this.getNextPatient();
-		debugger;
+	public searchByName = async (name: string) => {
+		const { patients, data } = await Patient.searchByName(name);
+		this.patients.value = patients;
+		this.paginationData.value = data;
 	};
 
 	private getNextPatient() {
@@ -104,17 +144,10 @@ class PatientsStore {
 		});
 		return nextPatient;
 	}
-	private resetTempPatient() {
-		this.tempPatient.name.value = "";
-		this.tempPatient.email.value = "";
-		this.tempPatient.phone.value = "";
-		this.tempPatient.address.value = "";
-	}
 
 	private fetchCurrentPage() {
-		this.fetchPatients(
-			`http://localhost:8000/api/admin/patient?page=${this.paginationData.value.current_page}`
-		);
+		// TODO : add a page param to this function
+		this.fetchPatients(1);
 	}
 }
 

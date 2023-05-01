@@ -40,12 +40,11 @@
 				i18n.locale.value == 'ar' && 'flex-row-reverse space-x-reverse',
 			]"
 		>
-			<button
-				@click="toggleLoginModal"
-				class="h-10 px-5 rounded-lg text-white bg-red-400"
-			>
-				{{ t("guest.login") }}
-			</button>
+			<RouterLink to="/donor/login">
+				<button class="h-10 px-5 rounded-lg text-white bg-indigo-400">
+					{{ t("guest.login") }}
+				</button>
+			</RouterLink>
 			<RouterLink
 				to="#"
 				class="underline hover:no-underline dark:text-white"
@@ -61,8 +60,6 @@
 	import Logo from "@/icons/Logo.vue";
 	import NavigationBarLink from "./NavigationBarLink.vue";
 	import { useI18n } from "vue-i18n";
-	const authStore = useAuthStore();
-	const { toggleLoginModal } = authStore;
 	const i18n = useI18n();
 	const { t } = i18n;
 </script>

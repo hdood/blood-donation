@@ -5,7 +5,7 @@
 		name="donor-search"
 		id="donor-search"
 		class="focus:outline-none"
-		placeholder="search for donor"
+		placeholder="search for patients"
 		@input="search($event)"
 	/>
 </template>
@@ -13,16 +13,14 @@
 <script setup lang="ts">
 	import { useDebounceFn } from "@vueuse/core";
 	import usePatientsStore from "@/stores/admin/patients";
-	const { fetchPatients } = usePatientsStore();
+	const { fetchPatients, searchByName } = usePatientsStore();
 
 	const search = useDebounceFn((e) => {
 		if (e.target.value === "") {
 			fetchPatients();
 			return;
 		}
-		fetchPatients(
-			`http://localhost:8000/api/admin/patient?query=${e.target.value}`
-		);
+		searchByName(e.target.value);
 	}, 500);
 </script>
 

@@ -1,9 +1,12 @@
 <script setup lang="ts">
 	import { RouterView } from "vue-router";
 	import getCsrfToken from "./helpers/getCsrfToken";
-	import { watch } from "vue";
 	import { onMounted } from "vue";
 	import Notification from "./components/shared/Notifications.vue";
+
+	function test(response: any) {
+		console.log(response);
+	}
 
 	onMounted(async () => {
 		await getCsrfToken();

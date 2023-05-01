@@ -15,17 +15,20 @@
 				<PatientCard class="" />
 			</div>
 		</div>
-		<AddDonorModal />
+		<UpdatePatientModal />
+		<AddPatientModal />
+		<DeletePatientDialog />
 	</div>
 </template>
 
 <script setup lang="ts">
 	import PatientsTable from "@/components/admin/patients/PatientsTable.vue";
-	import PrimaryButton from "@/components/shared/Button.vue";
 	import usePatientsStore from "@/stores/admin/patients";
 	import { storeToRefs } from "pinia";
-	import AddDonorModal from "@/components/admin/donors/AddDonorModal.vue";
+	import AddPatientModal from "@/components/admin/patients/AddPatientModal.vue";
 	import PatientCard from "@/components/admin/patients/PatientCard.vue";
+	import DeletePatientDialog from "@/components/admin/patients/deletePatientDialog.vue";
+	import UpdatePatientModal from "@/components/admin/patients/UpdatePatientModal.vue";
 
 	const { selectedPatient } = storeToRefs(usePatientsStore());
 </script>

@@ -15,9 +15,15 @@
 	import Year from "@/components/shared/DatePicker/Year.vue";
 	import { computed, ref, watch } from "vue";
 
+	const props = defineProps<{
+		initialDate: string;
+	}>();
+
+	const day = ref(new Date(props.initialDate).getDate());
+	const month = ref(new Date(props.initialDate).getMonth());
+	const year = ref(new Date(props.initialDate).getFullYear());
+
 	const date = computed(() => {
-		if (day.value == "" || month.value == "" || year.value == "")
-			return false;
 		return {
 			str: `${year.value}-${month.value}-${day.value}`,
 			date: new Date(`${month.value}/${day.value}/${year.value}`),
@@ -29,16 +35,10 @@
 		};
 	});
 
-	const day = ref("");
-	const month = ref("");
-	const year = ref("");
+	console.log(day.value);
 
 	const daysNumber = computed(() => {
-		return new Date(
-			parseInt(year.value),
-			parseFloat(month.value),
-			0
-		).getDate();
+		return new Date(year.value, month.value, 0).getDate();
 	});
 
 	const emits = defineEmits(["update:modelValue"]);

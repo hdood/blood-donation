@@ -37,7 +37,7 @@
 						<li
 							:class="[
 								active
-									? 'bg-indigo-100 text-red-900'
+									? 'bg-indigo--100 text-red-900'
 									: 'text-gray-900',
 								'relative cursor-pointer select-none py-2 pl-10 pr-4',
 							]"

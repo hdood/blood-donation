@@ -1,5 +1,23 @@
 <template>
 	<div class="p-5 bg-secondary rounded-xl dark:bg-slate-600 relative">
+		<div class="space-y-5">
+			<div class="flex space-x-5 justify-end">
+				<Button
+					class="w-14 h-10 flex items-center justify-center"
+					@click="toggleDeleteDialog"
+					type="danger-light"
+				>
+					<Trash class="w-6 h-6" />
+				</Button>
+				<Button
+					class="w-14 h-10 flex items-center justify-center"
+					type="light-success"
+					@click="toggleUpdatePatientModal"
+				>
+					<EditPencil class="w-6 h-6" />
+				</Button>
+			</div>
+		</div>
 		<div class="flex items-center gap-8">
 			<img
 				src="/donor_placeholder.png"
@@ -10,6 +28,11 @@
 				<div>
 					<span class="text-xl block">
 						{{ selectedPatient.name }}
+					</span>
+				</div>
+				<div>
+					<span class="uppercase">
+						{{ selectedPatient.gender }}
 					</span>
 				</div>
 				<div>
@@ -27,7 +50,7 @@
 		<div class="mt-4 px-8 dark:text-white space-y-4">
 			<div>
 				<span>
-					{{ selectedPatient.bloodTypeString }}
+					{{ selectedPatient.bloodGroupString }}
 				</span>
 			</div>
 			<div>
@@ -38,26 +61,7 @@
 					{{ selectedPatient.address }}
 				</span>
 			</div>
-			<div class="space-y-5">
-				<div class="flex space-x-5 justify-end">
-					<Button
-						class="w-14 h-10 flex items-center justify-center"
-						@click="toggleDeleteDialog"
-						type="danger-light"
-					>
-						<Trash class="w-6 h-6 fill-red-700" />
-					</Button>
-					<Button
-						class="w-14 h-10 flex items-center justify-center"
-						type="success"
-					>
-						<EditPencil class="w-6 h-6 fill-green-700" />
-					</Button>
-				</div>
-			</div>
 		</div>
-
-		<DeletePatientDialog />
 	</div>
 </template>
 
@@ -65,11 +69,10 @@
 	import usePatientsStore from "@/stores/admin/patients";
 	import { storeToRefs } from "pinia";
 	import Button from "@/components/shared/Button.vue";
-	import DeletePatientDialog from "./deletePatientDialog.vue";
 
 	const { selectedPatient } = storeToRefs(usePatientsStore());
 
-	const { toggleDeleteDialog } = usePatientsStore();
+	const { toggleDeleteDialog, toggleUpdatePatientModal } = usePatientsStore();
 </script>
 
 <style scoped></style>

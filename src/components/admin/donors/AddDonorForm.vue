@@ -7,23 +7,25 @@
 		Step,
 		Footer,
 	} from "headless-multistep-form-vue";
-	import Input from "./Input";
+	import Input from "@/components/shared/Input";
 	import useDonorStore from "@/stores/admin/donors";
-	import Button from "./Button.vue";
-	import BloodTypeInput from "./BloodTypeInput.vue";
-	import RhFactorInput from "./RhFactorInput.vue";
+	import Button from "@/components/shared/Button.vue";
+	import bloodGroupInput from "@/components/shared/BloodGroupInput.vue";
+	import RhFactorInput from "@/components/shared/RhFactorInput.vue";
 	import intus from "intus";
 	import { isRequired, isEmail, isMin, isSame } from "intus/rules";
 	import BirthDatePicker from "@/components/shared/DatePicker/BirthDatePicker.vue";
 	import GenderPicker from "@/components/shared/GenderPicker.vue";
 	import { ref } from "vue";
+	import { storeToRefs } from "pinia";
 
-	const { save, tempDonor } = useDonorStore();
+	const { tempDonor } = storeToRefs(useDonorStore());
+	const { save } = useDonorStore();
 	const errors = ref<any>({});
 
 	function validateFirstStep() {
 		errors.value = {};
-		const validation = intus.validate(tempDonor, {
+		const validation = intus.validate(tempDonor.value, {
 			name: [isRequired()],
 			gender: [isRequired()],
 			dob: [isRequired()],
@@ -38,7 +40,7 @@
 	}
 	function validateSecondStep() {
 		errors.value = {};
-		const validation = intus.validate(tempDonor, {
+		const validation = intus.validate(tempDonor.value, {
 			phone: [isRequired()],
 			address: [isRequired()],
 			email: [isRequired(), isEmail()],
@@ -54,7 +56,7 @@
 	function validateThirdStep() {
 		errors.value = {};
 		const validation = intus.validate(
-			tempDonor,
+			tempDonor.value,
 			{
 				password: [isRequired(), isMin(8)],
 				cpassword: [isRequired(), isSame("password")],
@@ -86,7 +88,7 @@
 				<div>
 					<div class="text-xs">Personal</div>
 					<div
-						class="w-12 h-12 grid place-items-center rounded-lg transition-colors bg-red-400"
+						class="w-12 h-12 grid place-items-center rounded-lg transition-colors bg-indigo-400"
 					>
 						<User
 							class="w-6 h-6"
@@ -97,7 +99,7 @@
 				<div class="w-32 mt-2">
 					<div class="h-1 w-32 absolute bg-gray-200"></div>
 					<div
-						class="h-1 w-32 absolute transition-transform origin-left bg-red-400 duration-200"
+						class="h-1 w-32 absolute transition-transform origin-left bg-indigo-400 duration-200"
 						:class="[passed ? ' scale-x-100' : 'scale-x-0']"
 					></div>
 				</div>
@@ -112,7 +114,7 @@
 						class="w-12 h-12 grid place-items-center rounded-lg"
 						:class="[
 							active | passed
-								? 'bg-red-400 transition-all delay-100'
+								? 'bg-indigo-400 transition-all delay-100'
 								: 'bg-gray-200',
 						]"
 					>
@@ -125,7 +127,7 @@
 				<div class="w-32 mt-2">
 					<div class="h-1 w-32 absolute bg-gray-200"></div>
 					<div
-						class="h-1 w-32 absolute bg-red-400 transition-transform origin-left duration-200"
+						class="h-1 w-32 absolute bg-indigo-400 transition-transform origin-left duration-200"
 						:class="[passed ? ' scale-x-100' : 'scale-x-0']"
 					></div>
 				</div>
@@ -140,7 +142,7 @@
 						class="w-12 h-12 grid place-items-center rounded-lg"
 						:class="[
 							active | passed
-								? 'bg-red-400 transition-all delay-100'
+								? 'bg-indigo-400 transition-all delay-100'
 								: 'bg-gray-200',
 						]"
 					>
@@ -153,7 +155,7 @@
 				<div class="w-32 mt-2">
 					<div class="h-1 w-32 absolute bg-gray-200"></div>
 					<div
-						class="h-1 w-32 absolute bg-red-400 transition-transform origin-left duration-200"
+						class="h-1 w-32 absolute bg-indigo-400 transition-transform origin-left duration-200"
 						:class="[passed ? ' scale-x-100' : 'scale-x-0']"
 					></div>
 				</div>
@@ -168,7 +170,7 @@
 						class="w-12 h-12 grid place-items-center rounded-lg"
 						:class="[
 							active
-								? 'bg-red-400 transition-all delay-100'
+								? 'bg-indigo-400 transition-all delay-100'
 								: 'bg-gray-200',
 						]"
 					>
@@ -278,6 +280,7 @@
 					</form>
 				</Step>
 			</transition>
+
 			<transition
 				enterActiveClass="transition-all absolute duration-300 delay-300"
 				leaveActiveClass="transition-all absolute duration-300"
@@ -290,7 +293,7 @@
 					:submit="submit"
 				>
 					<form class="flex flex-col items-center gap-5">
-						<BloodTypeInput />
+						<bloodGroupInput />
 						<RhFactorInput />
 					</form>
 				</Step>

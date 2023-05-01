@@ -56,7 +56,7 @@
 								</button>
 								<Button
 									type="danger"
-									class="w-20 h-10 text-center bg-red-500 text-white rounded-lg"
+									class="w-20 h-10 text-center bg-indigo-500 text-white rounded-lg"
 									@click="deleteDonor"
 								>
 									Delete

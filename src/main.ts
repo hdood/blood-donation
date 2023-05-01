@@ -7,6 +7,7 @@ import axios from "axios";
 import messages from "./content/messages";
 import zondicons from "zondicons-vue";
 import "./assets/main.css";
+import { markRaw } from "vue";
 
 const i18n = createI18n({
 	legacy: false, // you must set `false`, to use Composition API
@@ -19,7 +20,13 @@ axios.defaults.withCredentials = true;
 
 const app = createApp(App);
 
-app.use(createPinia());
+const pinia = createPinia();
+
+pinia.use(({ store }) => {
+	store.router = markRaw(router);
+});
+app.use(pinia);
+
 app.use(router);
 app.use(i18n);
 app.use(zondicons);

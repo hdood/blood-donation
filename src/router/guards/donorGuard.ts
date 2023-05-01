@@ -1,21 +1,11 @@
 import useDonorAuthStore from "@/stores/donor/auth";
 import { storeToRefs } from "pinia";
 
-export default (to: any) => {
-	// TODO : remove the return statement to activate the guard
+export default async (to: any) => {
+	const { authenticated } = storeToRefs(useDonorAuthStore());
+	const { fetchAndAuthenticate } = useDonorAuthStore();
 
-	// console.error("admin guard is deactivated");
-
-	// return;
-
-	const { authenticated, currentUser } = storeToRefs(useDonorAuthStore());
-
-	authenticated.value = !(
-		localStorage.getItem("donor_authenticated") === "false" ||
-		!localStorage.getItem("donor_authenticated")
-	);
-
-	currentUser.value = JSON.parse(localStorage.getItem("donor_user") || "{}");
+	await fetchAndAuthenticate();
 
 	if (!authenticated.value && to.name != "donor-login") {
 		return { name: "donor-login" };

@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="w-full h-screen grid place-items-center bg-primary dark:bg-slate-700"
+		class="w-full h-screen flex flex-col gap-3 items-center justify-center bg-primary dark:bg-slate-700"
 	>
 		<div
 			class="w-96 rounded-2xl px-3 py-6 bg-white shadow-lg dark:bg-slate-500 wrapper"
@@ -13,9 +13,9 @@
 			</div>
 			<div
 				class="text-center italic text-sm text-red-600"
-				v-if="error"
+				v-if="errors"
 			>
-				{{ error }}
+				{{ errors }}
 			</div>
 			<form
 				class="space-y-6"
@@ -48,16 +48,29 @@
 							>Forgot password?</RouterLink
 						>
 					</div>
-					<div class="text-center mt-14">
+					<div class="text-center mt-6 dark:text-white">
 						Don't have an account?
 						<RouterLink
-							to="/admin/register"
+							to="/donor/register"
 							class="underline"
 							>Sign up
 						</RouterLink>
 					</div>
 				</div>
 			</form>
+		</div>
+		<div class="bg-white p-4 rounded-lg shadow-lg flex flex-col gap-4">
+			<div
+				class="w-60 border-gray-500 mx-auto text-center font-medium text-lg"
+			>
+				Or continue with
+			</div>
+			<div class="w-40 mx-auto text-center">
+				<div
+					ref="googleButton"
+					class="flex justify-center"
+				></div>
+			</div>
 		</div>
 		<DarkModeSwitch class="absolute bottom-5 right-5" />
 	</div>
@@ -71,12 +84,33 @@
 	import PrimaryButton from "@/components/shared/Button.vue";
 	import Logo from "@/icons/Logo.vue";
 	import { useRouter } from "vue-router";
+	import { onMounted, ref } from "vue";
 
 	const authStore = useAuthStore();
 
+	const { googleLogin } = authStore;
+	const googleButton = ref(null);
 	const { login } = authStore;
 	const router = useRouter();
-	const { email, password, loading, error } = storeToRefs(authStore);
+	const { email, password, loading, errors } = storeToRefs(authStore);
+
+	const ID_CONFIGURATION = {
+		client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+		callback: (payload: any) => {
+			googleLogin(payload, router);
+		},
+	};
+
+	onMounted(() => {
+		errors.value = "";
+		window.google.accounts.id.initialize(ID_CONFIGURATION);
+
+		window.google.accounts.id.renderButton(googleButton.value, {
+			type: "standard",
+			size: "large",
+			theme: "filled_blue",
+		});
+	});
 </script>
 
 <style scoped>

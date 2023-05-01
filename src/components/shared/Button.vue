@@ -21,18 +21,20 @@
 		variants: {
 			type: {
 				primary: [
-					"bg-red-400 dark:bg-red-400/70 fill-white  active:translate-y-1 focus:ring-4 focus:ring-red-300 transition-all active:bg-indigo-900 text-white",
+					"bg-indigo-400 dark:bg-indigo-800/70 fill-white  active:translate-y-1 focus:ring-4 focus:ring-indigo-300 transition-all active:bg-indigo-900 text-white",
 				],
 				disabled: ["bg-gray-200 cursor-not-allowed"],
-				danger: [
-					"bg-red-600 hover:bg-red-500 active:translate-y-1 focus:ring-4 focus:ring-rose-300 transition-all active:bg-red-900 text-white",
-				],
 				"danger-light": [
-					"bg-red-200 text-red-700  active:translate-y-1 focus:ring-4 focus:ring-rose-300 transition-all",
+					"bg-red-200 dark:bg-red-600 dark:fill-red-100  fill-red-700 text-red-700   active:translate-y-1 focus:ring-4 focus:ring-rose-300 transition-all",
+				],
+				danger: [
+					"bg-red-600 dark:bg-red-200 dark:fill-red-100  fill-white text-white   active:translate-y-1 focus:ring-4 focus:ring-rose-300 transition-all",
 				],
 				success:
-					"bg-emerald-200 text-emerald-700 active:translate-y-1 focus:ring-4 focus:ring-emerald-300 transition-all",
-				info: "bg-blue-200 text-emerald-700 active:translate-y-1 focus:ring-4 focus:ring-blue-300 transition-all",
+					"bg-emerald-400	 dark:bg-emerald-600 dark:fill-emerald-100 fill-green-700 text-white active:translate-y-1 focus:ring-4 focus:ring-emerald-300 transition-all",
+				"light-success":
+					"bg-emerald-200	 dark:bg-emerald-600 dark:fill-emerald-100 fill-green-600 text-green-200  active:translate-y-1 focus:ring-4 focus:ring-emerald-300 transition-all",
+				info: "bg-blue-200  dark:bg-blue-600 dark:fill-blue-100 fill-blue-700 text-emerald-700 active:translate-y-1 focus:ring-4 focus:ring-blue-300 transition-all",
 			},
 		},
 	});

@@ -26,7 +26,7 @@
 			variants: {
 				type: {
 					success: ["bg-white", "text-gray-600"],
-					danger: ["bg-red-50", "text-red-700"],
+					danger: ["bg-white", "text-red-700"],
 				},
 			},
 			defaultVariants: {

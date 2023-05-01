@@ -1,6 +1,7 @@
 <template>
-	<div>
+	<div class="w-06">
 		<Table
+			class="w-96"
 			:data="donations"
 			:fields="['date', 'location']"
 			v-slot="{ row }"
@@ -13,7 +14,7 @@
 		</Table>
 		<div
 			v-if="!donations"
-			class="text-white text-center text-2xl mt-5"
+			class="dark:text-white w-96 text-center text-2xl mt-5"
 		>
 			You don't have any donation
 		</div>

@@ -6,7 +6,7 @@ class Notifications {
 	public notifications: any = ref([]);
 
 	public notification = (notification: any, duration: any) => {
-		this.notifications.value.push(notification);
+		this.notifications.value.unshift(notification);
 		setTimeout(() => this.notifications.value.pop(), duration);
 	};
 }

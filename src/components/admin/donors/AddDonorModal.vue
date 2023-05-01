@@ -35,7 +35,7 @@
 						<DialogPanel
 							class="transform panel p-4 rounded-lg bg-white dark:bg-slate-500 text-left align-middle shadow-xl transition-all"
 						>
-							<registerForm :temp-donor="tempDonor" />
+							<AddDonorForm :temp-donor="tempDonor" />
 						</DialogPanel>
 					</TransitionChild>
 				</div>
@@ -53,7 +53,7 @@
 	} from "@headlessui/vue";
 	import useDonorsStore from "@/stores/admin/donors";
 	import { storeToRefs } from "pinia";
-	import registerForm from "@/components/shared/registerForm.vue";
+	import AddDonorForm from "@/components/admin/donors/AddDonorForm.vue";
 
 	const { toggleAddDonorModal } = useDonorsStore();
 	const { addDonorModal, tempDonor } = storeToRefs(useDonorsStore());

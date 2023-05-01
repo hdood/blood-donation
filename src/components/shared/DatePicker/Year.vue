@@ -1,5 +1,8 @@
 <template>
-	<Listbox v-model="year">
+	<Listbox
+		v-model="year"
+		class="z-50"
+	>
 		<div class="relative mt-1 w-28">
 			<ListboxButton
 				class="border relative w-full cursor-pointer rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
@@ -38,7 +41,7 @@
 						<li
 							:class="[
 								active
-									? 'bg-indigo-100 text-red-900'
+									? 'bg-indigo--100 text-red-900'
 									: 'text-gray-900',
 								'relative cursor-pointer rounded-lg text-center select-none py-2  flex justify-center ',
 							]"

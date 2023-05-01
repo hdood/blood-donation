@@ -1,21 +1,38 @@
+import type AuthStore from "@/contracts/AuthStore";
 import notification from "@/helpers/notification";
-import axios, { AxiosError } from "axios";
+import Donor from "@/models/Donor";
+import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import type { Router } from "vue-router";
-import notificationVue from "zondicons-vue/icons/notification.vue";
 
-class AdminAuthStore {
+class DonorAuthStore implements AuthStore {
 	public currentUser = ref({});
 	public authenticated = ref(false);
 	public email = ref("");
 	public password = ref("");
 	public loading = ref(false);
-	public error = ref(false);
+	public errors = ref<any>(false);
+	public tempDonor = ref(new Donor());
+	public googleUserCredential = ref<any>(false);
 
-	public login = async (router: Router) => {
+	public fetchAndAuthenticate = async () => {
+		const response = await axios.get(
+			import.meta.env.VITE_API_URL + "/donor/user"
+		);
+		if (response.data.error) {
+			this.authenticated.value = false;
+			this.currentUser.value = {};
+			return false;
+		}
+
+		this.authenticated.value = true;
+		this.currentUser.value = response.data;
+		return true;
+	};
+
+	public login = async (router: any) => {
 		this.loading.value = true;
-		this.error.value = false;
+		this.errors.value = false;
 		const data = new FormData();
 
 		data.append("email", this.email.value);
@@ -27,36 +44,18 @@ class AdminAuthStore {
 				data: data,
 				headers: { "Content-Type": "multipart/form-data" },
 			});
-			if (response.data.error) {
-				this.error.value = response.data.error;
 
-				this.password.value = "";
-				this.email.value = "";
-				this.loading.value = false;
-				return;
-			}
+			debugger;
 
-			this.authenticated.value = true;
-			this.currentUser.value = response.data.user;
-
-			this.persistState();
-
-			await router.push({ name: "donor-home" });
-			notification(
-				"Logged In",
-				`you are logged in as ${response.data.user.name}`,
-				`success`,
-				"Checkmark"
-			);
-			this.loading.value = false;
+			this.authenticateDonor(response.data.user, router);
 		} catch (error: any) {
-			this.error.value = error.response.data.message;
+			this.errors.value = error.response.data.error;
 			this.loading.value = false;
 			return;
 		}
 	};
 
-	public logout = async (router: Router) => {
+	public logout = async (router: any) => {
 		this.authenticated.value = false;
 		this.currentUser.value = {};
 
@@ -71,6 +70,108 @@ class AdminAuthStore {
 		router.push({ name: "donor-login" });
 	};
 
+	public register = async (router: any) => {
+		this.loading.value = true;
+		this.errors.value = false;
+		const data = new FormData();
+
+		data.append("name", this.tempDonor.value.name as string);
+		data.append("email", this.tempDonor.value.email as string);
+		data.append("password", this.tempDonor.value.password as string);
+		data.append("phone", this.tempDonor.value.phone as string);
+		data.append("address", this.tempDonor.value.address as string);
+		data.append("bloodGroup", this.tempDonor.value.bloodGroup as string);
+		data.append("dob", this.tempDonor.value.dob as string);
+		data.append("gender", this.tempDonor.value.gender as string);
+		data.append("rhFactor", this.tempDonor.value.rhFactor as string);
+
+		try {
+			const response = await axios({
+				method: "post",
+				url: "http://localhost:8000/api/donor/register",
+				data: data,
+				headers: { "Content-Type": "multipart/form-data" },
+			});
+
+			this.authenticateDonor(response.data.user, router);
+		} catch (error: any) {
+			this.errors.value = error?.response?.data?.message;
+			this.loading.value = false;
+			notification("something went wrong", "try again please", "error");
+			return;
+		}
+	};
+
+	public googleLogin = async (payload: any, router: any) => {
+		const credential = payload.credential;
+
+		const data = new FormData();
+		data.append("credential_token", credential);
+
+		try {
+			const response = await axios.post(
+				import.meta.env.VITE_API_URL + "/donor/login/google",
+				data
+			);
+
+			this.authenticateDonor(response.data.user, router);
+		} catch (error: any) {
+			this.errors.value = error.response.data.message;
+			this.loading.value = false;
+			return;
+		}
+	};
+
+	public googleRegister = async (router: any) => {
+		const data = new FormData();
+		data.append(
+			"credential_token",
+			this.googleUserCredential.value as string
+		);
+
+		data.append("phone", this.tempDonor.value.phone as string);
+		data.append("address", this.tempDonor.value.address as string);
+		data.append("bloodGroup", this.tempDonor.value.bloodGroup as string);
+		data.append("dob", this.tempDonor.value.dob as string);
+		data.append("gender", this.tempDonor.value.gender as string);
+		data.append("rhFactor", this.tempDonor.value.rhFactor as string);
+
+		try {
+			const response = await axios.post(
+				import.meta.env.VITE_API_URL + "/donor/register/google",
+				data
+			);
+
+			this.authenticateDonor(response.data.user, router);
+		} catch (error: any) {
+			this.errors.value = error?.response?.data?.message;
+			this.loading.value = false;
+			notification("something went wrong", "try again please", "error");
+			return;
+		}
+	};
+	public checkGoogleUser = async (payload: any, router: any) => {
+		const credential = payload.credential;
+
+		const data = new FormData();
+		data.append("credential_token", credential);
+
+		try {
+			const response = await axios.post(
+				import.meta.env.VITE_API_URL + "/donor/user-check/google",
+				data
+			);
+
+			this.authenticateDonor(response.data.user, router);
+		} catch (error: any) {
+			await this.googleLogin(payload, router);
+			return;
+		}
+	};
+	public saveCredential = (payload: any) => {
+		this.googleUserCredential.value = payload.credential;
+	};
+
 	public persistState() {
 		localStorage.setItem(
 			"donor_authenticated",
@@ -81,33 +182,23 @@ class AdminAuthStore {
 			JSON.stringify(this.currentUser.value)
 		);
 	}
-
-	public register = async (user: any, router: Router) => {
-		const response = await axios.post(
-			"http://localhost:8000/api/donor/register",
-			user
-		);
-
-		if (response.data.error) return false;
-		console.log(response.data.user);
-		debugger;
-
+	public async authenticateDonor(user: any, router: any) {
+		this.errors = {};
 		this.authenticated.value = true;
-		this.currentUser.value = response.data.user;
-
+		this.currentUser.value = user;
 		this.persistState();
 
 		await router.push({ name: "donor-home" });
 		notification(
 			"Logged In",
-			`you are logged in as ${response.data.user.name}`,
+			`you are logged in as ${user.name}`,
 			`success`,
 			"Checkmark"
 		);
 		this.loading.value = false;
-	};
+	}
 }
 
 export default defineStore("donor-auth", () => {
-	return new AdminAuthStore();
+	return new DonorAuthStore();
 });

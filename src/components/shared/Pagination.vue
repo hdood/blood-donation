@@ -8,7 +8,7 @@
 			class="w-10 h-10 rounded-lg"
 			:class="
 				link == paginationData['current_page']
-					? 'bg-red-500 text-white '
+					? 'bg-indigo-500 text-white '
 					: 'dark:text-white'
 			"
 			@click="fetch(`${paginationData.path}?page=${link}`)"

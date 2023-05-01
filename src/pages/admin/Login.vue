@@ -71,6 +71,7 @@
 	import PrimaryButton from "@/components/shared/Button.vue";
 	import Logo from "@/icons/Logo.vue";
 	import { useRouter } from "vue-router";
+	import { onMounted, ref } from "vue";
 
 	const authStore = useAuthStore();
 

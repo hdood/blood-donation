@@ -31,20 +31,12 @@
 				class="basis-9/12 gap-2 px-4 py-2 flex flex-col overflow-y-scroll rounded-lg bg-secondary dark:bg-slate-600"
 			>
 				<div
-					class="self-end bg-indigo-500 dark:bg-indigo-500 text-white p-2 rounded-lg w-fit"
+					class="self-end bg-indigo--500 dark:bg-indigo--500 text-white p-2 rounded-lg w-fit"
 				>
 					Hello there
 				</div>
 				<div
-					class="self-end bg-indigo-500 dark:bg-indigo-500 text-white p-2 rounded-lg w-fit"
-				>
-					Hello there
-				</div>
-				<div class="bg-gray-200 w-fit p-2 rounded-lg">
-					Hope you doing well
-				</div>
-				<div
-					class="self-end bg-indigo-500 dark:bg-indigo-500 text-white p-2 rounded-lg w-fit"
+					class="self-end bg-indigo--500 dark:bg-indigo--500 text-white p-2 rounded-lg w-fit"
 				>
 					Hello there
 				</div>
@@ -52,7 +44,7 @@
 					Hope you doing well
 				</div>
 				<div
-					class="self-end bg-indigo-500 dark:bg-indigo-500 text-white p-2 rounded-lg w-fit"
+					class="self-end bg-indigo--500 dark:bg-indigo--500 text-white p-2 rounded-lg w-fit"
 				>
 					Hello there
 				</div>
@@ -60,7 +52,7 @@
 					Hope you doing well
 				</div>
 				<div
-					class="self-end bg-indigo-500 dark:bg-indigo-500 text-white p-2 rounded-lg w-fit"
+					class="self-end bg-indigo--500 dark:bg-indigo--500 text-white p-2 rounded-lg w-fit"
 				>
 					Hello there
 				</div>
@@ -68,7 +60,7 @@
 					Hope you doing well
 				</div>
 				<div
-					class="self-end bg-indigo-500 dark:bg-indigo-500 text-white p-2 rounded-lg w-fit"
+					class="self-end bg-indigo--500 dark:bg-indigo--500 text-white p-2 rounded-lg w-fit"
 				>
 					Hello there
 				</div>
@@ -76,7 +68,15 @@
 					Hope you doing well
 				</div>
 				<div
-					class="self-end bg-indigo-500 dark:bg-indigo-500 text-white p-2 rounded-lg w-fit"
+					class="self-end bg-indigo--500 dark:bg-indigo--500 text-white p-2 rounded-lg w-fit"
+				>
+					Hello there
+				</div>
+				<div class="bg-gray-200 w-fit p-2 rounded-lg">
+					Hope you doing well
+				</div>
+				<div
+					class="self-end bg-indigo--500 dark:bg-indigo--500 text-white p-2 rounded-lg w-fit"
 				>
 					Hello there
 				</div>

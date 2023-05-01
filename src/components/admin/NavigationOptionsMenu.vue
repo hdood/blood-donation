@@ -3,7 +3,10 @@
 		as="div"
 		class="relative inline-block text-left"
 	>
-		<MenuButton class="mt-1">
+		<MenuButton class="dark:fill-white flex items-center gap-1+">
+			<span class="dark:text-white/80">
+				{{ user.name }}
+			</span>
 			<CheveronDown class="w-5 h-5" />
 		</MenuButton>
 
@@ -24,13 +27,13 @@
 						<button
 							:class="[
 								active
-									? 'bg-indigo-500 text-white'
+									? 'bg-indigo-400 text-white'
 									: 'text-gray-900',
 								'group flex w-full items-center rounded-md px-2 py-2 text-sm',
 							]"
 						>
 							<StandBy
-								class="mr-2 h-5 w-5 text-violet-400"
+								class="mr-2 h-5 w-5"
 								:class="[active && 'fill-white']"
 								aria-hidden="true"
 							/>
@@ -49,9 +52,10 @@
 
 	const props = defineProps<{
 		logout: Function;
+		user: any;
 	}>();
 
-	const { logout } = props;
+	const { logout, user } = props;
 
 	const router = useRouter();
 </script>

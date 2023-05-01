@@ -1,0 +1,82 @@
+<template>
+	<div class="w-screen h-screen flex items-center justify-center bg-primary">
+		<div
+			class="flex items-center justify-center bg-white rounded-lg divide-x-2"
+		>
+			<div class="flex flex-col gap-4 mt-3 p-4 rounded-lg">
+				<img
+					src="/sideImage.webp"
+					class="h-[30rem]"
+					alt="blood donation"
+				/>
+				<div
+					class="sm text-gray-700 text-center"
+					v-if="registerUsingProvider"
+				>
+					Enter your information's to complete the sign up precess
+				</div>
+				<div v-else>
+					<div
+						class="w-60 border-gray-500 mx-auto text-center font-medium text-lg"
+					>
+						Or continue with
+					</div>
+					<WilayaPicker v-model="test" />
+
+					<div class="w-40 mx-auto text-center">
+						<div
+							ref="googleButton"
+							class="flex justify-center"
+						></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="flex pt-4 flex-col gap-4 bg-white pl-4">
+				<div class="text-2xl font-medium">Register as a Donor</div>
+				<DonorGoogleRegisterForm v-if="registerUsingProvider" />
+				<DonorRegisterForm v-else />
+			</div>
+		</div>
+		<DarkModeSwitch class="absolute bottom-5 right-5" />
+	</div>
+</template>
+
+<script setup lang="ts">
+	import useAuthStore from "@/stores/donor/auth";
+	import DarkModeSwitch from "@/components/shared/DarkModeSwitch.vue";
+	import DonorRegisterForm from "@/components/guest/DonorRegisterForm.vue";
+	import DonorGoogleRegisterForm from "@/components/guest/DonorGoogleRegisterForm.vue";
+	import WilayaPicker from "@/components/shared/WilayaPicker.vue";
+
+	import { onMounted, ref } from "vue";
+	import { useRouter } from "vue-router";
+
+	const { saveCredential, checkGoogleUser } = useAuthStore();
+	const googleButton = ref(null);
+	const router = useRouter();
+	const test = ref();
+
+	const registerUsingProvider = ref(false);
+
+	const ID_CONFIGURATION = {
+		client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+		callback: (payload: any) => {
+			registerUsingProvider.value = true;
+			saveCredential(payload);
+			checkGoogleUser(payload, router);
+		},
+	};
+
+	onMounted(() => {
+		window.google.accounts.id.initialize(ID_CONFIGURATION);
+
+		window.google.accounts.id.renderButton(googleButton.value, {
+			type: "standard",
+			size: "large",
+			theme: "filled_blue",
+		});
+	});
+</script>
+
+<style scoped></style>

@@ -3,8 +3,8 @@
 		class="w-full h-10 dark:bg-gray-800"
 		:class="[
 			props.active
-				? 'bg-red-200 dark:bg-red-500/70'
-				: 'bg-white hover:bg-gray-100 hover:dark:bg-red-900/50  cursor-pointer',
+				? 'bg-indigo-300 dark:bg-indigo-700/70 text-gray-900'
+				: 'bg-white hover:bg-gray-100 hover:dark:bg-indigo-900/50  cursor-pointer',
 		]"
 	>
 		<td

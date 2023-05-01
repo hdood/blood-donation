@@ -15,6 +15,8 @@
 			</div>
 		</div>
 		<AddDonorModal />
+		<UpdateDonorModal />
+		<deleteDonorDialog />
 		<DonorCardPreview />
 	</div>
 </template>
@@ -26,6 +28,10 @@
 	import DonorCard from "@/components/admin/donors/DonorCard.vue";
 	import AddDonorModal from "@/components/admin/donors/AddDonorModal.vue";
 	import DonorCardPreview from "@/components/admin/donors/donorCardPreview.vue";
+	import deleteDonorDialog from "@/components/admin/donors/deleteDonorDialog.vue";
+
+	import UpdateDonorModal from "@/components/admin/donors/UpdateDonorModal.vue";
+	import { ref } from "vue";
 
 	const { selectedDonor } = storeToRefs(useDonorsStore());
 </script>

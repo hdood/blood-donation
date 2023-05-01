@@ -1,14 +1,14 @@
-import { computed, ref, type Ref } from "vue";
+import { computed } from "vue";
 
 export default class User {
-	public id: Ref<string | undefined> = ref("");
-	public name: Ref<string | undefined> = ref("");
-	public email: Ref<string | undefined> = ref("");
-	public dob: Ref<any> = ref({});
-	public address: Ref<string | undefined> = ref("");
-	public gender: Ref<string | undefined> = ref("");
-	public password: Ref<string | undefined> = ref("");
-	public phone: Ref<string | undefined> = ref("");
+	public id?: string = "";
+	public name?: string = "";
+	public email?: string = "";
+	public dob?: string = "";
+	public address?: string = "";
+	public gender?: string = "";
+	public password?: string = "";
+	public phone?: string = "";
 
 	constructor(
 		id?: string,
@@ -20,19 +20,19 @@ export default class User {
 		gender?: string,
 		phone?: string
 	) {
-		this.id.value = id;
-		this.name.value = name;
-		this.dob.value = dob;
-		this.email.value = email;
-		this.gender.value = gender;
-		this.address.value = address;
-		this.phone.value = phone;
-		this.password.value = password;
+		this.id = id;
+		this.name = name;
+		this.dob = dob;
+		this.email = email;
+		this.gender = gender;
+		this.address = address;
+		this.phone = phone;
+		this.password = password;
 	}
 
 	public age = computed(() => {
 		const currentYear = new Date().getFullYear();
-		const dob = new Date(this.dob.value);
+		const dob = new Date(this.dob as string);
 		return currentYear - dob.getFullYear();
 	});
 }

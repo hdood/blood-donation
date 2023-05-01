@@ -1,4 +1,4 @@
-import { defineStore, storeToRefs } from "pinia";
+import { defineStore } from "pinia";
 
 import Donor from "@/models/Donor";
 import { type Ref, ref } from "vue";
@@ -16,18 +16,7 @@ class DonorsStore {
 	public toggleDonorCardPreview = () =>
 		(this.showDonorCardPreview.value = !this.showDonorCardPreview.value);
 
-	public tempDonor = ref({
-		name: "",
-		phone: "",
-		address: "",
-		password: "",
-		cpassword: "",
-		email: "",
-		gender: "",
-		rhFactor: false,
-		dob: "",
-		bloodType: "",
-	});
+	public tempDonor = ref(new Donor());
 
 	public paginationData: any = ref({});
 
@@ -44,33 +33,23 @@ class DonorsStore {
 	public toggleAddDonorModal = () =>
 		(this.addDonorModal.value = !this.addDonorModal.value);
 
+	// * Open and close update donor modal
+
+	public updateDonorModal = ref(false);
+
+	public toggleUpdateDonorModal = () =>
+		(this.updateDonorModal.value = !this.updateDonorModal.value);
+
 	// * fetch Donors
-	public fetchDonors = async (
-		link: string = "http://localhost:8000/api/admin/donor"
-	) => {
-		const { donors, data } = await Donor.all(link);
+	public fetchDonors = async (page: number = 1) => {
+		const { donors, data } = await Donor.all(page);
 		this.donors.value = donors;
 		this.paginationData.value = data;
 	};
 
-	// * Update Donor
-	public update = async () => {};
-
 	// * Store Donor
 	public save = async () => {
-		const donor = new Donor(
-			undefined,
-			this.tempDonor.name,
-			this.tempDonor.dob,
-			this.tempDonor.address,
-			this.tempDonor.phone,
-			this.tempDonor.email,
-			this.tempDonor.password,
-			this.tempDonor.gender,
-			this.tempDonor.bloodType,
-			this.tempDonor.rhFactor
-		);
-		const { data } = await donor.save();
+		const { data } = await this.tempDonor.value.save();
 
 		if (data.error === "true") throw Error("something went wrong");
 
@@ -85,25 +64,86 @@ class DonorsStore {
 		);
 	};
 
+	// * Update Donor
+	public update = async (donor: any) => {
+		donor = new Donor(
+			donor.value.id,
+			donor.value.name,
+			donor.value.dob,
+			undefined,
+			undefined,
+			donor.value.address,
+			donor.value.gender,
+			donor.value.phone,
+			donor.value.bloodGroup,
+			donor.value.rhFactor
+		);
+		try {
+			const { data } = await donor.update();
+
+			this.toggleUpdateDonorModal();
+			this.fetchCurrentPage();
+			notification(
+				"Success",
+				"Donor updated successfully",
+				"success",
+				"Checkmark"
+			);
+
+			this.selectedDonor.value = new Donor(
+				data.donor.id,
+				data.donor.name,
+				data.donor.dob,
+				data.donor.email,
+				data.donor.password,
+				data.donor.address,
+				data.donor.gender,
+				data.donor.phone,
+				data.donor.bloodGroup,
+				data.donor.rhFactor
+			);
+		} catch (error: any) {
+			this.toggleUpdateDonorModal();
+
+			notification(
+				"Error",
+				"failed to update donor",
+				"danger",
+				"CloseOutline"
+			);
+		}
+	};
+
 	// * Delete Donor
 	public deleteDonor = async () => {
-		const { data } = await this.selectedDonor.value?.delete();
+		try {
+			const { data } = await this.selectedDonor.value?.delete();
+			this.deleteDialog.value = false;
+			notification(
+				"Success",
+				"Donor deleted successfully",
+				"success",
+				"Checkmark"
+			);
 
-		if (data.error === "true") {
-			notification("error", "failed to delete user", "danger", "Delete");
-			throw Error("failed to delete donor");
+			if (
+				this.selectedDonor.value.id ==
+				this.donors.value[this.donors.value.length - 1].id
+			) {
+				this.selectedDonor.value = this.getPreviousDonor();
+			} else {
+				this.selectedDonor.value = this.getNextDonor();
+				this.fetchCurrentPage();
+			}
+		} catch (error) {
+			this.deleteDialog.value = false;
+			notification(
+				"Error",
+				"failed to delete user",
+				"danger",
+				"CloseOutline"
+			);
 		}
-		this.deleteDialog.value = false;
-		notification(
-			"success",
-			"Donor deleted successfully",
-			"success",
-			"Checkmark"
-		);
-
-		this.fetchCurrentPage();
-		this.selectedDonor.value = this.getNextDonor();
-		debugger;
 	};
 
 	public printCard = (el: any) => {
@@ -121,6 +161,12 @@ class DonorsStore {
 			});
 		});
 	};
+	public searchByName = async (name: string) => {
+		const { donors, data } = await Donor.searchByName(name);
+		this.donors.value = donors;
+		this.paginationData.value = data;
+		debugger;
+	};
 
 	private getNextDonor() {
 		const nextDonor = this.donors.value.find((donor, index) => {
@@ -133,11 +179,20 @@ class DonorsStore {
 		});
 		return nextDonor;
 	}
+	private getPreviousDonor() {
+		const nextDonor = this.donors.value.find((donor, index) => {
+			if (
+				this.donors.value?.[index + 1]?.id ==
+				this.selectedDonor.value.id
+			) {
+				return true;
+			}
+		});
+		return nextDonor;
+	}
 
 	private fetchCurrentPage() {
-		this.fetchDonors(
-			`http://localhost:8000/api/admin/donor?page=${this.paginationData.value.current_page}`
-		);
+		this.fetchDonors(this.paginationData.current_page);
 	}
 }
 
