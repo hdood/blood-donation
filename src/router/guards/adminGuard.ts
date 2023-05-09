@@ -8,18 +8,13 @@ export default async (to: any) => {
 
 	// return;
 
-	const { authenticated, currentUser } = storeToRefs(useAdminAuthStore());
-	const { fetchUser } = useAdminAuthStore();
+	const { authenticated } = storeToRefs(useAdminAuthStore());
+	const { fetchAndAuthenticate } = useAdminAuthStore();
 
-	authenticated.value = !(
-		localStorage.getItem("authenticated") === "false" ||
-		!localStorage.getItem("authenticated")
-	);
-
-	currentUser.value = JSON.parse(localStorage.getItem("user") || "{}");
+	await fetchAndAuthenticate();
 
 	if (!authenticated.value && to.name != "admin-login") {
-		if (!(await fetchUser())) return { name: "admin-login" };
+		return { name: "admin-login" };
 	}
 
 	if (to.name == "admin-login" && authenticated.value) {

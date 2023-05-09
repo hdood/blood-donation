@@ -33,7 +33,7 @@
 				>
 					<ListboxOption
 						v-slot="{ active, selected }"
-						v-for="day in days"
+						v-for="day in props.days"
 						:key="day"
 						:value="day"
 						as="template"
@@ -71,17 +71,8 @@
 	} from "@headlessui/vue";
 
 	const props = defineProps<{
-		daysNumber: number;
+		days: Array<number>;
 	}>();
-
-	const days = computed(() => {
-		const _days = [];
-		for (let i = 1; i <= props.daysNumber; i++) {
-			_days.push(i);
-		}
-
-		return _days;
-	});
 
 	const day = ref("Day");
 

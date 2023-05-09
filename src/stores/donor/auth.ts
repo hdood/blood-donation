@@ -14,25 +14,26 @@ class DonorAuthStore implements AuthStore {
 	public errors = ref<any>(false);
 	public tempDonor = ref(new Donor());
 	public googleUserCredential = ref<any>(false);
+	public notifications = ref([]);
 
 	public fetchAndAuthenticate = async () => {
-		const response = await axios.get(
-			import.meta.env.VITE_API_URL + "/donor/user"
-		);
-		if (response.data.error) {
+		try {
+			const response = await axios.get(
+				import.meta.env.VITE_API_URL + "/donor/user"
+			);
+			this.authenticated.value = true;
+			this.currentUser.value = response.data;
+			return true;
+		} catch (error: any) {
 			this.authenticated.value = false;
 			this.currentUser.value = {};
 			return false;
 		}
-
-		this.authenticated.value = true;
-		this.currentUser.value = response.data;
-		return true;
 	};
 
 	public login = async (router: any) => {
 		this.loading.value = true;
-		this.errors.value = false;
+		this.errors.value = "";
 		const data = new FormData();
 
 		data.append("email", this.email.value);
@@ -45,8 +46,6 @@ class DonorAuthStore implements AuthStore {
 				headers: { "Content-Type": "multipart/form-data" },
 			});
 
-			debugger;
-
 			this.authenticateDonor(response.data.user, router);
 		} catch (error: any) {
 			this.errors.value = error.response.data.error;
@@ -58,8 +57,6 @@ class DonorAuthStore implements AuthStore {
 	public logout = async (router: any) => {
 		this.authenticated.value = false;
 		this.currentUser.value = {};
-
-		this.persistState();
 
 		const response = await axios.post(
 			"http://localhost:8000/api/donor/logout"
@@ -93,7 +90,7 @@ class DonorAuthStore implements AuthStore {
 				headers: { "Content-Type": "multipart/form-data" },
 			});
 
-			this.authenticateDonor(response.data.user, router);
+			router.push({ name: "donor-register-success" });
 		} catch (error: any) {
 			this.errors.value = error?.response?.data?.message;
 			this.loading.value = false;
@@ -116,7 +113,7 @@ class DonorAuthStore implements AuthStore {
 
 			this.authenticateDonor(response.data.user, router);
 		} catch (error: any) {
-			this.errors.value = error.response.data.message;
+			this.errors.value = error.response.data.error;
 			this.loading.value = false;
 			return;
 		}
@@ -142,7 +139,7 @@ class DonorAuthStore implements AuthStore {
 				data
 			);
 
-			this.authenticateDonor(response.data.user, router);
+			router.push({ name: "donor-register-success" });
 		} catch (error: any) {
 			this.errors.value = error?.response?.data?.message;
 			this.loading.value = false;
@@ -161,8 +158,6 @@ class DonorAuthStore implements AuthStore {
 				import.meta.env.VITE_API_URL + "/donor/user-check/google",
 				data
 			);
-
-			this.authenticateDonor(response.data.user, router);
 		} catch (error: any) {
 			await this.googleLogin(payload, router);
 			return;
@@ -172,23 +167,12 @@ class DonorAuthStore implements AuthStore {
 		this.googleUserCredential.value = payload.credential;
 	};
 
-	public persistState() {
-		localStorage.setItem(
-			"donor_authenticated",
-			this.authenticated.value.toString()
-		);
-		localStorage.setItem(
-			"donor_user",
-			JSON.stringify(this.currentUser.value)
-		);
-	}
 	public async authenticateDonor(user: any, router: any) {
 		this.errors = {};
 		this.authenticated.value = true;
 		this.currentUser.value = user;
-		this.persistState();
 
-		await router.push({ name: "donor-home" });
+		await router.push({ name: "donor-dashboard" });
 		notification(
 			"Logged In",
 			`you are logged in as ${user.name}`,
@@ -197,6 +181,23 @@ class DonorAuthStore implements AuthStore {
 		);
 		this.loading.value = false;
 	}
+
+	public fetchNotifications = async () => {
+		try {
+			const response = await axios.get(
+				import.meta.env.VITE_API_URL + "/donor/notifications"
+			);
+
+			this.notifications.value = response.data;
+		} catch (error: any) {
+			notification(
+				"Error",
+				"failed to fetch notifications",
+				"danger",
+				"CloseOutline"
+			);
+		}
+	};
 }
 
 export default defineStore("donor-auth", () => {

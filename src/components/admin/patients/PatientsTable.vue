@@ -17,6 +17,7 @@
 			</div>
 		</div>
 		<Table
+			header-class="bg-gradient-to-r from-teal-400 to-teal-500"
 			:data="patients"
 			:fields="['name', 'email', 'dob']"
 			class="basis-full"
@@ -25,6 +26,7 @@
 			<TableRow
 				:fields="fields"
 				:row="row"
+				active-colors="bg-gradient-to-r	 from-teal-300 to-teal-400 text-black"
 				:active="active(row)"
 				@click="selectedPatient = row"
 			/>

@@ -36,11 +36,11 @@
 				</div>
 				<div class="flex flex-col">
 					<div class="dark:text-white">
-						<PrimaryButton
+						<Button
 							class="py-1 mx-auto w-11/12 text-lg grid place-items-center"
 							type="primary"
 							:loading="loading"
-							>Login</PrimaryButton
+							>Login</Button
 						>
 						<RouterLink
 							to="#"
@@ -48,7 +48,7 @@
 							>Forgot password?</RouterLink
 						>
 					</div>
-					<div class="text-center mt-14">
+					<div class="text-center mt-14 dark:text-white">
 						Don't have an account?
 						<RouterLink
 							to="/admin/register"
@@ -60,6 +60,14 @@
 			</form>
 		</div>
 		<DarkModeSwitch class="absolute bottom-5 right-5" />
+		<RouterLink to="/">
+			<Button
+				type="primary"
+				class="absolute top-5 left-5 p-2"
+			>
+				<ArrowThinLeft class="w-5 h-5" />
+			</Button>
+		</RouterLink>
 	</div>
 </template>
 
@@ -68,10 +76,9 @@
 	import useAuthStore from "@/stores/admin/auth";
 	import { storeToRefs } from "pinia";
 	import Input from "@/components/shared/Input";
-	import PrimaryButton from "@/components/shared/Button.vue";
+	import Button from "@/components/shared/Button.vue";
 	import Logo from "@/icons/Logo.vue";
 	import { useRouter } from "vue-router";
-	import { onMounted, ref } from "vue";
 
 	const authStore = useAuthStore();
 

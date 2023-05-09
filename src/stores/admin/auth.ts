@@ -11,6 +11,22 @@ class AdminAuthStore {
 	public password = ref("");
 	public loading = ref(false);
 	public error = ref(false);
+	public notifications = ref([]);
+
+	public fetchAndAuthenticate = async () => {
+		try {
+			const response = await axios.get(
+				import.meta.env.VITE_API_URL + "/admin/user"
+			);
+			this.authenticated.value = true;
+			this.currentUser.value = response.data;
+			return true;
+		} catch (error: any) {
+			this.authenticated.value = false;
+			this.currentUser.value = {};
+			return false;
+		}
+	};
 
 	public login = async (router: Router) => {
 		this.loading.value = true;
@@ -37,8 +53,6 @@ class AdminAuthStore {
 			this.authenticated.value = true;
 			this.currentUser.value = response.data.user;
 
-			this.persistState();
-
 			await router.push({ name: "admin-dashboard" });
 			notification(
 				"Logged in",
@@ -57,8 +71,6 @@ class AdminAuthStore {
 		this.authenticated.value = false;
 		this.currentUser.value = {};
 
-		this.persistState();
-
 		const response = await axios.post(
 			import.meta.env.VITE_API_URL + "/admin/logout"
 		);
@@ -68,14 +80,6 @@ class AdminAuthStore {
 		router.push({ name: "admin-login" });
 	};
 
-	public persistState() {
-		localStorage.setItem(
-			"authenticated",
-			this.authenticated.value.toString()
-		);
-		localStorage.setItem("user", JSON.stringify(this.currentUser.value));
-	}
-
 	public register = async (user: any, router: Router) => {
 		const response = await axios.post(
 			import.meta.env.VITE_API_URL + "/admin/register",
@@ -83,13 +87,9 @@ class AdminAuthStore {
 		);
 
 		if (response.data.error) return false;
-		console.log(response.data.user);
-		debugger;
 
 		this.authenticated.value = true;
 		this.currentUser.value = response.data.user;
-
-		this.persistState();
 
 		await router.push({ name: "admin-dashboard" });
 		notification(
@@ -100,26 +100,20 @@ class AdminAuthStore {
 		this.loading.value = false;
 	};
 
-	public restoreState() {
-		this.authenticated.value =
-			localStorage.getItem("authenticated") === "true";
-		this.currentUser.value = JSON.parse(
-			localStorage.getItem("user") || "{}"
-		);
-	}
-	public fetchUser = async () => {
+	public fetchNotifications = async () => {
 		try {
-			const { data } = await axios.get(
-				import.meta.env.VITE_API_URL + "/admin/user"
+			const response = await axios.get(
+				import.meta.env.VITE_API_URL + "/admin/notifications"
 			);
-			this.authenticated.value = true;
-			this.currentUser.value = data;
-			return true;
+
+			this.notifications.value = response.data;
 		} catch (error: any) {
-			this.authenticated.value = false;
-			this.currentUser.value = {};
-			this.persistState();
-			return false;
+			notification(
+				"Error",
+				"failed to fetch notifications",
+				"danger",
+				"CloseOutline"
+			);
 		}
 	};
 }

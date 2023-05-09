@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="w-full h-screen flex flex-col gap-3 items-center justify-center bg-primary dark:bg-slate-700"
+		class="w-screen h-screen flex flex-col gap-3 items-center justify-center bg-primary dark:bg-slate-700"
 	>
 		<div
 			class="w-96 rounded-2xl px-3 py-6 bg-white shadow-lg dark:bg-slate-500 wrapper"
@@ -36,11 +36,11 @@
 				</div>
 				<div class="flex flex-col">
 					<div class="dark:text-white">
-						<PrimaryButton
+						<Button
 							class="py-1 mx-auto w-11/12 text-lg grid place-items-center"
 							type="primary"
 							:loading="loading"
-							>Login</PrimaryButton
+							>Login</Button
 						>
 						<RouterLink
 							to="#"
@@ -73,6 +73,14 @@
 			</div>
 		</div>
 		<DarkModeSwitch class="absolute bottom-5 right-5" />
+		<RouterLink to="/">
+			<Button
+				type="primary"
+				class="absolute top-5 left-5 p-2"
+			>
+				<ArrowThinLeft class="w-5 h-5" />
+			</Button>
+		</RouterLink>
 	</div>
 </template>
 
@@ -81,10 +89,11 @@
 	import useAuthStore from "@/stores/donor/auth";
 	import { storeToRefs } from "pinia";
 	import Input from "@/components/shared/Input";
-	import PrimaryButton from "@/components/shared/Button.vue";
+	import Button from "@/components/shared/Button.vue";
 	import Logo from "@/icons/Logo.vue";
 	import { useRouter } from "vue-router";
 	import { onMounted, ref } from "vue";
+	import notification from "@/helpers/notification";
 
 	const authStore = useAuthStore();
 
@@ -103,13 +112,21 @@
 
 	onMounted(() => {
 		errors.value = "";
-		window.google.accounts.id.initialize(ID_CONFIGURATION);
-
-		window.google.accounts.id.renderButton(googleButton.value, {
-			type: "standard",
-			size: "large",
-			theme: "filled_blue",
-		});
+		try {
+			window.google.accounts.id.initialize(ID_CONFIGURATION);
+			window.google.accounts.id.renderButton(googleButton.value, {
+				type: "standard",
+				size: "large",
+				theme: "filled_blue",
+			});
+		} catch (error: any) {
+			notification(
+				"Error",
+				"Google Login is not available",
+				"danger",
+				"CloseOutline"
+			);
+		}
 	});
 </script>
 

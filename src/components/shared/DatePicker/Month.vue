@@ -33,7 +33,7 @@
 				>
 					<ListboxOption
 						v-slot="{ active, selected }"
-						v-for="(month, index) in months"
+						v-for="(month, index) in props.months"
 						:key="month"
 						:value="index + 1"
 						as="template"
@@ -70,20 +70,9 @@
 		ListboxOption,
 	} from "@headlessui/vue";
 
-	const months = [
-		"january",
-		"february",
-		"march",
-		"april",
-		"may",
-		"june",
-		"july",
-		"august",
-		"september",
-		"october",
-		"november",
-		"december",
-	];
+	const props = defineProps<{
+		months: Array<string>;
+	}>();
 	const month = ref("month");
 	const emits = defineEmits(["update:modelValue"]);
 

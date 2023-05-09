@@ -33,7 +33,7 @@
 				>
 					<ListboxOption
 						v-slot="{ active, selected }"
-						v-for="year in years"
+						v-for="year in props.years"
 						:key="year"
 						:value="year"
 						as="template"
@@ -70,15 +70,9 @@
 		ListboxOption,
 	} from "@headlessui/vue";
 
-	const years = computed(() => {
-		const currentYear = new Date().getFullYear();
-		const _years = [];
-
-		for (let i = currentYear - 18; i >= currentYear - 70; i--) {
-			_years.push(i);
-		}
-		return _years;
-	});
+	const props = defineProps<{
+		years: Array<number>;
+	}>();
 
 	const emits = defineEmits(["update:modelValue"]);
 

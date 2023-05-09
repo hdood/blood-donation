@@ -4,10 +4,22 @@
 			<div>
 				<routerLink to="/admin">
 					<SideNavigationItem active="admin-dashboard">
-						<DashBoardIcon class="w-6" />
+						<PresentationChartBarIcon class="w-6" />
 						<span
 							class="dark:text-white item overflow-hidden hidden transition-all duration-300"
 							>Dashboard</span
+						>
+					</SideNavigationItem>
+				</routerLink>
+			</div>
+
+			<div>
+				<routerLink to="/admin/requests">
+					<SideNavigationItem active="admin-requests">
+						<UserPlusIcon class="w-6 h-6" />
+						<span
+							class="dark:text-white item overflow-hidden hidden transition-all duration-300"
+							>Requests</span
 						>
 					</SideNavigationItem>
 				</routerLink>
@@ -19,7 +31,7 @@
 					to="/admin/donors"
 				>
 					<SideNavigationItem active="admin-donors">
-						<DonorIcon class="w-6 h-6" />
+						<HeartIcon class="w-6 h-6" />
 						<span
 							class="dark:text-white item overflow-hidden hidden transition-all duration-300"
 							>Donors</span
@@ -29,12 +41,39 @@
 			</div>
 
 			<div>
+				<routerLink
+					class=""
+					to="/admin/appointments"
+				>
+					<SideNavigationItem active="admin-appointments">
+						<ClipboardDocumentCheckIcon class="w-6 h-6" />
+						<span
+							class="dark:text-white item overflow-hidden hidden transition-all duration-300"
+							>Appointments</span
+						>
+					</SideNavigationItem>
+				</routerLink>
+			</div>
+
+			<div>
 				<routerLink to="/admin/patients">
 					<SideNavigationItem active="admin-patients">
-						<PatientIcon class="w-6 h-6" />
+						<UsersIcon class="w-6 h-6" />
 						<span
 							class="dark:text-white item overflow-hidden hidden transition-all duration-300"
 							>Patients</span
+						>
+					</SideNavigationItem>
+				</routerLink>
+			</div>
+
+			<div>
+				<routerLink to="/admin/blood-requests">
+					<SideNavigationItem active="admin-blood-requests">
+						<HandRaisedIcon class="w-6 h-6" />
+						<span
+							class="dark:text-white item overflow-hidden hidden transition-all duration-300"
+							>Needs</span
 						>
 					</SideNavigationItem>
 				</routerLink>
@@ -48,7 +87,11 @@
 				leave-to-class="opacity-0   translate-x-4"
 				mode="out-in"
 			>
-				<component :is="Component"> </component>
+				<component
+					:key="$route.fullPath"
+					:is="Component"
+				>
+				</component>
 			</transition>
 		</RouterView>
 	</AdminLayout>
@@ -57,12 +100,13 @@
 <script setup lang="ts">
 	import AdminLayout from "@/components/shared/default.vue";
 	import SideNavigationItem from "@/components/admin/SideNavigationItem.vue";
-	import DonorIcon from "@/icons/DonorIcon.vue";
-	import DashBoardIcon from "@/icons/DashBoardIcon.vue";
-	import PatientIcon from "@/icons/PatientIcon.vue";
 	import useAuthStore from "@/stores/admin/auth";
-	import { onMounted } from "vue";
-	import { useRouter } from "vue-router";
+	import { PresentationChartBarIcon } from "@heroicons/vue/20/solid";
+	import { UserPlusIcon } from "@heroicons/vue/20/solid";
+	import { HeartIcon } from "@heroicons/vue/20/solid";
+	import { UsersIcon } from "@heroicons/vue/20/solid";
+	import { ClipboardDocumentCheckIcon } from "@heroicons/vue/20/solid";
+	import { HandRaisedIcon } from "@heroicons/vue/24/solid";
 
 	const authStore = useAuthStore();
 </script>

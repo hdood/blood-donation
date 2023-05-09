@@ -1,7 +1,8 @@
 <template>
 	<div class="flex h-screen fixed w-screen dark:bg-slate-800">
 		<div
-			class="h-full w-20 hover:w-[10rem] [&:hover_.item]:inline [&:hover_.item-wrapper]:w-36 [&:hover_.item-wrapper]:transition-all duration-300 transition-all"
+			class="h-full w-20 hover:w-[12rem] [&:hover_.item]:inline [&:hover_.item-wrapper]:w-36 [&:hover_.item-wrapper]:transition-all duration-300 transition-all"
+			v-if="!props.noSideBar"
 		>
 			<SideNavigation>
 				<slot name="side-navigation" />
@@ -26,6 +27,7 @@
 
 	const props = defineProps<{
 		store: any;
+		noSideBar?: boolean;
 	}>();
 </script>
 

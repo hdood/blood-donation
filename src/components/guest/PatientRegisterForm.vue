@@ -89,12 +89,12 @@
 						<Input
 							type="text"
 							name="Name"
-							v-model="tempDonor.name"
+							v-model="tempPatient.name"
 							:error="errors.name"
 						/>
 						<div class="space-y-2">
 							<span class="opacity-70 text-lg"> Gender </span>
-							<GenderPicker v-model="tempDonor.gender" />
+							<GenderPicker v-model="tempPatient.gender" />
 						</div>
 						<div class="space-y-2">
 							<label
@@ -103,7 +103,7 @@
 							>
 								Date Of Birth
 							</label>
-							<BirthDatePicker v-model="tempDonor.dob" />
+							<BirthDatePicker v-model="tempPatient.dob" />
 						</div>
 					</form>
 				</Step>
@@ -122,19 +122,19 @@
 						<Input
 							name="Phone"
 							type="text"
-							v-model="tempDonor.phone"
+							v-model="tempPatient.phone"
 							:error="errors.phone"
 						/>
 						<Input
 							name="Address"
 							type="text"
-							v-model="tempDonor.address"
+							v-model="tempPatient.address"
 							:error="errors.address"
 						/>
 						<Input
 							type="email"
 							name="Email"
-							v-model="tempDonor.email"
+							v-model="tempPatient.email"
 							:error="errors.email"
 						/>
 					</form>
@@ -154,14 +154,14 @@
 					<form class="flex flex-col gap-5">
 						<Input
 							name="Password"
-							type="text"
-							v-model="tempDonor.password"
+							type="password"
+							v-model="tempPatient.password"
 							:error="errors.password"
 						/>
 						<Input
 							name="Password Confirmation"
-							type="text"
-							v-model="tempDonor.cpassword"
+							type="password"
+							v-model="tempPatient.cpassword"
 							:error="errors.cpassword"
 						/>
 					</form>
@@ -195,10 +195,10 @@
 </template>
 
 <script setup lang="ts">
-	import useAuthStore from "@/stores/donor/auth";
+	import useAuthStore from "@/stores/patient/auth";
 	import { storeToRefs } from "pinia";
 	import intus from "intus";
-	import { isRequired, isEmail, isMin, isSame, isIn } from "intus/rules";
+	import { isRequired, isEmail, isMin, isSame } from "intus/rules";
 	import { useRouter } from "vue-router";
 	import {
 		MultiStepForm,
@@ -207,22 +207,19 @@
 		Steps,
 		Step,
 		Footer,
-	} from "headless-multistep-form-vue";
+	} from "@/headless/main";
 	import Input from "@/components/shared/Input";
 	import Button from "@/components/shared/Button.vue";
-	import bloodGroupInput from "@/components/shared/BloodGroupInput.vue";
-	import RhFactorInput from "@/components/shared/RhFactorInput.vue";
 	import BirthDatePicker from "@/components/shared/DatePicker/BirthDatePicker.vue";
 	import GenderPicker from "@/components/shared/GenderPicker.vue";
-	import { ref } from "vue";
 
 	const router = useRouter();
-	const { tempDonor, errors } = storeToRefs(useAuthStore());
+	const { tempPatient, errors } = storeToRefs(useAuthStore());
 	const { register } = useAuthStore();
 
 	function validateFirstStep() {
 		errors.value = false;
-		const validation = intus.validate(tempDonor.value, {
+		const validation = intus.validate(tempPatient.value, {
 			name: [isRequired()],
 			gender: [isRequired()],
 			dob: [isRequired()],
@@ -236,7 +233,7 @@
 
 	function validateSecondStep() {
 		errors.value = {};
-		const validation = intus.validate(tempDonor.value, {
+		const validation = intus.validate(tempPatient.value, {
 			phone: [isRequired()],
 			address: [isRequired()],
 			email: [isRequired(), isEmail()],
@@ -251,7 +248,7 @@
 	function validateThirdStep() {
 		errors.value = {};
 		const validation = intus.validate(
-			tempDonor.value,
+			tempPatient.value,
 			{
 				password: [isRequired(), isMin(8)],
 				cpassword: [isRequired(), isSame("password")],
@@ -264,11 +261,6 @@
 			errors.value = validation.errors();
 			return false;
 		}
-		return true;
-	}
-
-	function validateLastStep() {
-		errors.value = {};
 		return true;
 	}
 

@@ -74,7 +74,6 @@ class PatientsStore {
 				data.patient.phone
 			);
 		} catch (error: any) {
-			console.log(error);
 			this.toggleUpdatePatientModal();
 
 			notification(
@@ -144,6 +143,27 @@ class PatientsStore {
 		});
 		return nextPatient;
 	}
+	public toggleActive = async () => {
+		try {
+			const response =
+				await this.selectedPatient.value.toggleActiveState();
+
+			this.selectedPatient.value.active = response.data.active;
+			notification(
+				"Success",
+				`active state set to ${response.data.active}`,
+				"success",
+				"Checkmark"
+			);
+		} catch (error: any) {
+			notification(
+				"Error",
+				"failed to toggle donor active state",
+				"danger",
+				"CloseOutline"
+			);
+		}
+	};
 
 	private fetchCurrentPage() {
 		// TODO : add a page param to this function

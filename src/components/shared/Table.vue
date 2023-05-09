@@ -5,7 +5,14 @@
 		<thead
 			class="text-xs text-black uppercase bg-gray-50 dark:bg-slate-500 dark:text-white"
 		>
-			<tr class="px-4 bg-indigo-200 dark:bg-indigo-900/50">
+			<tr
+				class="px-4 text-white dark:bg-indigo-900/50"
+				:class="[
+					headerClass
+						? headerClass
+						: 'bg-gradient-to-r from-blue-400 to-blue-500',
+				]"
+			>
 				<th
 					scope="col"
 					class="py-3"
@@ -30,6 +37,7 @@
 	const props = defineProps<{
 		data: any;
 		fields: object;
+		headerClass?: string;
 	}>();
 </script>
 

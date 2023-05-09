@@ -7,6 +7,7 @@ import axios from "axios";
 import messages from "./content/messages";
 import zondicons from "zondicons-vue";
 import "./assets/main.css";
+import "@vuepic/vue-datepicker/dist/main.css";
 import { markRaw } from "vue";
 
 const i18n = createI18n({

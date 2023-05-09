@@ -92,6 +92,13 @@
 			</form>
 		</div>
 		<DarkModeSwitch class="fixed bottom-5 right-5" />
+		<Button
+			type="primary"
+			class="absolute top-5 left-5 p-2"
+			@click="$router.go(-1)"
+		>
+			<ArrowThinLeft class="w-5 h-5" />
+		</Button>
 	</div>
 </template>
 

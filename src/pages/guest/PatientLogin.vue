@@ -36,11 +36,11 @@
 				</div>
 				<div class="flex flex-col">
 					<div class="dark:text-white">
-						<PrimaryButton
+						<Button
 							class="py-1 mx-auto w-11/12 text-lg grid place-items-center"
 							type="primary"
 							:loading="loading"
-							>Login</PrimaryButton
+							>Login</Button
 						>
 						<RouterLink
 							to="#"
@@ -51,7 +51,7 @@
 					<div class="text-center mt-6 dark:text-white">
 						Don't have an account?
 						<RouterLink
-							to="/donor/register"
+							to="/patient/register"
 							class="underline"
 							>Sign up
 						</RouterLink>
@@ -73,6 +73,14 @@
 			</div>
 		</div>
 		<DarkModeSwitch class="absolute bottom-5 right-5" />
+		<RouterLink to="/">
+			<Button
+				type="primary"
+				class="absolute top-5 left-5 p-2"
+			>
+				<ArrowThinLeft class="w-5 h-5" />
+			</Button>
+		</RouterLink>
 	</div>
 </template>
 
@@ -81,10 +89,11 @@
 	import useAuthStore from "@/stores/patient/auth";
 	import { storeToRefs } from "pinia";
 	import Input from "@/components/shared/Input";
-	import PrimaryButton from "@/components/shared/Button.vue";
+	import Button from "@/components/shared/Button.vue";
 	import Logo from "@/icons/Logo.vue";
 	import { useRouter } from "vue-router";
 	import { onMounted, ref } from "vue";
+	import notification from "@/helpers/notification";
 
 	const authStore = useAuthStore();
 
@@ -103,13 +112,21 @@
 
 	onMounted(() => {
 		errors.value = "";
-		window.google.accounts.id.initialize(ID_CONFIGURATION);
-
-		window.google.accounts.id.renderButton(googleButton.value, {
-			type: "standard",
-			size: "large",
-			theme: "filled_blue",
-		});
+		try {
+			window.google.accounts.id.initialize(ID_CONFIGURATION);
+			window.google.accounts.id.renderButton(googleButton.value, {
+				type: "standard",
+				size: "large",
+				theme: "filled_blue",
+			});
+		} catch (error: any) {
+			notification(
+				"Error",
+				"Google Login is not available",
+				"danger",
+				"CloseOutline"
+			);
+		}
 	});
 </script>
 

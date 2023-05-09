@@ -5,7 +5,8 @@ import User from "./User";
 export default class Donor extends User {
 	public rhFactor?: string = "";
 	public bloodGroup?: string = "";
-	public cpassword?: any;
+	public active?: boolean;
+
 	public donations = [];
 
 	constructor(
@@ -19,19 +20,27 @@ export default class Donor extends User {
 		phone?: string,
 		bloodGroup?: string,
 		rhFactor?: string,
-		donations?: any,
-		cpassword?: any
+		active?: boolean,
+		donations?: any
 	) {
 		super(id, name, dob, email, password, address, gender, phone);
 		this.bloodGroup = bloodGroup;
 		this.rhFactor = rhFactor;
 		this.donations = donations;
-		this.cpassword = cpassword;
+		this.active = active;
 	}
 
 	public bloodGroupString = computed(() => {
 		return this.bloodGroup?.toUpperCase?.() + " " + this.rhFactor;
 	});
+	public static parseBloodGroup = (bloodGroup: string, rhFactor: string) =>
+		bloodGroup?.toUpperCase?.() + " " + rhFactor;
+
+	public static parseAge = (dob: string) => {
+		const currentYear = new Date().getFullYear();
+		const _dob = new Date(dob);
+		return currentYear - _dob.getFullYear();
+	};
 
 	async save() {
 		const data = new FormData();
@@ -58,7 +67,7 @@ export default class Donor extends User {
 
 	static async all(page: number) {
 		const { data } = await axios.get(
-			import.meta.env.VITE_API_URL + `/admin/donor?pa	ge=${page}`
+			import.meta.env.VITE_API_URL + `/admin/donor?page=${page}`
 		);
 		const donors: any = [];
 
@@ -78,6 +87,39 @@ export default class Donor extends User {
 						donor.phone,
 						donor.bloodGroup,
 						donor.rhFactor,
+						donor.active,
+						donor.donations
+					)
+				);
+			}
+		});
+		return { donors, data };
+	}
+
+	static async fetchInactiveDonors(page: number, query: string) {
+		const { data } = await axios.get(
+			import.meta.env.VITE_API_URL + `/admin/requests`,
+			{ params: { page, query } }
+		);
+		const donors: any = [];
+
+		const { data: fetchedDonors } = data;
+
+		fetchedDonors.forEach((donor: any) => {
+			if (donor) {
+				donors.push(
+					new Donor(
+						donor.id,
+						donor.name,
+						donor.dob,
+						donor.email,
+						undefined,
+						donor.address,
+						donor.gender,
+						donor.phone,
+						donor.bloodGroup,
+						donor.rhFactor,
+						donor.active,
 						donor.donations
 					)
 				);
@@ -102,10 +144,22 @@ export default class Donor extends User {
 
 		return response;
 	}
+
 	async delete() {
 		const response = await axios.delete(
 			import.meta.env.VITE_API_URL + `/admin/donor/${this.id}`
 		);
+
+		return response;
+	}
+
+	async toggleActiveState(id?: string) {
+		console.log("toggle : ", this);
+		const url = id
+			? import.meta.env.VITE_API_URL + `/admin/donor/toggleActive/${id}`
+			: import.meta.env.VITE_API_URL +
+			  `/admin/donor/toggleActive/${this.id}`;
+		const response = await axios.post(url);
 
 		return response;
 	}

@@ -12,6 +12,6 @@ export default async (to: any) => {
 	}
 
 	if (to.name == "donor-login" && authenticated.value) {
-		return { name: "donor-home" };
+		return { name: "donor-dashboard" };
 	}
 };

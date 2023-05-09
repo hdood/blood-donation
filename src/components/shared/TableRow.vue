@@ -1,9 +1,11 @@
 <template>
 	<tr
-		class="w-full h-10 dark:bg-gray-800"
+		class="w-full dark:bg-gray-800"
 		:class="[
 			props.active
-				? 'bg-indigo-300 dark:bg-indigo-700/70 text-gray-900'
+				? activeColors
+					? activeColors
+					: 'bg-indigo-300 dark:bg-indigo-700/70 text-gray-900'
 				: 'bg-white hover:bg-gray-100 hover:dark:bg-indigo-900/50  cursor-pointer',
 		]"
 	>
@@ -12,8 +14,9 @@
 			v-for="(field, index) in props.fields"
 			:class="index == 0 ? 'px-4' : ''"
 		>
-			{{ props.row[field] }}
+			{{ props?.row?.[field] }}
 		</td>
+		<slot />
 	</tr>
 </template>
 
@@ -21,7 +24,8 @@
 	const props = defineProps<{
 		row: object;
 		fields: object;
-		active: boolean;
+		activeColors?: string;
+		active?: boolean;
 	}>();
 </script>
 

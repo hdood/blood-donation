@@ -4,9 +4,7 @@
 	import { onMounted } from "vue";
 	import Notification from "./components/shared/Notifications.vue";
 
-	function test(response: any) {
-		console.log(response);
-	}
+	function test(response: any) {}
 
 	onMounted(async () => {
 		await getCsrfToken();

@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import adminGuard from "./guards/adminGuard";
 import donorGuard from "./guards/donorGuard";
+import patientGuard from "./guards/patientGuard";
+import restoreDonorState from "./guards/restoreDonorState";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,6 +11,10 @@ const router = createRouter({
 			path: "/",
 			component: () => import("../pages/guest/Index.vue"),
 			name: "home",
+			beforeEnter: restoreDonorState,
+			meta: {
+				title: "Center de transfusion sanguine Setif",
+			},
 		},
 		{
 			path: "/admin",
@@ -39,6 +45,30 @@ const router = createRouter({
 					},
 					name: "admin-patients",
 				},
+				{
+					path: "requests",
+					component: () => import("../pages/admin/Requests.vue"),
+					meta: {
+						title: "Donors Requests",
+					},
+					name: "admin-requests",
+				},
+				{
+					path: "appointments",
+					component: () => import("../pages/admin/Appointments.vue"),
+					meta: {
+						title: "Donors Appointments",
+					},
+					name: "admin-appointments",
+				},
+				{
+					path: "blood-requests",
+					component: () => import("../pages/admin/BloodRequests.vue"),
+					meta: {
+						title: "Blood Requests",
+					},
+					name: "admin-blood-requests",
+				},
 			],
 		},
 		{
@@ -65,14 +95,30 @@ const router = createRouter({
 			children: [
 				{
 					path: "",
+					component: () => import("@/pages/donor/Dashboard.vue"),
+					name: "donor-dashboard",
+					meta: {
+						title: "Dashboard",
+					},
+				},
+				{
+					path: "/donations",
 					component: () =>
 						import("@/pages/donor/DonationsHistory.vue"),
-					name: "donor-home",
+					name: "donor-donations",
 					meta: {
-						title: "Home",
+						title: "Donations History",
 					},
 				},
 			],
+		},
+		{
+			path: "/register-success",
+			component: () => import("../pages/donor/RegisterSuccess.vue"),
+			name: "donor-register-success",
+			meta: {
+				title: "Donor Login",
+			},
 		},
 		{
 			path: "/donor/login",
@@ -94,16 +140,8 @@ const router = createRouter({
 		{
 			path: "/patient",
 			component: () => import("../pages/patient/Index.vue"),
-			children: [
-				{
-					path: "",
-					component: () => import("@/pages/patient/Profile.vue"),
-					name: "patient-home",
-					meta: {
-						title: "Home",
-					},
-				},
-			],
+			beforeEnter: patientGuard,
+			name: "patient-home",
 		},
 		{
 			path: "/patient/login",
@@ -112,6 +150,14 @@ const router = createRouter({
 				title: "Patient Login",
 			},
 			name: "patient-login",
+		},
+		{
+			path: "/patient/register",
+			component: () => import("../pages/guest/PatientRegister.vue"),
+			meta: {
+				title: "Patient Login",
+			},
+			name: "patient-register",
 		},
 	],
 });

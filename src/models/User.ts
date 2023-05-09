@@ -9,6 +9,7 @@ export default class User {
 	public gender?: string = "";
 	public password?: string = "";
 	public phone?: string = "";
+	public cpassword?: string = "";
 
 	constructor(
 		id?: string,

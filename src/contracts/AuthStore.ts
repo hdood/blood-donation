@@ -8,5 +8,4 @@ export default interface AuthStore {
 	googleRegister(payload: any, router: Router): any;
 	checkGoogleUser(payload: any, router: Router): any;
 	saveCredential(payload: any): any;
-	persistState(): any;
 }

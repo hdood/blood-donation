@@ -6,7 +6,7 @@
 		Steps,
 		Step,
 		Footer,
-	} from "headless-multistep-form-vue";
+	} from "@/headless/main";
 	import Input from "@/components/shared/Input";
 	import useDonorStore from "@/stores/admin/donors";
 	import Button from "@/components/shared/Button.vue";
@@ -293,8 +293,8 @@
 					:submit="submit"
 				>
 					<form class="flex flex-col items-center gap-5">
-						<bloodGroupInput />
-						<RhFactorInput />
+						<bloodGroupInput v-model="tempDonor.bloodGroup" />
+						<RhFactorInput v-model="tempDonor.rhFactor" />
 					</form>
 				</Step>
 			</transition>

@@ -14,6 +14,7 @@ class PatientAuthStore implements AuthStore {
 	public errors = ref<any>(false);
 	public tempPatient = ref(new Patient());
 	public googleUserCredential = ref<any>(false);
+	public notifications = ref([]);
 
 	public fetchAndAuthenticate = async () => {
 		const response = await axios.get(
@@ -56,8 +57,6 @@ class PatientAuthStore implements AuthStore {
 	public logout = async (router: any) => {
 		this.authenticated.value = false;
 		this.currentUser.value = {};
-
-		this.persistState();
 
 		const response = await axios.post(
 			"http://localhost:8000/api/patient/logout"
@@ -166,21 +165,10 @@ class PatientAuthStore implements AuthStore {
 		this.googleUserCredential.value = payload.credential;
 	};
 
-	public persistState() {
-		localStorage.setItem(
-			"patient_authenticated",
-			this.authenticated.value.toString()
-		);
-		localStorage.setItem(
-			"patient_user",
-			JSON.stringify(this.currentUser.value)
-		);
-	}
 	public async authenticatePatient(user: any, router: any) {
 		this.errors = {};
 		this.authenticated.value = true;
 		this.currentUser.value = user;
-		this.persistState();
 
 		await router.push({ name: "patient-home" });
 		notification(
@@ -191,6 +179,22 @@ class PatientAuthStore implements AuthStore {
 		);
 		this.loading.value = false;
 	}
+	public fetchNotifications = async () => {
+		try {
+			const response = await axios.get(
+				import.meta.env.VITE_API_URL + "/patient/notifications"
+			);
+
+			this.notifications.value = response.data;
+		} catch (error: any) {
+			notification(
+				"Error",
+				"failed to fetch notifications",
+				"danger",
+				"CloseOutline"
+			);
+		}
+	};
 }
 
 export default defineStore("patient-auth", () => {

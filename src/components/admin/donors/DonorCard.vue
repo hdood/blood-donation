@@ -1,38 +1,53 @@
 <template>
 	<div class="p-5 bg-secondary rounded-xl dark:bg-slate-600 relative">
-		<div class="flex space-x-5 justify-end">
+		<div class="flex space-x-5 justify-between">
 			<Button
-				class="w-14 h-10 flex items-center justify-center"
-				@click="toggleDeleteDialog"
-				type="danger-light"
+				class="px-2"
+				type="primary"
+				@click="toggleDonationsModal"
 			>
-				<Trash class="w-6 h-6" />
-			</Button>
-			<Button
-				class="w-14 h-10 flex items-center justify-center"
-				@click="toggleUpdateDonorModal"
-				type="light-success"
+				Register Donation</Button
 			>
-				<EditPencil class="w-6 h-6" />
-			</Button>
-			<Button
-				class="w-14 h-10 flex items-center justify-center"
-				@click="toggleDonorCardPreview"
-				type="info"
-			>
-				<CreditCard class="w-6 h-6" />
-			</Button>
+			<div class="flex space-x-5">
+				<Button
+					class="w-14 h-10 flex items-center justify-center"
+					@click="toggleDeleteDialog"
+					type="danger-light"
+				>
+					<TrashIcon class="w-6 h-6" />
+				</Button>
+				<Button
+					class="w-14 h-10 flex items-center justify-center"
+					@click="toggleUpdateDonorModal"
+					type="light-success"
+				>
+					<PencilIcon class="w-6 h-6" />
+				</Button>
+				<Button
+					class="w-14 h-10 flex items-center justify-center"
+					@click="toggleDonorCardPreview"
+					type="info"
+				>
+					<CreditCardIcon class="w-6 h-6" />
+				</Button>
+			</div>
 		</div>
-		<div class="flex items-center gap-8">
-			<img
-				src="/donor_placeholder.png"
-				class="rounded-xl overflow-hidden w-52"
-				alt=""
-			/>
+		<div class="flex items-center gap-8 mt-3">
 			<div class="dark:text-white space-y-2">
-				<div>
+				<div class="">
 					<span class="text-xl block">
 						{{ selectedDonor.name }}
+					</span>
+					<span
+						class="text-sm text-center p-1 rounded-lg cursor-pointer bloc"
+						:class="[
+							selectedDonor.active
+								? 'bg-emerald-300 text-emerald-700 '
+								: 'bg-rose-300 text-rose-700 ',
+						]"
+						@click="toggleActive"
+					>
+						{{ !selectedDonor.active ? "in" : "" }}active
 					</span>
 				</div>
 				<div>
@@ -76,15 +91,19 @@
 				<span class="font-medium text-xl">Donations history : </span>
 				<Table
 					:data="selectedDonor.donations"
-					:fields="['date', 'location']"
+					:fields="['amount', 'date', 'location', 'state', 'type']"
 					class="w-full h-[30rem] overflow-hidden p-1 space-y-5 text-sm text-left text-gray-500 dark:text-gray-400"
 					v-slot="{ row }"
 				>
 					<TableRow
 						:row="row"
-						:fields="['date', 'location']"
+						:fields="['amount', 'date', 'location', 'state']"
 						:key="row.id"
-					/>
+					>
+						<td>
+							{{ donationToString(row.type) }}
+						</td>
+					</TableRow>
 				</Table>
 
 				<div
@@ -104,13 +123,21 @@
 	import Button from "@/components/shared/Button.vue";
 	import Table from "@/components/shared/Table.vue";
 	import TableRow from "@/components/shared/TableRow.vue";
+	import useDonationsStore from "@/stores/admin/donations";
+	import { CreditCardIcon } from "@heroicons/vue/20/solid";
+	import { PencilIcon } from "@heroicons/vue/20/solid";
+	import { TrashIcon } from "@heroicons/vue/20/solid";
+	import donationToString from "@/helpers/DonationTypeLiteral";
 
 	const { selectedDonor } = storeToRefs(useDonorsStore());
+
+	const { toggleDonationsModal } = useDonationsStore();
 
 	const {
 		toggleDonorCardPreview,
 		toggleDeleteDialog,
 		toggleUpdateDonorModal,
+		toggleActive,
 	} = useDonorsStore();
 </script>
 

@@ -146,6 +146,27 @@ class DonorsStore {
 		}
 	};
 
+	public toggleActive = async () => {
+		try {
+			const response = await this.selectedDonor.value.toggleActiveState();
+
+			this.selectedDonor.value.active = response.data.active;
+			notification(
+				"Success",
+				`active state set to ${response.data.active}`,
+				"success",
+				"Checkmark"
+			);
+		} catch (error: any) {
+			notification(
+				"Error",
+				"failed to toggle donor active state",
+				"danger",
+				"CloseOutline"
+			);
+		}
+	};
+
 	public printCard = (el: any) => {
 		html2canvas(el).then((canvas) => {
 			const ratio = canvas.width / canvas.height;
@@ -165,7 +186,6 @@ class DonorsStore {
 		const { donors, data } = await Donor.searchByName(name);
 		this.donors.value = donors;
 		this.paginationData.value = data;
-		debugger;
 	};
 
 	private getNextDonor() {
@@ -179,6 +199,7 @@ class DonorsStore {
 		});
 		return nextDonor;
 	}
+
 	private getPreviousDonor() {
 		const nextDonor = this.donors.value.find((donor, index) => {
 			if (

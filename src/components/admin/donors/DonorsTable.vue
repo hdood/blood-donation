@@ -17,6 +17,7 @@
 			</div>
 		</div>
 		<Table
+			header-class="bg-gradient-to-r from-red-300 to-red-400"
 			:data="donors"
 			:fields="['name', 'age', 'bloodGroup', 'phone', 'email']"
 			class="w-full h-[30rem] overflow-hidden p-1 space-y-5 text-sm text-left text-gray-500 dark:text-gray-400"
@@ -25,6 +26,7 @@
 			<TableRow
 				:row="row"
 				:fields="['name', 'age', 'bloodGroupString', 'phone', 'email']"
+				active-colors="bg-gradient-to-r	 from-red-300 to-red-400 text-black"
 				:active="active(row)"
 				:key="row.id"
 				@click="selectedDonor = row"

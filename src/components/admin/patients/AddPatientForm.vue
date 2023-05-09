@@ -6,7 +6,7 @@
 		Steps,
 		Step,
 		Footer,
-	} from "headless-multistep-form-vue";
+	} from "@/headless/main";
 	import Input from "@/components/shared/Input";
 	import usePatientStore from "@/stores/admin/patients";
 	import Button from "@/components/shared/Button.vue";

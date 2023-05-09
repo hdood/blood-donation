@@ -73,7 +73,6 @@
 	});
 
 	function submit() {
-		console.log(tempDonor.value);
 		update(tempDonor);
 	}
 </script>

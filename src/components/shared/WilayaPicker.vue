@@ -98,7 +98,6 @@
 	const emits = defineEmits(["update:modelValue"]);
 
 	watch(selected, (value) => {
-		console.log(value + 1);
 		emits("update:modelValue", value + 1);
 	});
 	let filteredWilayas = computed(() =>

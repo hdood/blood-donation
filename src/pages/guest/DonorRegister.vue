@@ -1,8 +1,6 @@
 <template>
 	<div class="w-screen h-screen flex items-center justify-center bg-primary">
-		<div
-			class="flex items-center justify-center bg-white rounded-lg divide-x-2"
-		>
+		<div class="flex items-center justify-center bg-white rounded-lg">
 			<div class="flex flex-col gap-4 mt-3 p-4 rounded-lg">
 				<img
 					src="/sideImage.webp"
@@ -21,7 +19,6 @@
 					>
 						Or continue with
 					</div>
-					<WilayaPicker v-model="test" />
 
 					<div class="w-40 mx-auto text-center">
 						<div
@@ -39,6 +36,14 @@
 			</div>
 		</div>
 		<DarkModeSwitch class="absolute bottom-5 right-5" />
+		<RouterLink to="/">
+			<Button
+				type="primary"
+				class="absolute top-5 left-5 p-2"
+			>
+				<ArrowThinLeft class="w-5 h-5" />
+			</Button>
+		</RouterLink>
 	</div>
 </template>
 
@@ -47,7 +52,8 @@
 	import DarkModeSwitch from "@/components/shared/DarkModeSwitch.vue";
 	import DonorRegisterForm from "@/components/guest/DonorRegisterForm.vue";
 	import DonorGoogleRegisterForm from "@/components/guest/DonorGoogleRegisterForm.vue";
-	import WilayaPicker from "@/components/shared/WilayaPicker.vue";
+	import Button from "@/components/shared/Button.vue";
+	import notification from "@/helpers/notification";
 
 	import { onMounted, ref } from "vue";
 	import { useRouter } from "vue-router";
@@ -55,7 +61,6 @@
 	const { saveCredential, checkGoogleUser } = useAuthStore();
 	const googleButton = ref(null);
 	const router = useRouter();
-	const test = ref();
 
 	const registerUsingProvider = ref(false);
 
@@ -67,15 +72,22 @@
 			checkGoogleUser(payload, router);
 		},
 	};
-
 	onMounted(() => {
-		window.google.accounts.id.initialize(ID_CONFIGURATION);
-
-		window.google.accounts.id.renderButton(googleButton.value, {
-			type: "standard",
-			size: "large",
-			theme: "filled_blue",
-		});
+		try {
+			window.google.accounts.id.initialize(ID_CONFIGURATION);
+			window.google.accounts.id.renderButton(googleButton.value, {
+				type: "standard",
+				size: "large",
+				theme: "filled_blue",
+			});
+		} catch (error: any) {
+			notification(
+				"Error",
+				"Google Login is not available",
+				"danger",
+				"CloseOutline"
+			);
+		}
 	});
 </script>
 

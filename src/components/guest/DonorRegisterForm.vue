@@ -140,6 +140,7 @@
 					</form>
 				</Step>
 			</transition>
+
 			<transition
 				enterActiveClass="transition-all absolute duration-300 delay-300"
 				leaveActiveClass="transition-all absolute"
@@ -172,6 +173,7 @@
 					</form>
 				</Step>
 			</transition>
+
 			<transition
 				enterActiveClass="transition-all absolute duration-300 delay-300"
 				leaveActiveClass="transition-all absolute"
@@ -185,19 +187,20 @@
 					<form class="flex flex-col gap-5">
 						<Input
 							name="Password"
-							type="text"
+							type="password"
 							v-model="tempDonor.password"
 							:error="errors.password"
 						/>
 						<Input
 							name="Password Confirmation"
-							type="text"
+							type="password"
 							v-model="tempDonor.cpassword"
 							:error="errors.cpassword"
 						/>
 					</form>
 				</Step>
 			</transition>
+
 			<transition
 				enterActiveClass="transition-all absolute duration-300 delay-300"
 				leaveActiveClass="transition-all absolute duration-300"
@@ -269,14 +272,13 @@
 		Steps,
 		Step,
 		Footer,
-	} from "headless-multistep-form-vue";
+	} from "@/headless/main";
 	import Input from "@/components/shared/Input";
 	import Button from "@/components/shared/Button.vue";
 	import bloodGroupInput from "@/components/shared/BloodGroupInput.vue";
 	import RhFactorInput from "@/components/shared/RhFactorInput.vue";
 	import BirthDatePicker from "@/components/shared/DatePicker/BirthDatePicker.vue";
 	import GenderPicker from "@/components/shared/GenderPicker.vue";
-	import { ref } from "vue";
 
 	const router = useRouter();
 	const { tempDonor, errors } = storeToRefs(useAuthStore());

@@ -27,7 +27,7 @@ const Input: any = {
 
 				{as === "input" ? (
 					<input
-						class="rounded-lg px-4 font-medium py-2 border  focus:outline-none bg-gray-50 dark:bg-slate-700 dark:text-white"
+						class="rounded-lg px-4 font-medium  py-2 border border-indigo-200  focus:outline-none focus:border-indigo-600 focus:border-4 bg-gray-50 dark:bg-slate-700 dark:border-none dark:text-white"
 						value={modelValue}
 						onInput={(event: any) => {
 							emit("update:modelValue", event.target?.value);
@@ -38,7 +38,7 @@ const Input: any = {
 					/>
 				) : (
 					<textarea
-						class="rounded-lg px-4 font-medium py-2 border  focus:outline-none bg-gray-50 dark:bg-slate-700 dark:text-white"
+						class="rounded-lg px-4 font-medium  py-2 border border-indigo-200  focus:outline-none focus:border-indigo-600 focus:border-4 bg-gray-50 dark:bg-slate-700 dark:text-white"
 						value={modelValue}
 						onInput={(event: any) => {
 							emit("update:modelValue", event.target?.value);
