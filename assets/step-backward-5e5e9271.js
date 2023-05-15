@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-c27b6911.js";import{o as t,e as o,f as s}from"./index-0a258dc9.js";const c={},r={xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 20 20"},n=s("path",{d:"M4 5h3v10H4V5zm12 0v10l-9-5 9-5z"},null,-1),_=[n];function a(d,f){return t(),o("svg",r,_)}const m=e(c,[["render",a]]);export{m as default};
