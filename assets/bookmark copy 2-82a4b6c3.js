@@ -1,0 +1,1 @@
+import{_ as o}from"./_plugin-vue_export-helper-c27b6911.js";import{o as e,e as t,f as s}from"./index-073928f1.js";const c={},n={xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 20 20"},_=s("polygon",{points:"18 12 18 13 8 13 8 18 2 12 8 6 8 11 16 11 16 2 18 2"},null,-1),r=[_];function a(i,p){return e(),t("svg",n,r)}const m=o(c,[["render",a]]);export{m as default};
