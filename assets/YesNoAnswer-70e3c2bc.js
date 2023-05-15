@@ -1,1 +1,0 @@
-import{d as o,o as a,e as r,f as e,t as n}from"./index-0a258dc9.js";const c={class:"bg-gray-50 p-1 rounded"},i={class:"font-medium"},u=o({__name:"YesNoAnswer",props:{question:null},setup(t){const s=t;return(d,l)=>(a(),r("div",c,[e("div",null,n(s.question.text),1),e("div",null,[e("span",i,"Answer : "+n(s.question.answer.data.answer?"Yes":"No"),1)])]))}});export{u as default};
