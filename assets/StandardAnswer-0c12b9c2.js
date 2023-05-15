@@ -1,0 +1,1 @@
+import{d as a,o,e as r,f as e,t as n}from"./index-de2b1906.js";const d={class:"bg-gray-50 p-1 rounded"},c={class:"font-medium"},u=a({__name:"StandardAnswer",props:{question:null},setup(t){const s=t;return(i,l)=>(o(),r("div",d,[e("div",null,n(s.question.text),1),e("div",null,[e("span",c,"Answer : "+n(s.question.answer.data.answer),1)])]))}});export{u as default};
